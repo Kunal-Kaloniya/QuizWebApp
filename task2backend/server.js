@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
+import cors from "cors";
 import "dotenv/config"
 
 import connectDB from "./src/db/database.js";
@@ -9,6 +10,7 @@ import { User } from "./src/models/user.models.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
+app.use(cors({origin: "http://localhost:5173"}));
 
 app.get('/', (req, res) => {
     res.send("Server is running.");
@@ -22,6 +24,10 @@ connectDB()
 
         app.post("/signup", async (req, res) => {
             const { username, email, password } = req.body;
+
+            if (!username || !email || !password) {
+                res.status(401).json({message: "All credentials are required!"});
+            }
 
             const existingUser = await User.findOne({ email });
             if (existingUser) {
@@ -38,6 +44,10 @@ connectDB()
 
         app.post("/login", async (req, res) => {
             const { email, password } = req.body;
+
+            if (!email || !password) {
+                res.status(401).json({message: "All credentials are required!"});
+            }
 
             const user = await User.findOne({ email });
             if (!user) {
