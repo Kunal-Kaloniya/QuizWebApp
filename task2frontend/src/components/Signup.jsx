@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -6,6 +6,7 @@ function Signup() {
 
     const [form, setForm] = useState({ username: "", email: "", password: "" });
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,6 +19,7 @@ function Signup() {
             const res = await axios.post("http://localhost:3000/signup", form);
             setMessage(res.data.message);
             setForm({ username: "", email: "", password: "" });
+            navigate("/login");
         } catch (err) {
             setMessage("Signup Failed!");
             console.error("Signup Error: ", err);
