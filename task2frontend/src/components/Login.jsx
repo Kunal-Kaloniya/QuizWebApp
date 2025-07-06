@@ -17,6 +17,7 @@ function Login() {
         try {
             const res = await axios.post("http://localhost:3000/login", form);
             setMessage(res.data.message);
+            localStorage.setItem("token", res.data.token);
             setForm({ email: "", password: "" });
         } catch (err) {
             setMessage("Login Failed!");
