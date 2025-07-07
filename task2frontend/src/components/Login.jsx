@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -6,6 +6,7 @@ function Login() {
 
     const [form, setForm] = useState({ email: "", password: "" });
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,6 +20,7 @@ function Login() {
             setMessage(res.data.message);
             localStorage.setItem("token", res.data.token);
             setForm({ email: "", password: "" });
+            navigate("/dashboard");
         } catch (err) {
             setMessage("Login Failed!");
             console.error("Login Error: ", err);

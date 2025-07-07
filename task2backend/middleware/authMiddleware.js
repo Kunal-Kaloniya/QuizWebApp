@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 const verifyToken = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader || authHeader.startsWith("Player ")) {
-        res.status(401).json({ message: "Access Denied! Token not found." });
+    if (!authHeader || !authHeader.startsWith("Player ")) {
+        res.status(401).json({ message: "Access Denied! Token not found." }, authHeader);
     }
 
     const token = authHeader.split(" ")[1];

@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
         res.status(400).json({ message: "Incorrect password!" });
     }
 
-    generateToken(user);
+    const token = generateToken(user);
 
     res.status(201).json({ message: "Logged in successfully", user, token });
 });
