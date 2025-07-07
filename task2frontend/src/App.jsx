@@ -4,11 +4,11 @@ import Signup from "./components/Signup";
 import Home from "./components/Home";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Dashboard from "./components/Dashboard";
-import { AuthContext } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <AuthContext>
+    <AuthProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -20,7 +20,7 @@ function App() {
           </Route>
         </Routes>
       </Router>
-    </AuthContext>
+    </AuthProvider>
 
   );
 }

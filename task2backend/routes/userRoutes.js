@@ -3,11 +3,6 @@ import verifyToken from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/profile", verifyToken, (req, res) => {
-    const msg = {message: "Welcome to Profile route."};
-    res.send(msg);
-});
-
 router.get("/verify-token",verifyToken, (req, res) => {
     res.status(200).json({
         message: "Token is valid",

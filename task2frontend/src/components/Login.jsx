@@ -1,8 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
+
+    const { login } = useContext(AuthContext);
 
     const [form, setForm] = useState({ email: "", password: "" });
     const [message, setMessage] = useState("");
@@ -19,6 +22,7 @@ function Login() {
             const res = await axios.post("http://localhost:3000/login", form);
             setMessage(res.data.message);
             localStorage.setItem("token", res.data.token);
+            login(res.data.user);
             setForm({ email: "", password: "" });
             navigate("/dashboard");
         } catch (err) {
