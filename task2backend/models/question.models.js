@@ -3,12 +3,10 @@ import mongoose from "mongoose";
 const questionSchema = mongoose.Schema({
     category: {
         type: String,
-        unique: true,
         required: true,
     },
     difficulty: {
         type: String,
-        unique: true,
         required: true,
     },
     question: {
