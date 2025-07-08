@@ -22,9 +22,13 @@ function Login() {
             const res = await axios.post("http://localhost:3000/login", form);
             setMessage(res.data.message);
             localStorage.setItem("token", res.data.token);
-            login(res.data.user);
+            login({
+                username: res.data.user.username,
+                email: res.data.user.email,
+                id: res.data.user._id,
+            });
             setForm({ email: "", password: "" });
-            navigate("/dashboard");
+            navigate("/home");
         } catch (err) {
             setMessage("Login Failed!");
             console.error("Login Error: ", err);
