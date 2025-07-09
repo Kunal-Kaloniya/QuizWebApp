@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 
@@ -11,6 +12,8 @@ function Home() {
     const [category, setCategory] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [message, setMessage] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getCategories = async () => {
@@ -41,39 +44,31 @@ function Home() {
 
     const handleClick = async () => {
         if (!category || !difficulty) {
-            setMessage("Please choose both quiz category and difficulty");
+            setMessage("Please select both quiz category and difficulty");
             return;
         }
 
         setMessage("");
-
-        await axios.get("http://localhost:3000/api/quiz/questions", {
-            params: {
-                category: category,
-                difficulty: difficulty
-            }
-        })
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((err) => {
-                console.error("Error: ", err);
-            })
+        navigate("/quiz", { state: { category, difficulty } });
     }
 
     return (
         <div>
-            <div className="w-full h-screen bg-amber-200 font-mono">
+            <div className="w-full h-screen bg-white font-mono flex items-center justify-center relative">
                 <div>
-                    <h1 className="text-4xl font-bold">Hello {user.username}!</h1>
+                    {user ? (<h1 className="text-4xl font-bold">Hello {user.username}!</h1>) : (<h1 className="text-4xl font-bold">Hello!</h1>)}
 
                     <h2 className="text-2xl">Ready to take another quiz: </h2>
 
-                    <p>
-                        Which category you want to select for the quiz today:
+                    <div className="w-[90vw] h-auto px-6 py-4 bg-orange-300 mb-2 rounded-lg border-2 flex justify-between items-center">
+                        <p>Which category do you want to select for the quiz today:</p>
 
-                        <select name="categoryOptions" onChange={e => setCategory(e.target.value)}>
-                            <option defaultChecked value="">-- select a category --</option>
+                        <select
+                            name="categoryOptions"
+                            onChange={e => { setCategory(e.target.value); setMessage("") }}
+                            className="px-3 py-1 bg-white ml-2 rounded border-2 border-white hover:border-black transition-all"
+                        >
+                            <option defaultChecked value="">-- select --</option>
                             {
                                 categories.length !== 0 && (
                                     categories.map((category, index) => (
@@ -82,12 +77,16 @@ function Home() {
                                 )
                             }
                         </select>
-                    </p>
-                    <p>
-                        Choose the difficulty for the quiz:
+                    </div>
+                    <div className="w-[90vw] h-auto px-6 py-4 bg-orange-300 mb-2 rounded-lg border-2 flex justify-between items-center">
+                        <p>Choose the difficulty of the quiz:</p>
 
-                        <select name="difficultyOptions" onChange={e => setDifficulty(e.target.value)}>
-                            <option defaultChecked value="">-- select a difficulty --</option>
+                        <select
+                            name="difficultyOptions"
+                            onChange={e => { setDifficulty(e.target.value), setMessage("") }}
+                            className="px-3 py-1 bg-white ml-2 rounded border-2 border-white hover:border-black transition-all"
+                        >
+                            <option defaultChecked value="">-- select --</option>
                             {
                                 difficulties.length !== 0 && (
                                     difficulties.map((difficulty, index) => (
@@ -96,18 +95,24 @@ function Home() {
                                 )
                             }
                         </select>
-                    </p>
-
-                    <button onClick={handleClick}>Start Quiz</button>
+                    </div>
+                    <div className="max-w-[80vw] mx-auto flex justify-center">
+                        <button
+                            onClick={handleClick}
+                            className="my-2 px-4 py-2 border-2 rounded-2xl hover:bg-amber-100 transition-all"
+                        >
+                            Start Quiz
+                        </button>
+                    </div>
 
                     {
                         message && (
-                            <p>{message}</p>
+                            <p className="m-4 bg-amber-700 text-white text-center p-5 absolute top-2 right-2">{message}</p>
                         )
                     }
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

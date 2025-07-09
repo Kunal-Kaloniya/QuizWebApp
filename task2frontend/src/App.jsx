@@ -6,6 +6,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Dashboard from "./components/Dashboard";
 import { AuthProvider } from "./context/AuthContext";
 import IntroPage from "./components/IntroPage";
+import Quiz from "./components/Quiz";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/quiz" element={<Quiz />} />
           </Route>
         </Routes>
       </Router>

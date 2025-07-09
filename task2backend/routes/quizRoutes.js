@@ -20,7 +20,7 @@ router.get("/difficulties", async (req, res) => {
 
 
 // this route fetches questions based on the category and difficulty provided in the query parameters
-router.get("/questions", async (req, res) => {
+router.get("/questions", verifyToken, async (req, res) => {
     const { category, difficulty } = req.query;
 
     const questions = await Question.find({ category, difficulty });

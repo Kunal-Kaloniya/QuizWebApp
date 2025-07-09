@@ -6,7 +6,8 @@ import "dotenv/config"
 import connectDB from "./db/database.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import quizRoutes from "./routes/quizRoutes.js"
+import quizRoutes from "./routes/quizRoutes.js";
+import resultRoutes from "./routes/resultRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ connectDB()
         app.use('/', authRoutes);
         app.use('/', userRoutes);
         app.use('/api/quiz', quizRoutes);
+        app.use('/user', resultRoutes)
 
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);
