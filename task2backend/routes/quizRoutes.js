@@ -23,7 +23,7 @@ router.get("/difficulties", async (req, res) => {
 router.get("/questions", verifyToken, async (req, res) => {
     const { category, difficulty } = req.query;
 
-    const questions = await Question.find({ category, difficulty });
+    const questions = await Question.find({ category, difficulty }).limit(10);
     res.json(questions);
 });
 

@@ -8,11 +8,11 @@ router.post("/result", async (req, res) => {
     const data = req.body;
     let score = 0;
 
-    if (Object.entries.length === 0) {
+    if (Object.entries(data).length === 0) {
         return res.status(200).json({ message: "Atleast try doing some questions!", score });
     }
 
-    Object.entries(data).forEach(async ([qId, ans]) => {
+    for (let [qId, ans] of Object.entries(data)) {
         const question = await Question.findOne({ _id: qId });
 
         if (!question) {
@@ -22,12 +22,12 @@ router.post("/result", async (req, res) => {
         if (ans == question.correctAnswer) {
             score += 1;
         }
-        
-        console.log(question.correctAnswer);
-        console.log(`${qId}: ${ans}`);
-    });
 
-    res.status(200).json({message: "all questions checked!", score});
+        console.log(`${qId}: ${ans}`);
+        console.log(score);
+    };
+
+res.status(200).json({ message: "all questions checked!", score });
 });
 
 export default router;

@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard";
 import { AuthProvider } from "./context/AuthContext";
 import IntroPage from "./components/IntroPage";
 import Quiz from "./components/Quiz";
+import Result from "./components/Result";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/quiz" element={<Quiz />} />
+            <Route path="/result" element={<Result />} />
           </Route>
         </Routes>
       </Router>

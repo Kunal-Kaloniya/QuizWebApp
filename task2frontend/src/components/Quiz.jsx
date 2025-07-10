@@ -13,17 +13,21 @@ function Quiz() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
 
     const getQuestions = async () => {
-        const response = await axios.get("http://localhost:3000/api/quiz/questions", {
-            params: {
-                category: category,
-                difficulty: difficulty,
-            },
-            headers: {
-                Authorization: `Player ${localStorage.getItem("token")}`,
-            }
-        });
+        try {
+            const response = await axios.get("http://localhost:3000/api/quiz/questions", {
+                params: {
+                    category: category,
+                    difficulty: difficulty,
+                },
+                headers: {
+                    Authorization: `Player ${localStorage.getItem("token")}`,
+                }
+            });
 
-        setQuestions(response.data);
+            setQuestions(response.data);
+        } catch (err) {
+            console.error("There was some error fetching the quiz questions: ", err);
+        }
     }
 
     useEffect(() => {
@@ -51,8 +55,12 @@ function Quiz() {
     }
 
     const handleSubmit = async () => {
-        const response = await axios.post("http://localhost:3000/user/result", selectedAnswers);
-        navigate("/result", response.data);
+        try {
+            const response = await axios.post("http://localhost:3000/user/result", selectedAnswers);
+            navigate("/result", { state: { result: response.data.score } });
+        } catch (err) {
+            console.error("There was an error fetching results: ", err);
+        }
     }
 
     return (
@@ -73,19 +81,19 @@ function Quiz() {
                 <div id="navBar" className="w-[20vw] h-[90vh] bg-gray-300 border-r-2 px-4 py-10">
                     <h1 className="text-center mb-2 underline text-xl">Quiz Stats:</h1>
                     <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl">Total questions: {questions.length}</h3>
-                    <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl">Questions Attempted: 0</h3>
-                    <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl">Questions Remaining: 0</h3>
+                    <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl">Questions Attempted: {Object.keys(selectedAnswers).length}</h3>
+                    <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl">Questions Remaining: {questions.length - Object.keys(selectedAnswers).length}</h3>
 
-                    {/* <h1 className="text-center mt-5 mb-2 underline text-xl">Your Answers:</h1>
+                    <h1 className="text-center mt-5 mb-2 underline text-xl">Your Answers:</h1>
                     <div id="selected-answers" className="h-auto border-2 p-2 rounded text-center bg-gray-200 shadow-2xl">
                         {
                             questions.length !== 0 && (
                                 questions.map((q, idx) => (
-                                    <h6 key={idx}>Q{idx + 1} {"->"} </h6>
+                                    <h6 key={idx}>Q{idx + 1} {"->"} {selectedAnswers[q._id] ? selectedAnswers[q._id] : <span>N/A</span>}</h6>
                                 ))
                             )
                         }
-                    </div> */}
+                    </div>
                 </div>
                 <div id="main" className="w-[80vw] h-[90vh] bg-gray-200 py-5 px-20 relative">
                     {
@@ -95,18 +103,20 @@ function Quiz() {
                                 <h2 className="text-2xl mt-10">&#x2022; {questions[currentQuestion].question}</h2>
                                 <div id="options" className="my-5">
                                     {
-                                        questions[currentQuestion].options.map((option, index) => (
-                                            <div key={index} className="text-xl space-x-3 space-y-8 ">
+                                        questions[currentQuestion].options.map((option, index) => {
+                                            const optionId = `${questions[currentQuestion]._id}-${index}`
+                                            return (<div key={index} className="text-xl space-x-3 space-y-8 ">
                                                 <input
                                                     type="radio"
-                                                    name={questions[currentQuestion].question}
+                                                    name={`question-${questions[currentQuestion]._id}`}
                                                     value={option}
-                                                    id={option}
+                                                    id={optionId}
                                                     onChange={() => handleChange(questions[currentQuestion]._id, option)}
+                                                    checked={selectedAnswers[questions[currentQuestion]._id] === option}
                                                 />
-                                                <label htmlFor={option}>{option}</label>
-                                            </div>
-                                        ))
+                                                <label htmlFor={optionId}>{option}</label>
+                                            </div>)
+                                        })
                                     }
                                 </div>
                             </div>
