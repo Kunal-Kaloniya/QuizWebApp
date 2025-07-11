@@ -57,9 +57,13 @@ function Quiz() {
         setSelectedAnswers(prev => ({ ...prev, [quesId]: answer }));
     }
 
-    const handleSubmit = async (id) => {
+    const handleSubmit = async () => {
         try {
-            const response = await axios.post("http://localhost:3000/user/result", selectedAnswers, {
+            const response = await axios.post(`http://localhost:3000/users/user/result`, {
+                answers: selectedAnswers,
+                category: category,
+                difficulty: difficulty
+            }, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }
@@ -133,7 +137,7 @@ function Quiz() {
 
                     <div className="absolute bottom-0 left-0 right-0 bg-gray-300 text-black px-10 py-4 border-b-2 flex items-center justify-between">
                         <button className="bg-blue-400 text-xl rounded px-3 py-1 border-2 border-blue-400 hover:shadow-2xl hover:border-black transition-all" onClick={handlePrevious}>Previous</button>
-                        <button className="bg-white text-xl rounded px-3 py-1 border-2 border-white hover:shadow-2xl hover:border-black transition-all" onClick={() => handleSubmit(user.id)}>Submit</button>
+                        <button className="bg-white text-xl rounded px-3 py-1 border-2 border-white hover:shadow-2xl hover:border-black transition-all" onClick={handleSubmit}>Submit</button>
                         <button className="bg-green-400 text-xl rounded px-3 py-1 border-2 border-green-400 hover:shadow-2xl hover:border-black transition-all" onClick={handleNext}>Next</button>
                     </div>
                 </div>

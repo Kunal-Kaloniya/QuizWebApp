@@ -18,4 +18,8 @@ const verifyToken = (req, res, next) => {
     }
 }
 
+// const verifyAdmin = (req, res, next) => {
+
+// }
+
 export default verifyToken;

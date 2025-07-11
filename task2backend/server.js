@@ -24,7 +24,7 @@ connectDB()
         app.use('/', authRoutes);
         app.use('/', userRoutes);
         app.use('/api/quiz', quizRoutes);
-        app.use('/user', resultRoutes)
+        app.use('/users/user', resultRoutes)
 
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);

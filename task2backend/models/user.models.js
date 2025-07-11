@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema({
     username: {
@@ -18,10 +17,11 @@ const userSchema = new Schema({
         type: String,
         required: [true, "Password is required",]
     },
-    history: {
-        type: Schema.Types.ObjectId,
-        ref: 'History',
+    role: {
+        type: String,
+        default: 'user',
+        enum: ['user', 'admin'],
     }
-}, {timestamps: true});
+}, { timestamps: true });
 
 export const User = mongoose.model("User", userSchema);

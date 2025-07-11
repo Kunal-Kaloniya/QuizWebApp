@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import { MdDarkMode } from "react-icons/md";
 
 function Home() {
 
@@ -75,7 +76,7 @@ function Home() {
             <div id="header" className="w-full h-[10vh] bg-gray-300 text-black px-10 py-4 border-b-2 flex items-center justify-between">
                 <h1 className="text-4xl font-bold">QuizApp__</h1>
                 <div id="right-panel" className="flex gap-2">
-                    <button className="w-10 h-10 bg-gray-700 cursor-pointer rounded-full flex items-center justify-center"></button>
+                    <button className="w-10 h-10 bg-white border-black border-2 text-xl text-black cursor-pointer rounded-full flex items-center justify-center"><MdDarkMode /></button>
                     <button
                         className="w-10 h-10 text-white bg-gray-700 cursor-pointer font-bold text-xl rounded-full flex items-center justify-center"
                         onClick={() => navigate('/dashboard')}

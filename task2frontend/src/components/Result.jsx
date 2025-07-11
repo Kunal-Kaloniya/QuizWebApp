@@ -50,10 +50,10 @@ function Result() {
                                 const isCorrect = questions[index].correctAnswer === selectedAnswers[q._id];
                                 return (
                                     <div className={`${isCorrect ? "bg-green-200" : "bg-red-200"} rounded-xl border-2 px-4 py-2`} key={index}>
-                                        <h1><span className="font-bold">Q{index + 1}:</span> {q.question}</h1>
-                                        <p><span className="font-bold">Correct Answer:</span> {q.correctAnswer}</p>
-                                        <p><span className="font-bold">Your Answer:</span> {selectedAnswers[q._id] ? selectedAnswers[q._id] : "N/A"}</p>
-                                        <p><span className="font-bold">Explanation:</span> {q.explanation}</p>
+                                        <h1><span className="font-black">Q{index + 1}:</span> {q.question}</h1>
+                                        <p><span className="font-black">Correct Answer:</span> {q.correctAnswer}</p>
+                                        <p><span className="font-black">Your Answer:</span> {selectedAnswers[q._id] ? selectedAnswers[q._id] : "N/A"}</p>
+                                        <p><span className="font-black">Explanation:</span> {q.explanation}</p>
                                     </div>
                                 )
                             })

@@ -1,18 +1,19 @@
 import express from "express";
 import verifyToken from "../middleware/authMiddleware.js";
 import { Question } from "../models/question.models.js";
+import { Result } from "../models/result.models.js";
 
 const router = express.Router();
 
 router.post("/result", verifyToken, async (req, res) => {
-    const data = req.body;
+    const { answers, category, difficulty } = req.body;
     let score = 0;
 
-    if (Object.entries(data).length === 0) {
+    if (Object.entries(answers).length === 0) {
         return res.status(200).json({ message: "Atleast try doing some questions!", score });
     }
 
-    for (let [qId, ans] of Object.entries(data)) {
+    for (let [qId, ans] of Object.entries(answers)) {
         const question = await Question.findOne({ _id: qId });
 
         if (!question) {
@@ -24,13 +25,22 @@ router.post("/result", verifyToken, async (req, res) => {
         }
     };
 
-res.status(200).json({ message: "all questions checked!", score });
+    await Result.create({
+        userId: req.user.id,
+        score,
+        questionsAttempted: Object.keys(answers).length,
+        category: category,
+        difficulty: difficulty,
+        createdAt: new Date()
+    })
+
+    res.status(200).json({ message: "all questions checked!", score });
 });
 
-// router.post("/update-history", (req, res) => {
-//     const { category, difficulty } = req.body;
+router.get("/quiz-history", verifyToken, async (req, res) => {
+    const history = await Result.find({ userId: req.user.id })
 
-    
-// })
+    res.status(200).json(history);
+})
 
 export default router;
