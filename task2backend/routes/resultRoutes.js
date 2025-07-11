@@ -1,5 +1,5 @@
 import express from "express";
-import verifyToken from "../middleware/authMiddleware.js";
+import { verifyToken } from "../middleware/authMiddleware.js";
 import { Question } from "../models/question.models.js";
 import { Result } from "../models/result.models.js";
 

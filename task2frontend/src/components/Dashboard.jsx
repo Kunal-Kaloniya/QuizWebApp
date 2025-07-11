@@ -59,7 +59,14 @@ function Dashboard() {
                 </div>
                 <h1 className="text-center text-xl font-bold">{username ? username : "..."}</h1>
 
-                <button className="bg-white text-xl text-red-500 rounded px-3 py-1 border-2 mt-5 border-red-500 hover:shadow-2xl hover:bg-red-500 hover:text-white transition-all" onClick={handleLogout}>Logout</button>
+                <div className="flex gap-2">
+                    {
+                        user?.role === 'admin' && (
+                            <button className="bg-white text-xl text-amber-500 rounded px-3 py-1 border-2 mt-5 border-amber-500 hover:shadow-2xl hover:bg-amber-500 hover:text-white transition-all" onClick={() => navigate('/admin')}>Admin Panel</button>
+                        )
+                    }
+                    <button className="bg-white text-xl text-red-500 rounded px-3 py-1 border-2 mt-5 border-red-500 hover:shadow-2xl hover:bg-red-500 hover:text-white transition-all" onClick={handleLogout}>Logout</button>
+                </div>
             </div>
             <hr className="w-[90%] m-auto" />
             <div className="text-center max-w-[90vw] m-auto mt-5">

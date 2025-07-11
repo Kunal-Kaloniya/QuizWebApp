@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const verifyToken = (req, res, next) => {
+export const verifyToken = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Player ")) {
@@ -18,8 +18,10 @@ const verifyToken = (req, res, next) => {
     }
 }
 
-// const verifyAdmin = (req, res, next) => {
+export const verifyAdmin = (req, res, next) => {
+    if (req.user.role !== "admin") {
+        res.status(403).json({ message: "Access Denied! Admins only" });
+    }
 
-// }
-
-export default verifyToken;
+    next();
+}

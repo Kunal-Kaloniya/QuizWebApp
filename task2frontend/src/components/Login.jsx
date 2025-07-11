@@ -25,6 +25,7 @@ function Login() {
             login({
                 username: res.data.user.username,
                 email: res.data.user.email,
+                role: res.data.user.role,
                 id: res.data.user._id,
             });
             setForm({ email: "", password: "" });
