@@ -17,6 +17,10 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: [true, "Password is required",]
+    },
+    history: {
+        type: Schema.Types.ObjectId,
+        ref: 'History',
     }
 }, {timestamps: true});
 

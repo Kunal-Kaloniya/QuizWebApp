@@ -13,9 +13,18 @@ function Home() {
     const [difficulty, setDifficulty] = useState("");
     const [message, setMessage] = useState("");
 
+    const instructionList = [
+        { id: 1, i: "Read all questions carefully before answering." },
+        { id: 2, i: "It is advised not to use unfair means." },
+        { id: 3, i: "Manage your time wisely. The total duration of the quiz is 10 minutes." },
+        { id: 4, i: "There is 1 mark for every correct answer." },
+        { id: 5, i: "Review your answers if time permits before submission." }
+    ]
+
     const navigate = useNavigate();
 
     useEffect(() => {
+
         const getCategories = async () => {
             try {
                 const response = await axios.get("http://localhost:3000/api/quiz/categories");
@@ -42,6 +51,15 @@ function Home() {
         getCategories();
     }, [])
 
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage("")
+        }, 5000)
+    }, [message, setMessage])
+
+    useEffect(() => { setTimeout(() => { localStorage.setItem("username", user.username) }) }, []);
+    const username = localStorage.getItem("username");
+
     const handleClick = async () => {
         if (!category || !difficulty) {
             setMessage("Please select both quiz category and difficulty");
@@ -53,14 +71,43 @@ function Home() {
     }
 
     return (
-        <div>
-            <div className="w-full h-screen bg-white font-mono flex items-center justify-center relative">
-                <div>
-                    {user ? (<h1 className="text-4xl font-bold">Hello {user.username}!</h1>) : (<h1 className="text-4xl font-bold">Hello!</h1>)}
+        <div className="font-mono relative">
+            <div id="header" className="w-full h-[10vh] bg-gray-300 text-black px-10 py-4 border-b-2 flex items-center justify-between">
+                <h1 className="text-4xl font-bold">QuizApp__</h1>
+                <div id="right-panel" className="flex gap-2">
+                    <button className="w-10 h-10 bg-gray-700 cursor-pointer rounded-full flex items-center justify-center"></button>
+                    <button
+                        className="w-10 h-10 text-white bg-gray-700 cursor-pointer font-bold text-xl rounded-full flex items-center justify-center"
+                        onClick={() => navigate('/dashboard')}
+                    >
+                        {username ? username[0].toUpperCase() : "?"}
+                    </button>
+                </div>
+            </div>
 
-                    <h2 className="text-2xl">Ready to take another quiz: </h2>
+            <div className="mt-5 pl-5">
+                <h1 className="text-4xl font-bold mb-3">Welcome{username ? " " + username : ""}!</h1>
+            </div>
 
-                    <div className="w-[90vw] h-auto px-6 py-4 bg-orange-300 mb-2 rounded-lg border-2 flex justify-between items-center">
+            <div className="w-auto h-[50vh] bg-white mt-5 flex items-center justify-center gap-2 px-2">
+
+                <div id="navBar" className="h-full border-2 pt-5 pb-3 px-10 rounded-xl bg-gray-100 flex flex-col flex-1/2 justify-center">
+                    <h1 className="text-center mb-5 underline text-2xl text-red-400 font-bold">Instructions</h1>
+                    <ol className="text-xl">
+                        {
+                            instructionList.length !== 0 && (
+                                instructionList.map((ins) => (
+                                    <li key={ins.id}>{ins.id}. {ins.i}</li>
+                                ))
+                            )
+                        }
+                    </ol>
+                </div>
+
+                <div className="h-full border-2 pt-5 pb-3 px-10 rounded-xl bg-gray-100 flex flex-col flex-1/2 justify-center">
+                    <h2 className="text-2xl mb-2 font-bold">Ready to take another quiz: </h2>
+
+                    <div className="w-auto h-auto px-6 py-4 bg-gray-200 mb-2 rounded-lg border-2 flex justify-between items-center">
                         <p>Which category do you want to select for the quiz today:</p>
 
                         <select
@@ -78,7 +125,7 @@ function Home() {
                             }
                         </select>
                     </div>
-                    <div className="w-[90vw] h-auto px-6 py-4 bg-orange-300 mb-2 rounded-lg border-2 flex justify-between items-center">
+                    <div className="w-auto h-auto px-6 py-4 bg-gray-200 mb-2 rounded-lg border-2 flex justify-between items-center">
                         <p>Choose the difficulty of the quiz:</p>
 
                         <select
@@ -107,7 +154,7 @@ function Home() {
 
                     {
                         message && (
-                            <p className="m-4 bg-amber-700 text-white text-center p-5 absolute top-2 right-2">{message}</p>
+                            <p className="m-4 bg-amber-700 text-white text-center p-5 absolute top-[10vh] right-2">{message}</p>
                         )
                     }
                 </div>

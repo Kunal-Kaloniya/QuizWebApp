@@ -4,7 +4,7 @@ import { Question } from "../models/question.models.js";
 
 const router = express.Router();
 
-router.post("/result", async (req, res) => {
+router.post("/result", verifyToken, async (req, res) => {
     const data = req.body;
     let score = 0;
 
@@ -22,12 +22,15 @@ router.post("/result", async (req, res) => {
         if (ans == question.correctAnswer) {
             score += 1;
         }
-
-        console.log(`${qId}: ${ans}`);
-        console.log(score);
     };
 
 res.status(200).json({ message: "all questions checked!", score });
 });
+
+// router.post("/update-history", (req, res) => {
+//     const { category, difficulty } = req.body;
+
+    
+// })
 
 export default router;
