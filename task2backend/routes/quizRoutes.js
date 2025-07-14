@@ -27,21 +27,4 @@ router.get("/questions", verifyToken, async (req, res) => {
     res.json(questions);
 });
 
-
-// this route is used to add new questions to the database
-router.post("/add-question", verifyToken, async (req, res) => {
-    const quesData = req.body;
-    const { question } = req.body;
-
-    const existingQuestion = await Question.findOne({ question });
-    if (existingQuestion) {
-        return res.status(400).json({ message: "question already exists!" });
-    }
-
-    const newQuestion = new Question(quesData);
-    await newQuestion.save();
-
-    res.status(201).json({ message: "New question entered!", quesData });
-})
-
 export default router;

@@ -16,7 +16,7 @@ function Home() {
     const instructionList = [
         { id: 1, i: "Read all questions carefully before answering." },
         { id: 2, i: "It is advised not to use unfair means." },
-        { id: 3, i: "Manage your time wisely. The total duration of the quiz is 10 minutes." },
+        { id: 3, i: "Manage your time wisely. The total duration of the quiz is 3 minutes." },
         { id: 4, i: "There is 1 mark for every correct answer." },
         { id: 5, i: "Review your answers if time permits before submission." }
     ]

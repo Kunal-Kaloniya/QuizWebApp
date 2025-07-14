@@ -14,6 +14,13 @@ function Quiz() {
     const [questions, setQuestions] = useState([]);
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(180);                  // 3 minutes
+
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
 
     const getQuestions = async () => {
         try {
@@ -36,6 +43,19 @@ function Quiz() {
     useEffect(() => {
         getQuestions();
     }, []);
+
+    useEffect(() => {
+        if (timeLeft <= 0) {
+            handleSubmit();
+            return;
+        }
+
+        const timer = setInterval(() => {
+            setTimeLeft(prev => prev - 1);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [timeLeft]);
 
     const handlePrevious = () => {
         if (currentQuestion === 0) {
@@ -85,7 +105,7 @@ function Quiz() {
                     <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl">Questions Remaining: {questions.length - Object.keys(selectedAnswers).length}</h3>
 
                     <h1 className="text-center mt-5 mb-2 underline text-xl">Your Answers:</h1>
-                    <div id="selected-answers" className="h-auto border-2 p-2 rounded text-center bg-gray-200 shadow-2xl">
+                    <div id="selected-answers" className="h-auto border-2 p-2 mb-2 rounded text-center bg-gray-200 shadow-2xl">
                         {
                             questions.length !== 0 && (
                                 questions.map((q, idx) => (
@@ -94,6 +114,10 @@ function Quiz() {
                             )
                         }
                     </div>
+
+                    <h1 className={`${timeLeft <= 30 && "text-red-600"} w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl`}>
+                        Time Left: {formatTime(timeLeft)}
+                    </h1>
                 </div>
                 <div id="main" className="w-[80vw] h-[90vh] bg-gray-200 py-5 px-20 relative">
                     {
