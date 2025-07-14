@@ -1,17 +1,7 @@
-import { useContext, useState, useEffect } from "react";
-import { ThemeContext } from "../context/ThemeContext";
-import { AuthContext } from "../context/AuthContext";
-import { MdDarkMode } from "react-icons/md";
-import { MdOutlineLightMode } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 function Admin() {
-
-    const { theme, toggleTheme } = useContext(ThemeContext);
-    const { logout } = useContext(AuthContext);
-    const navigate = useNavigate();
-
     const [message, setMessage] = useState({ status: "fail", msg: "" });
     const [deleteQuesId, setDeleteQuesId] = useState("");
     const [form, setForm] = useState({
@@ -22,13 +12,6 @@ function Admin() {
         "difficulty": "",
         "explanation": ""
     });
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        logout();
-        navigate('/login');
-    }
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -66,9 +49,9 @@ function Admin() {
         }
     }
 
-    // const handleUpdateQuestion = async (e) => {
-    //     e.preventDefault();
-    // }
+    const handleUpdateQuestion = async (e) => {
+        e.preventDefault();
+    }
 
     const handleDeleteQuestion = async (id) => {
         try {
@@ -96,19 +79,6 @@ function Admin() {
 
     return (
         <div className="font-mono">
-            <div id="header" className="w-full h-[10vh] bg-gray-300 text-black px-10 py-4 border-b-2 flex items-center justify-between">
-                <h1 className="text-4xl font-bold">QuizApp__</h1>
-                <div className="flex gap-2">
-                    <button
-                        className="p-2 bg-white border-black border-2 text-xl text-black hover:bg-black hover:text-white transition-all cursor-pointer rounded-full flex items-center justify-center"
-                        onClick={toggleTheme}
-                    >
-                        {theme === "light" ? <MdDarkMode /> : <MdOutlineLightMode />}
-                    </button>
-                    <button className="bg-white text-xl text-blue-500 rounded px-3 py-1 border-2 border-blue-500 hover:shadow-2xl hover:bg-blue-500 hover:text-white transition-all" onClick={() => navigate('/dashboard')}>Dashboard</button>
-                    <button className="bg-white text-xl text-red-500 rounded px-3 py-1 border-2 border-red-500 hover:shadow-2xl hover:bg-red-500 hover:text-white transition-all" onClick={handleLogout}>Logout</button>
-                </div>
-            </div>
             <div className="p-5">
                 <div className="mb-5">
                     <h1 className="text-3xl font-bold">Welcome to the Admin Panel!</h1>

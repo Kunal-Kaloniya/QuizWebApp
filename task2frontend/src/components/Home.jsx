@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
-import { MdDarkMode } from "react-icons/md";
 
 function Home() {
 
@@ -58,8 +57,6 @@ function Home() {
         }, 5000)
     }, [message, setMessage])
 
-    useEffect(() => { setTimeout(() => { localStorage.setItem("username", user.username) }) }, []);
-    const username = localStorage.getItem("username");
 
     const handleClick = async () => {
         if (!category || !difficulty) {
@@ -73,21 +70,8 @@ function Home() {
 
     return (
         <div className="font-mono relative">
-            <div id="header" className="w-full h-[10vh] bg-gray-300 text-black px-10 py-4 border-b-2 flex items-center justify-between">
-                <h1 className="text-4xl font-bold">QuizApp__</h1>
-                <div id="right-panel" className="flex gap-2">
-                    <button className="w-10 h-10 bg-white border-black border-2 text-xl text-black cursor-pointer rounded-full flex items-center justify-center"><MdDarkMode /></button>
-                    <button
-                        className="w-10 h-10 text-white bg-gray-700 cursor-pointer font-bold text-xl rounded-full flex items-center justify-center"
-                        onClick={() => navigate('/dashboard')}
-                    >
-                        {username ? username[0].toUpperCase() : "?"}
-                    </button>
-                </div>
-            </div>
-
             <div className="mt-5 pl-5">
-                <h1 className="text-4xl font-bold mb-3">Welcome{username ? " " + username : ""}!</h1>
+                <h1 className="text-4xl font-bold mb-3">Welcome {user?.username}!</h1>
             </div>
 
             <div className="w-auto h-[50vh] bg-white mt-5 flex items-center justify-center gap-2 px-2">

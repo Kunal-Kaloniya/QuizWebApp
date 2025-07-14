@@ -10,6 +10,7 @@ import Quiz from "./components/Quiz";
 import Result from "./components/Result";
 import Admin from "./components/Admin";
 import { useContext } from "react";
+import Root from "../Root";
 
 function App() {
 
@@ -18,16 +19,18 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<IntroPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Root />}>
+          <Route path="/" element={<IntroPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
-        <Route element={<ProtectedRoute />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/result" element={<Result />} />
-          <Route path="/admin" element={user?.role === 'admin' ? <Admin /> : <Navigate to='/' />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/result" element={<Result />} />
+            <Route path="/admin" element={user?.role === 'admin' ? <Admin /> : <Navigate to='/' />} />
+          </Route>
         </Route>
       </Routes>
     </Router>
