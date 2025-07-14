@@ -90,7 +90,7 @@ function Admin() {
         e.preventDefault();
 
         try {
-            const response = await axios.post(`http://localhost:3000/admin/update-question/${id}`, form, {
+            const response = await axios.put(`http://localhost:3000/admin/update-question/${id}`, form, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }
@@ -105,6 +105,8 @@ function Admin() {
                 "difficulty": "",
                 "explanation": ""
             })
+
+            setQuesId("");
         } catch (err) {
             setMessage({ status: "fail", msg: "Failed to update the question!" });
             console.error("Error updating question: ", err);
@@ -243,7 +245,7 @@ function Admin() {
                                 <button className="bg-white text-gray-700 rounded px-3 py-1 border-1 border-gray-400 hover:shadow-2xl hover:bg-gray-500 hover:text-white transition-all" onClick={() => handleSearchQuestion(quesId)}>Search Question</button>
 
                                 {
-                                    isQuesValid && <form className="flex flex-col gap-2 p-5 max-w-lg mx-auto" onSubmit={() => handleUpdateQuestion(quesId)}>
+                                    isQuesValid && <form className="flex flex-col gap-2 p-5 max-w-lg mx-auto" onSubmit={(e) => handleUpdateQuestion(e, quesId)}>
                                         <input type="text" name="question" placeholder="question" value={form.question} onChange={handleChange} className="max-w-auto border-2 rounded-md px-3 py-1" />
 
                                         <div className="grid grid-cols-2 gap-1 my-2">

@@ -29,9 +29,10 @@ router.put("/update-question/:id", verifyToken, verifyAdmin, async (req, res) =>
     const updatedData = req.body;
 
     try {
-        await Question.findByIdAndUpdate(id, updatedData);
-        res.status(200).json({ message: "Question updated seccessfully!" });
+        const updatedQuestion = await Question.findByIdAndUpdate(id, updatedData);
+        res.status(200).json({ message: "Question updated successfully!", updatedQuestion });
     } catch (err) {
+        console.error("Error updating question:", err);
         res.status(400).json({ message: "Failed to update the question!" });
     }
 })
