@@ -69,7 +69,7 @@ function Home() {
     }
 
     return (
-        <div className="font-mono relative">
+        <div className="font-mono relative mt-[10vh]">
             <div className="mt-5 pl-5">
                 <h1 className="text-4xl font-bold mb-3">Welcome {user?.username}!</h1>
             </div>

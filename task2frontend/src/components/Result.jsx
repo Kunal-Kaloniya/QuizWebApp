@@ -20,7 +20,7 @@ function Result() {
     }, [])
 
     return (
-        <div className="font-mono">
+        <div className="font-mono mt-[10vh]">
             <div id="main" className="max-w-[90vw] h-auto bg-gray-100 mt-5 mx-auto border-2 rounded-xl">
                 <div className="text-center p-10 text-xl">
                     <h1 className="text-3xl font-bold mb-5">Your score is {result} out of {questions.length}.</h1>

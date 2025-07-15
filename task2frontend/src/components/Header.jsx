@@ -1,10 +1,13 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Header() {
 
     const { isLogged, user, logout } = useContext(AuthContext);
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -13,7 +16,7 @@ function Header() {
     }
 
     return (
-        <div id="header" className="w-full h-[10vh] font-mono bg-gray-300 text-black px-10 py-4 border-b-2 flex items-center justify-between">
+        <div id="header" className={`w-full h-[10vh] font-mono bg-gray-300 text-black px-10 py-4 border-b-2 flex items-center justify-between fixed top-0 left-0 right-0 z-10`}>
             <h1 className="text-3xl font-bold">QuizApp__</h1>
             {
                 isLogged && (
@@ -48,8 +51,11 @@ function Header() {
                                 )
                             }
                         </div>
-                        <div className="">
-                            <Link className="px-4 py-3 rounded-full bg-amber-100 mr-2">{user?.username[0].toUpperCase()}</Link>
+                        <div className="flex items-center gap-2">
+
+                            <button onClick={toggleTheme} className="p-2 text-2xl bg-white rounded-full border hover:shadow-lg transition-all">
+                                {theme === "light" ? <MdDarkMode /> : <MdOutlineLightMode />}
+                            </button>
 
                             <button className="bg-white text-red-500 rounded px-3 py-1 border-2 border-red-500 hover:shadow-2xl hover:bg-red-500 hover:text-white transition-all" onClick={handleLogout}>Logout</button>
                         </div>

@@ -31,7 +31,7 @@ function Dashboard() {
     }, [])
 
     return (
-        <div className="font-mono">
+        <div className="font-mono mt-[10vh]">
             <div className="flex flex-col items-center mb-5">
                 <div className="w-[100px] h-[100px] bg-gray-700 flex items-center justify-center text-white text-3xl rounded-full my-5">
                     {user?.username[0].toUpperCase()}

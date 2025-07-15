@@ -15,6 +15,9 @@ function Admin() {
     const [activeTab, setActiveTab] = useState("add");
     const [isQuesValid, setIsQuesValid] = useState(false);
     const [users, setUsers] = useState([]);
+    const [questions, setQuestions] = useState([]);
+    const [category, setCategory] = useState("");
+    const [difficulty, setDifficulty] = useState("");
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -39,6 +42,25 @@ function Admin() {
         } catch (err) {
             setMessage({ status: "fail", msg: "Failed to fetch users!" });
             console.error("Failed to fetch users: ", err);
+        }
+    }
+
+    const fetchFilteredQuestions = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/admin/all-questions", {
+                headers: {
+                    Authorization: "Player " + localStorage.getItem("token")
+                },
+                params: {
+                    category: category,
+                    difficulty: difficulty
+                }
+            });
+
+            setQuestions(response.data);
+        } catch (err) {
+            setMessage({ status: "fail", msg: "Failed to fetch questions!" });
+            console.error("Failed to fetch questions: ", err);
         }
     }
 
@@ -177,10 +199,10 @@ function Admin() {
     return (
         <div className="font-mono">
             <div className="p-5 flex">
-                <div className="flex flex-col lg:flex-1 gap-2 border-r-1 px-5 sticky">
+                <div className="flex flex-col lg:flex-1 gap-2 border-r-1 px-5 fixed left-0 right-[80vw] bottom-0 top-[10vh]">
                     <h1 className="text-3xl font-bold text-center my-5">Admin Panel</h1>
                     {
-                        ["add", "update", "delete", "users"].map((tab) => (
+                        ["add", "update", "delete", "questions", "users"].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => handleTabChange(tab)}
@@ -189,13 +211,13 @@ function Admin() {
                                     : "bg-white text-gray-900"
                                     } hover:bg-gray-800 hover:text-white hover:shadow-2xl transition-all`}
                             >
-                                {tab !== "users" ? tab.charAt(0).toUpperCase() + tab.slice(1) + " Question" : "Manage Users"}
+                                {tab === "users" ? "Manage Users" : tab === "questions" ? "View all Questions" : tab.charAt(0).toUpperCase() + tab.slice(1) + " Question"}
                             </button>
                         ))
                     }
                 </div>
 
-                <div className="lg:flex-3 px-20">
+                <div className="lg:flex-3 px-20 mt-5 absolute top-[10vh] left-[20vw] right-0">
                     {
                         activeTab === "add" && (
                             <div>
@@ -294,6 +316,56 @@ function Admin() {
                             </div>
                         )
                     }
+
+                    {activeTab === "questions" && (
+                        <div className="flex flex-col gap-4">
+
+                            <div className="flex gap-4 items-center">
+                                <select onChange={(e) => setCategory(e.target.value)} value={category} className="bg-gray-300 px-3 py-1 rounded-md">
+                                    <option value="">All Categories</option>
+                                    <option value="Math">Math</option>
+                                    <option value="Science">Science</option>
+                                    <option value="Computer">Computer</option>
+                                </select>
+
+                                <select onChange={(e) => setDifficulty(e.target.value)} value={difficulty} className="bg-gray-300 px-3 py-1 rounded-md">
+                                    <option value="">All Difficulties</option>
+                                    <option value="Easy">Easy</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Hard">Hard</option>
+                                </select>
+
+                                <button
+                                    className="bg-blue-500 text-white px-3 py-1 rounded"
+                                    onClick={fetchFilteredQuestions}
+                                >
+                                    Filter
+                                </button>
+                            </div>
+
+                            {questions.length === 0 ? (
+                                <p>No questions found.</p>
+                            ) : (
+                                questions.map((q) => (
+                                    <div key={q._id} className="border p-4 rounded bg-gray-100">
+                                        <p><strong>ID:</strong> {q._id}</p>
+                                        <p><strong>Category:</strong> {q.category}</p>
+                                        <p><strong>Difficulty:</strong> {q.difficulty}</p>
+                                        <p><strong>Question:</strong> {q.question}</p>
+                                        <p><strong>Options:</strong></p>
+                                        <ul className="list-disc pl-6">
+                                            {q.options.map((opt, idx) => (
+                                                <li key={idx}>{opt}</li>
+                                            ))}
+                                        </ul>
+                                        <p><strong>Correct Answer:</strong> {q.correctAnswer}</p>
+                                        <p><strong>Explanation:</strong> {q.explanation}</p>
+                                    </div>
+                                ))
+                            )}
+
+                        </div>
+                    )}
 
                     {
                         activeTab === "users" && (

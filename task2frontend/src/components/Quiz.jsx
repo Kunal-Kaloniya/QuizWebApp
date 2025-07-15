@@ -96,7 +96,7 @@ function Quiz() {
     }
 
     return (
-        <div className="font-mono relative">
+        <div className="font-mono relative mt-[10vh]">
             <div className="flex">
                 <div id="navBar" className="w-[20vw] h-[90vh] bg-gray-300 border-r-2 px-4 py-10">
                     <h1 className="text-center mb-2 underline text-xl">Quiz Stats:</h1>

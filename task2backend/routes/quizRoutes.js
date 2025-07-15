@@ -5,21 +5,16 @@ import { verifyToken } from "../middleware/authMiddleware.js"
 const router = express.Router();
 
 
-// this route contains all the categories
 router.get("/categories", async (req, res) => {
     const categories = await Question.distinct("category");
     res.json(categories);
 });
 
-
-// this route contains all the difficulty levels
 router.get("/difficulties", async (req, res) => {
     const difficulty_levels = await Question.distinct("difficulty");
     res.json(difficulty_levels);
 })
 
-
-// this route fetches questions based on the category and difficulty provided in the query parameters
 router.get("/questions", verifyToken, async (req, res) => {
     const { category, difficulty } = req.query;
 

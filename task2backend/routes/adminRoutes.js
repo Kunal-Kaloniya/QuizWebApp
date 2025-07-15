@@ -37,7 +37,7 @@ router.put("/update-question/:id", verifyToken, verifyAdmin, async (req, res) =>
     }
 })
 
-router.delete("/delete-question/:id", async (req, res) => {
+router.delete("/delete-question/:id", verifyToken, verifyAdmin, async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -58,6 +58,17 @@ router.get("/search-question/:id", verifyToken, verifyAdmin, async (req, res) =>
     } catch (err) {
         res.status(400).json({ message: "Question search faiure" });
     }
+})
+
+router.get("/all-questions", verifyToken, verifyAdmin, async (req, res) => {
+    const { category, difficulty } = req.query;
+
+    const query = {};
+    if (category) query.category = category;
+    if (difficulty) query.difficulty = difficulty;
+
+    const questions = await Question.find(query);
+    res.status(200).json(questions);
 })
 
 router.get("/fetch-users", verifyToken, verifyAdmin, async (req, res) => {
