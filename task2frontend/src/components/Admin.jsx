@@ -1,7 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Admin() {
+
+    const { theme } = useContext(ThemeContext);
+
     const [message, setMessage] = useState({ status: "fail", msg: "" });
     const [quesId, setQuesId] = useState("");
     const [form, setForm] = useState({
@@ -197,9 +201,9 @@ function Admin() {
     }, [message]);
 
     return (
-        <div className="font-mono">
-            <div className="p-5 flex">
-                <div className="flex flex-col lg:flex-1 gap-2 border-r-1 px-5 fixed left-0 right-[80vw] bottom-0 top-[10vh]">
+        <div className={`font-mono transition-all ${theme === "light" ? "bg-white text-black" : "bg-gray-700"}`}>
+            <div className="p-5">
+                <div className="flex flex-col gap-2 border-r-1 px-5 fixed left-0 right-[80vw] bottom-0 top-[10vh]">
                     <h1 className="text-3xl font-bold text-center my-5">Admin Panel</h1>
                     {
                         ["add", "update", "delete", "questions", "users"].map((tab) => (
@@ -207,9 +211,9 @@ function Admin() {
                                 key={tab}
                                 onClick={() => handleTabChange(tab)}
                                 className={`px-5 py-3 rounded-md border-1 ${activeTab === tab
-                                    ? "bg-gray-900 text-white"
+                                    ? "bg-gray-800 text-white"
                                     : "bg-white text-gray-900"
-                                    } hover:bg-gray-800 hover:text-white hover:shadow-2xl transition-all`}
+                                    } hover:bg-gray-700 hover:text-white hover:shadow-2xl transition-all`}
                             >
                                 {tab === "users" ? "Manage Users" : tab === "questions" ? "View all Questions" : tab.charAt(0).toUpperCase() + tab.slice(1) + " Question"}
                             </button>
@@ -217,38 +221,38 @@ function Admin() {
                     }
                 </div>
 
-                <div className="lg:flex-3 px-20 mt-5 absolute top-[10vh] left-[20vw] right-0">
+                <div className={`mt-[10vh] px-20 pt-10 absolute left-[20vw] top-0 right-0 bottom-0 transition-all ${theme === "light" ? "bg-white text-black" : "bg-gray-700 text-white"}`}>
                     {
                         activeTab === "add" && (
                             <div>
-                                <h1 className="text-center text-xl">Add a question </h1>
-                                <hr className="w-[90%]" />
+                                <h1 className="text-center text-2xl font-bold">Add a question </h1>
+                                <hr/>
 
                                 <form className="flex flex-col gap-2 p-5 max-w-lg mx-auto" onSubmit={handleAddQuestion}>
-                                    <input type="text" name="question" placeholder="question" value={form.question} onChange={handleChange} className="max-w-auto border-2 rounded-md px-3 py-1" />
+                                    <input type="text" name="question" placeholder="question" value={form.question} onChange={handleChange} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1" />
 
                                     <div className="grid grid-cols-2 gap-1 my-2">
                                         {
                                             form.options.map((opt, index) => (
-                                                <input key={index} type="text" name="options" value={opt} onChange={(e) => handleOptionChange(index, e.target.value)} placeholder={`option-${index}`} className="border-2 rounded-md px-3 py-1" />
+                                                <input key={index} type="text" name="options" value={opt} onChange={(e) => handleOptionChange(index, e.target.value)} placeholder={`option-${index}`} className="border-2 rounded-md bg-white text-black px-3 py-1" />
                                             ))
                                         }
                                     </div>
 
-                                    <input type="text" name="correctAnswer" placeholder="correct answer" value={form.correctAnswer} onChange={handleChange} className="max-w-auto border-2 rounded-md px-3 py-1 mb-2" />
+                                    <input type="text" name="correctAnswer" placeholder="correct answer" value={form.correctAnswer} onChange={handleChange} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1 mb-2" />
 
-                                    <input type="text" name="category" placeholder="category" value={form.category} onChange={handleChange} className="max-w-auto border-2 rounded-md px-3 py-1" />
+                                    <input type="text" name="category" placeholder="category" value={form.category} onChange={handleChange} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1" />
 
                                     <div className="my-2">
                                         <label htmlFor="difficulty" className="inline-block">Difficulty: </label>
                                         <select name="difficulty" id="difficulty" value={form.difficulty} onChange={handleChange} className="ml-2 px-3 py-1 border-2 rounded-md">
-                                            <option defaultChecked value="Easy">Easy</option>
-                                            <option value="Medium">Medium</option>
-                                            <option value="Hard">Hard</option>
+                                            <option className="text-black" defaultChecked value="Easy">Easy</option>
+                                            <option className="text-black" value="Medium">Medium</option>
+                                            <option className="text-black" value="Hard">Hard</option>
                                         </select>
                                     </div>
 
-                                    <textarea name="explanation" id="explanation" placeholder="explanation" value={form.explanation} onChange={handleChange} className="border-2 rounded-md px-3 py-1"></textarea>
+                                    <textarea name="explanation" id="explanation" placeholder="explanation" value={form.explanation} onChange={handleChange} className="border-2 rounded-md bg-white text-black px-3 py-1"></textarea>
 
                                     <button type="submit" className="bg-white text-xl text-gray-900 rounded-md px-3 py-1 border-3 border-gray-900 hover:shadow-2xl hover:bg-gray-900 hover:text-white transition-all hover:font-bold">Add Question</button>
                                 </form>
@@ -259,39 +263,39 @@ function Admin() {
                     {
                         activeTab === "update" && (
                             <div>
-                                <h1 className="text-center text-xl">Update a question </h1>
-                                <hr className="w-[90%]" />
+                                <h1 className="text-center text-2xl font-bold">Update a question </h1>
+                                <hr/>
 
-                                <input type="text" name="questionId" placeholder="question id" value={quesId} onChange={(e) => setQuesId(e.target.value)} className="max-w-auto border-2 rounded-md px-3 py-1 mx-5 my-3" />
+                                <input type="text" name="questionId" placeholder="question id" value={quesId} onChange={(e) => setQuesId(e.target.value)} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1 mx-5 my-3" />
 
                                 <button className="bg-white text-gray-700 rounded px-3 py-1 border-1 border-gray-400 hover:shadow-2xl hover:bg-gray-500 hover:text-white transition-all" onClick={() => handleSearchQuestion(quesId)}>Search Question</button>
 
                                 {
                                     isQuesValid && <form className="flex flex-col gap-2 p-5 max-w-lg mx-auto" onSubmit={(e) => handleUpdateQuestion(e, quesId)}>
-                                        <input type="text" name="question" placeholder="question" value={form.question} onChange={handleChange} className="max-w-auto border-2 rounded-md px-3 py-1" />
+                                        <input type="text" name="question" placeholder="question" value={form.question} onChange={handleChange} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1" />
 
                                         <div className="grid grid-cols-2 gap-1 my-2">
                                             {
                                                 form.options.map((opt, index) => (
-                                                    <input key={index} type="text" name="options" value={opt} onChange={(e) => handleOptionChange(index, e.target.value)} placeholder={`option-${index}`} className="border-2 rounded-md px-3 py-1" />
+                                                    <input key={index} type="text" name="options" value={opt} onChange={(e) => handleOptionChange(index, e.target.value)} placeholder={`option-${index}`} className="border-2 rounded-md bg-white text-black px-3 py-1" />
                                                 ))
                                             }
                                         </div>
 
-                                        <input type="text" name="correctAnswer" placeholder="correct answer" value={form.correctAnswer} onChange={handleChange} className="max-w-auto border-2 rounded-md px-3 py-1 mb-2" />
+                                        <input type="text" name="correctAnswer" placeholder="correct answer" value={form.correctAnswer} onChange={handleChange} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1 mb-2" />
 
-                                        <input type="text" name="category" placeholder="category" value={form.category} onChange={handleChange} className="max-w-auto border-2 rounded-md px-3 py-1" />
+                                        <input type="text" name="category" placeholder="category" value={form.category} onChange={handleChange} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1" />
 
                                         <div className="my-2">
                                             <label htmlFor="difficulty" className="inline-block">Difficulty: </label>
                                             <select name="difficulty" id="difficulty" value={form.difficulty} onChange={handleChange} className="ml-2 px-3 py-1 border-2 rounded-md">
-                                                <option defaultChecked value="Easy">Easy</option>
-                                                <option value="Medium">Medium</option>
-                                                <option value="Hard">Hard</option>
+                                                <option className="text-black" defaultChecked value="Easy">Easy</option>
+                                                <option className="text-black" value="Medium">Medium</option>
+                                                <option className="text-black" value="Hard">Hard</option>
                                             </select>
                                         </div>
 
-                                        <textarea name="explanation" id="explanation" placeholder="explanation" value={form.explanation} onChange={handleChange} className="border-2 rounded-md px-3 py-1"></textarea>
+                                        <textarea name="explanation" id="explanation" placeholder="explanation" value={form.explanation} onChange={handleChange} className="border-2 rounded-md bg-white text-black px-3 py-1"></textarea>
 
                                         <button type="submit" className="bg-white text-xl text-gray-900 rounded-md px-3 py-1 border-3 border-gray-900 hover:shadow-2xl hover:bg-gray-900 hover:text-white transition-all hover:font-bold">Update Question</button>
                                     </form>
@@ -303,10 +307,10 @@ function Admin() {
                     {
                         activeTab === "delete" && (
                             <div className="">
-                                <h1 className="text-center text-xl">Delete a question </h1>
-                                <hr className="w-[90%]" />
+                                <h1 className="text-center text-2xl font-bold">Delete a question </h1>
+                                <hr/>
 
-                                <input type="text" name="questionId" placeholder="question id" value={quesId} onChange={(e) => setQuesId(e.target.value)} className="max-w-auto border-2 rounded-md px-3 py-1 mx-5 my-3" />
+                                <input type="text" name="questionId" placeholder="question id" value={quesId} onChange={(e) => setQuesId(e.target.value)} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1 mx-5 my-3" />
 
                                 <button className="bg-white text-gray-700 rounded px-3 py-1 border-1 border-gray-400 hover:shadow-2xl hover:bg-gray-500 hover:text-white transition-all" onClick={() => handleSearchQuestion(quesId)}>Search Question</button>
 
@@ -321,14 +325,14 @@ function Admin() {
                         <div className="flex flex-col gap-4">
 
                             <div className="flex gap-4 items-center">
-                                <select onChange={(e) => setCategory(e.target.value)} value={category} className="bg-gray-300 px-3 py-1 rounded-md">
+                                <select onChange={(e) => setCategory(e.target.value)} value={category} className="bg-gray-300 px-3 py-1 rounded-md text-black">
                                     <option value="">All Categories</option>
                                     <option value="Math">Math</option>
                                     <option value="Science">Science</option>
                                     <option value="Computer">Computer</option>
                                 </select>
 
-                                <select onChange={(e) => setDifficulty(e.target.value)} value={difficulty} className="bg-gray-300 px-3 py-1 rounded-md">
+                                <select onChange={(e) => setDifficulty(e.target.value)} value={difficulty} className="bg-gray-300 px-3 py-1 rounded-md text-black">
                                     <option value="">All Difficulties</option>
                                     <option value="Easy">Easy</option>
                                     <option value="Medium">Medium</option>
@@ -370,7 +374,7 @@ function Admin() {
                     {
                         activeTab === "users" && (
                             users.map((user, index) => (
-                                <div key={index} className="flex items-center justify-between border-1 border-gray-600 bg-gray-300 rounded-md px-5 py-3 my-4">
+                                <div key={index} className="flex items-center justify-between border-1 border-gray-600 bg-gray-300 rounded-md px-5 py-3 my-4 text-black">
                                     <div className="flex flex-1 items-baseline">
                                         <h1>{user?.username}</h1>
                                         <h1 className="text-[10px] font-light text-gray-500 italic pl-2">"{user?.role}"</h1>

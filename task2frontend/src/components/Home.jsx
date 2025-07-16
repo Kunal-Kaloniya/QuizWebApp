@@ -2,10 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Home() {
 
     const { user } = useContext(AuthContext);
+    const { theme } = useContext(ThemeContext);
     const [categories, setCategories] = useState([]);
     const [difficulties, setDifficulties] = useState([]);
 
@@ -69,79 +71,81 @@ function Home() {
     }
 
     return (
-        <div className="font-mono relative mt-[10vh]">
-            <div className="mt-5 pl-5">
-                <h1 className="text-4xl font-bold mb-3">Welcome {user?.username}!</h1>
-            </div>
-
-            <div className="w-auto h-[50vh] bg-white mt-5 flex items-center justify-center gap-2 px-2">
-
-                <div id="navBar" className="h-full border-2 pt-5 pb-3 px-10 rounded-xl bg-gray-100 flex flex-col flex-1/2 justify-center">
-                    <h1 className="text-center mb-5 underline text-2xl text-red-400 font-bold">Instructions</h1>
-                    <ol className="text-xl">
-                        {
-                            instructionList.length !== 0 && (
-                                instructionList.map((ins) => (
-                                    <li key={ins.id}>{ins.id}. {ins.i}</li>
-                                ))
-                            )
-                        }
-                    </ol>
+        <div className={`font-mono relative mt-[10vh] transition-all ${theme === "light" ? "bg-white text-black" : "bg-gray-700 text-white"}`}>
+            <div className="min-h-[90vh] flex flex-col items-center justify-center">
+                <div className="pl-5">
+                    <h1 className="text-4xl font-bold mb-3">Welcome {user?.username}!</h1>
                 </div>
 
-                <div className="h-full border-2 pt-5 pb-3 px-10 rounded-xl bg-gray-100 flex flex-col flex-1/2 justify-center">
-                    <h2 className="text-2xl mb-2 font-bold">Ready to take another quiz: </h2>
+                <div className="w-auto h-[50vh] mt-5 flex items-center justify-center gap-2 px-2">
 
-                    <div className="w-auto h-auto px-6 py-4 bg-gray-200 mb-2 rounded-lg border-2 flex justify-between items-center">
-                        <p>Which category do you want to select for the quiz today:</p>
-
-                        <select
-                            name="categoryOptions"
-                            onChange={e => { setCategory(e.target.value); setMessage("") }}
-                            className="px-3 py-1 bg-white ml-2 rounded border-2 border-white hover:border-black transition-all"
-                        >
-                            <option defaultChecked value="">-- select --</option>
+                    <div id="navBar" className={`h-full border-2 pt-5 pb-3 px-10 rounded-xl flex flex-col flex-1/2 justify-center ${theme === "light" ? "bg-gray-100 text-black" : "bg-gray-800 text-white"}`}>
+                        <h1 className="text-center mb-5 underline text-2xl text-red-400 font-bold">Instructions</h1>
+                        <ol className="text-xl">
                             {
-                                categories.length !== 0 && (
-                                    categories.map((category, index) => (
-                                        <option value={category} key={index}>{category}</option>
+                                instructionList.length !== 0 && (
+                                    instructionList.map((ins) => (
+                                        <li key={ins.id}>{ins.id}. {ins.i}</li>
                                     ))
                                 )
                             }
-                        </select>
-                    </div>
-                    <div className="w-auto h-auto px-6 py-4 bg-gray-200 mb-2 rounded-lg border-2 flex justify-between items-center">
-                        <p>Choose the difficulty of the quiz:</p>
-
-                        <select
-                            name="difficultyOptions"
-                            onChange={e => { setDifficulty(e.target.value), setMessage("") }}
-                            className="px-3 py-1 bg-white ml-2 rounded border-2 border-white hover:border-black transition-all"
-                        >
-                            <option defaultChecked value="">-- select --</option>
-                            {
-                                difficulties.length !== 0 && (
-                                    difficulties.map((difficulty, index) => (
-                                        <option value={difficulty} key={index}>{difficulty}</option>
-                                    ))
-                                )
-                            }
-                        </select>
-                    </div>
-                    <div className="max-w-[80vw] mx-auto flex justify-center">
-                        <button
-                            onClick={handleClick}
-                            className="my-2 px-4 py-2 border-2 rounded-2xl hover:bg-amber-100 transition-all"
-                        >
-                            Start Quiz
-                        </button>
+                        </ol>
                     </div>
 
-                    {
-                        message && (
-                            <p className="m-4 bg-amber-700 text-white text-center p-5 absolute top-[10vh] right-2">{message}</p>
-                        )
-                    }
+                    <div className={`h-full border-2 pt-5 pb-3 px-10 rounded-xl bg-gray-100 flex flex-col flex-1/2 justify-center ${theme === "light" ? "bg-gray-100 text-black" : "bg-gray-800 text-white"}`}>
+                        <h2 className="text-2xl mb-2 font-bold">Ready to take another quiz: </h2>
+
+                        <div className={`w-auto h-auto px-6 py-4 ${theme === "light" ? "bg-gray-200 text-black" : "bg-gray-900 text-white"} mb-2 rounded-lg border-2 flex justify-between items-center`}>
+                            <p>Which category do you want to select for the quiz today:</p>
+
+                            <select
+                                name="categoryOptions"
+                                onChange={e => { setCategory(e.target.value); setMessage("") }}
+                                className="px-3 py-1 bg-white text-black ml-2 rounded border-2 border-white hover:border-black transition-all"
+                            >
+                                <option defaultChecked value="">-- select --</option>
+                                {
+                                    categories.length !== 0 && (
+                                        categories.map((category, index) => (
+                                            <option value={category} key={index}>{category}</option>
+                                        ))
+                                    )
+                                }
+                            </select>
+                        </div>
+                        <div className={`w-auto h-auto px-6 py-4 ${theme === "light" ? "bg-gray-200 text-black" : "bg-gray-900 text-white"} mb-2 rounded-lg border-2 flex justify-between items-center`}>
+                            <p>Choose the difficulty of the quiz:</p>
+
+                            <select
+                                name="difficultyOptions"
+                                onChange={e => { setDifficulty(e.target.value), setMessage("") }}
+                                className="px-3 py-1 bg-white text-black ml-2 rounded border-2 border-white hover:border-black transition-all"
+                            >
+                                <option defaultChecked value="">-- select --</option>
+                                {
+                                    difficulties.length !== 0 && (
+                                        difficulties.map((difficulty, index) => (
+                                            <option value={difficulty} key={index}>{difficulty}</option>
+                                        ))
+                                    )
+                                }
+                            </select>
+                        </div>
+                        <div className="max-w-[80vw] mx-auto flex justify-center">
+                            <button
+                                onClick={handleClick}
+                                className="my-2 px-4 py-2 border-2 rounded-2xl hover:bg-amber-100 hover:text-black transition-all"
+                            >
+                                Start Quiz
+                            </button>
+                        </div>
+
+                        {
+                            message && (
+                                <p className="m-4 bg-amber-700 text-white text-center p-5 absolute top-[10vh] right-2">{message}</p>
+                            )
+                        }
+                    </div>
                 </div>
             </div>
         </div >

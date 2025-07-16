@@ -8,7 +8,7 @@ function IntroPage() {
     const { theme, toggleTheme } = useContext(ThemeContext);
 
     return (
-        <div className={`min-h-screen flex flex-col items-center justify-between ${theme === "light" ? "bg-gray-100 text-black" : "bg-gray-900 text-white"} transition-all duration-300`}>
+        <div className={`min-h-screen flex flex-col items-center justify-between ${theme === "light" ? "bg-gray-100 text-black" : "bg-gray-800 text-white"} transition-all duration-300`}>
 
             <main className="flex flex-col items-center justify-center gap-6 p-5 flex-1">
                 <h2 className="text-4xl font-extrabold text-center">Challenge Your Brain</h2>

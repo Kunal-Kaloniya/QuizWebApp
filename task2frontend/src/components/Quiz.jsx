@@ -3,12 +3,14 @@ import { useContext } from "react";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Quiz() {
 
     const location = useLocation();
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
+    const { theme } = useContext(ThemeContext);
 
     const { category, difficulty } = location.state;
     const [questions, setQuestions] = useState([]);
@@ -96,16 +98,16 @@ function Quiz() {
     }
 
     return (
-        <div className="font-mono relative mt-[10vh]">
+        <div className={`font-mono relative mt-[10vh] transition-all ${theme === "light" ? "bg-white text-black" : "bg-gray-700 text-white"}`}>
             <div className="flex">
-                <div id="navBar" className="w-[20vw] h-[90vh] bg-gray-300 border-r-2 px-4 py-10">
+                <div id="navBar" className={`w-[20vw] h-[90vh] border-r-2 px-4 py-10 transition-all ${theme === "light" ? "bg-gray-300 text-black" : "bg-gray-900"}`}>
                     <h1 className="text-center mb-2 underline text-xl">Quiz Stats:</h1>
-                    <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl">Total questions: {questions.length}</h3>
-                    <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl">Questions Attempted: {Object.keys(selectedAnswers).length}</h3>
-                    <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl">Questions Remaining: {questions.length - Object.keys(selectedAnswers).length}</h3>
+                    <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 text-black shadow-2xl">Total questions: {questions.length}</h3>
+                    <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 text-black shadow-2xl">Questions Attempted: {Object.keys(selectedAnswers).length}</h3>
+                    <h3 className="w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 text-black shadow-2xl">Questions Remaining: {questions.length - Object.keys(selectedAnswers).length}</h3>
 
                     <h1 className="text-center mt-5 mb-2 underline text-xl">Your Answers:</h1>
-                    <div id="selected-answers" className="h-auto border-2 p-2 mb-2 rounded text-center bg-gray-200 shadow-2xl">
+                    <div id="selected-answers" className="h-auto border-2 p-2 mb-2 rounded text-center bg-gray-200 text-black shadow-2xl">
                         {
                             questions.length !== 0 && (
                                 questions.map((q, idx) => (
@@ -115,16 +117,16 @@ function Quiz() {
                         }
                     </div>
 
-                    <h1 className={`${timeLeft <= 30 && "text-red-600"} w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 shadow-2xl`}>
+                    <h1 className={`${timeLeft <= 30 && "text-red-600"} w-full py-2 text-center text-xl mb-2 rounded border-2 bg-gray-200 text-black shadow-2xl`}>
                         Time Left: {formatTime(timeLeft)}
                     </h1>
                 </div>
-                <div id="main" className="w-[80vw] h-[90vh] bg-gray-200 py-5 px-20 relative">
+                <div id="main" className={`w-[80vw] h-[90vh] ${theme === "light" ? "bg-gray-200 text-black" : "bg-gray-800 text-white"} py-5 px-20 relative transition-all`}>
                     {
                         questions.length !== 0 && (
                             <div className="">
-                                <h1 className="text-center text-2xl font-bold italic">Question {currentQuestion + 1}</h1>
-                                <h2 className="text-2xl mt-10">&#x2022; {questions[currentQuestion].question}</h2>
+                                <h1 className="text-center text-3xl font-extrabold italic">Question {currentQuestion + 1}</h1>
+                                <h2 className="text-2xl mt-10 font-bold">Q. {questions[currentQuestion].question}</h2>
                                 <div id="options" className="my-5">
                                     {
                                         questions[currentQuestion].options.map((option, index) => {

@@ -16,7 +16,7 @@ function Header() {
     }
 
     return (
-        <div id="header" className={`w-full h-[10vh] font-mono bg-gray-300 text-black px-10 py-4 border-b-2 flex items-center justify-between fixed top-0 left-0 right-0 z-10`}>
+        <div id="header" className={`w-full h-[10vh] font-mono px-10 py-4 border-b-2 flex items-center justify-between fixed top-0 left-0 right-0 z-10 transition-all ${theme === "light" ? "bg-gray-300 text-black" : "bg-gray-900 text-white"}`}>
             <h1 className="text-3xl font-bold">QuizApp__</h1>
             {
                 isLogged && (
@@ -53,7 +53,7 @@ function Header() {
                         </div>
                         <div className="flex items-center gap-2">
 
-                            <button onClick={toggleTheme} className="p-2 text-2xl bg-white rounded-full border hover:shadow-lg transition-all">
+                            <button onClick={toggleTheme} className="p-2 text-2xl rounded-full border hover:shadow-lg transition-all">
                                 {theme === "light" ? <MdDarkMode /> : <MdOutlineLightMode />}
                             </button>
 
