@@ -8,6 +8,7 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
 import resultRoutes from "./routes/resultRoutes.js";
+import leaderboardRoutes from "./routes/leaderboardRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
 const app = express();
@@ -26,6 +27,7 @@ connectDB()
         app.use('/', userRoutes);
         app.use('/api/quiz', quizRoutes);
         app.use('/users/user', resultRoutes)
+        app.use('/api', leaderboardRoutes)
         app.use('/admin', adminRoutes);
 
         app.listen(PORT, () => {

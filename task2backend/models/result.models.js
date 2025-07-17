@@ -7,15 +7,14 @@ const resultSchema = mongoose.Schema({
     },
     score: {
         type: Number,
-        required: true,
     },
-    category: {
-        type: String,
-        required: true,
-    },
-    difficulty: {
-        type: String,
-        required: true,
+    quizMeta: {
+        category: {
+            type: String,
+        },
+        difficulty: {
+            type: String,
+        }
     },
     questionsAttempted: {
         type: Number,

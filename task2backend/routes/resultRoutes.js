@@ -29,8 +29,10 @@ router.post("/result", verifyToken, async (req, res) => {
         userId: req.user.id,
         score,
         questionsAttempted: Object.keys(answers).length,
-        category: category,
-        difficulty: difficulty,
+        quizMeta: {
+            category: category,
+            difficulty: difficulty,
+        },
         createdAt: new Date()
     })
 
@@ -41,6 +43,6 @@ router.get("/quiz-history", verifyToken, async (req, res) => {
     const history = await Result.find({ userId: req.user.id })
 
     res.status(200).json(history);
-})
+});
 
 export default router;

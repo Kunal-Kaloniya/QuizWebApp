@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ThemeContext } from "../context/ThemeContext";
+import Leaderboard from "./Leaderboard";
 
 function Dashboard() {
 
@@ -32,13 +33,18 @@ function Dashboard() {
 
     return (
         <div className={`font-mono mt-[10vh] min-h-[90vh] transition-all ${theme === "light" ? "bg-white text-black" : "bg-gray-700 text-white"}`}>
-            <div className="flex flex-col items-center mb-5">
-                <div className={`w-[100px] h-[100px] ${theme === "light" ? "bg-gray-700 text-white" : "bg-gray-300 text-gray-900"}  flex items-center justify-center font-extrabold text-5xl rounded-full my-5`}>
-                    {user?.username[0].toUpperCase()}
+            <div className="flex items-center justify-around">
+                <div className="flex flex-col items-center my-5 rounded-xl border-1 border-gray-400 bg-gray-400 px-20 py-10">
+                    <div className={`w-[100px] h-[100px] ${theme === "light" ? "bg-gray-700 text-white" : "bg-gray-300 text-gray-900"}  flex items-center justify-center font-extrabold text-5xl rounded-full my-5`}>
+                        {user?.username[0].toUpperCase()}
+                    </div>
+                    <h1 className="text-center text-2xl font-extrabold">{user?.username}</h1>
+                    <h1>Total quizes attempted: {history?.length}</h1>
                 </div>
-                <h1 className="text-center text-2xl font-extrabold">{user?.username}</h1>
-                <h1>Total quizes attempted: {history?.length}</h1>
+
+                <Leaderboard />
             </div>
+
             <hr className="w-[90%] m-auto" />
             <div className="text-center max-w-[90vw] m-auto mt-5">
                 <h1 className="font-bold text-2xl">Quiz History</h1>
@@ -47,7 +53,7 @@ function Dashboard() {
                         history ? (
                             history.map((q, index) => (
                                 <div key={index} className="border-2 rounded-md p-5 bg-gray-200 text-black">
-                                    <h1 className="text-xl font-bold mb-2">{q.category} Quiz - {q.difficulty}</h1>
+                                    <h1 className="text-xl font-bold mb-2">{q.quizMeta.category} Quiz - {q.quizMeta.difficulty}</h1>
                                     <p>Score Obtained: {q.score} out of 10</p>
                                     <p>Questions attempted: {q.questionsAttempted}</p>
                                     <p>Incorrect questions: {q.questionsAttempted - q.score}</p>
