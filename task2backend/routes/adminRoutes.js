@@ -27,6 +27,11 @@ router.post("/add-question", verifyToken, verifyAdmin, async (req, res) => {
 router.put("/update-question/:id", verifyToken, verifyAdmin, async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
+    const { question } = updatedData;
+
+    if (!question || !updatedData.options || !updatedData.category || !updatedData.difficulty || !updatedData.correctAnswer || !updatedData.explanation) {
+        return res.status(400).json({ message: "All fields required!" });
+    }
 
     try {
         const updatedQuestion = await Question.findByIdAndUpdate(id, updatedData);

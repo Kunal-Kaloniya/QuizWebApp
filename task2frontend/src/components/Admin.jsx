@@ -226,7 +226,7 @@ function Admin() {
                         activeTab === "add" && (
                             <div>
                                 <h1 className="text-center text-2xl font-bold">Add a question </h1>
-                                <hr/>
+                                <hr />
 
                                 <form className="flex flex-col gap-2 p-5 max-w-lg mx-auto" onSubmit={handleAddQuestion}>
                                     <input type="text" name="question" placeholder="question" value={form.question} onChange={handleChange} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1" />
@@ -246,6 +246,7 @@ function Admin() {
                                     <div className="my-2">
                                         <label htmlFor="difficulty" className="inline-block">Difficulty: </label>
                                         <select name="difficulty" id="difficulty" value={form.difficulty} onChange={handleChange} className="ml-2 px-3 py-1 border-2 rounded-md">
+                                            <option className="text-black" defaultChecked value="">-- select --</option>
                                             <option className="text-black" defaultChecked value="Easy">Easy</option>
                                             <option className="text-black" value="Medium">Medium</option>
                                             <option className="text-black" value="Hard">Hard</option>
@@ -264,7 +265,7 @@ function Admin() {
                         activeTab === "update" && (
                             <div>
                                 <h1 className="text-center text-2xl font-bold">Update a question </h1>
-                                <hr/>
+                                <hr />
 
                                 <input type="text" name="questionId" placeholder="question id" value={quesId} onChange={(e) => setQuesId(e.target.value)} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1 mx-5 my-3" />
 
@@ -289,6 +290,7 @@ function Admin() {
                                         <div className="my-2">
                                             <label htmlFor="difficulty" className="inline-block">Difficulty: </label>
                                             <select name="difficulty" id="difficulty" value={form.difficulty} onChange={handleChange} className="ml-2 px-3 py-1 border-2 rounded-md">
+                                                <option className="text-black" defaultChecked value="">-- select --</option>
                                                 <option className="text-black" defaultChecked value="Easy">Easy</option>
                                                 <option className="text-black" value="Medium">Medium</option>
                                                 <option className="text-black" value="Hard">Hard</option>
@@ -308,7 +310,7 @@ function Admin() {
                         activeTab === "delete" && (
                             <div className="">
                                 <h1 className="text-center text-2xl font-bold">Delete a question </h1>
-                                <hr/>
+                                <hr />
 
                                 <input type="text" name="questionId" placeholder="question id" value={quesId} onChange={(e) => setQuesId(e.target.value)} className="max-w-auto border-2 rounded-md bg-white text-black px-3 py-1 mx-5 my-3" />
 
@@ -321,55 +323,57 @@ function Admin() {
                         )
                     }
 
-                    {activeTab === "questions" && (
-                        <div className="flex flex-col gap-4">
+                    {
+                        activeTab === "questions" && (
+                            <div className="flex flex-col gap-4">
 
-                            <div className="flex gap-4 items-center">
-                                <select onChange={(e) => setCategory(e.target.value)} value={category} className="bg-gray-300 px-3 py-1 rounded-md text-black">
-                                    <option value="">All Categories</option>
-                                    <option value="Math">Math</option>
-                                    <option value="Science">Science</option>
-                                    <option value="Computer">Computer</option>
-                                </select>
+                                <div className="flex gap-4 items-center">
+                                    <select onChange={(e) => setCategory(e.target.value)} value={category} className="bg-gray-300 px-3 py-1 rounded-md text-black">
+                                        <option value="">All Categories</option>
+                                        <option value="Math">Math</option>
+                                        <option value="Science">Science</option>
+                                        <option value="Computer">Computer</option>
+                                    </select>
 
-                                <select onChange={(e) => setDifficulty(e.target.value)} value={difficulty} className="bg-gray-300 px-3 py-1 rounded-md text-black">
-                                    <option value="">All Difficulties</option>
-                                    <option value="Easy">Easy</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Hard">Hard</option>
-                                </select>
+                                    <select onChange={(e) => setDifficulty(e.target.value)} value={difficulty} className="bg-gray-300 px-3 py-1 rounded-md text-black">
+                                        <option value="">All Difficulties</option>
+                                        <option value="Easy">Easy</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Hard">Hard</option>
+                                    </select>
 
-                                <button
-                                    className="bg-blue-500 text-white px-3 py-1 rounded"
-                                    onClick={fetchFilteredQuestions}
-                                >
-                                    Filter
-                                </button>
+                                    <button
+                                        className="bg-blue-500 text-white px-3 py-1 rounded"
+                                        onClick={fetchFilteredQuestions}
+                                    >
+                                        Filter
+                                    </button>
+                                </div>
+
+                                {questions.length === 0 ? (
+                                    <p>No questions found.</p>
+                                ) : (
+                                    questions.map((q) => (
+                                        <div key={q._id} className="border p-4 rounded bg-gray-100">
+                                            <p><strong>ID:</strong> {q._id}</p>
+                                            <p><strong>Category:</strong> {q.category}</p>
+                                            <p><strong>Difficulty:</strong> {q.difficulty}</p>
+                                            <p><strong>Question:</strong> {q.question}</p>
+                                            <p><strong>Options:</strong></p>
+                                            <ul className="list-disc pl-6">
+                                                {q.options.map((opt, idx) => (
+                                                    <li key={idx}>{opt}</li>
+                                                ))}
+                                            </ul>
+                                            <p><strong>Correct Answer:</strong> {q.correctAnswer}</p>
+                                            <p><strong>Explanation:</strong> {q.explanation}</p>
+                                        </div>
+                                    ))
+                                )}
+
                             </div>
-
-                            {questions.length === 0 ? (
-                                <p>No questions found.</p>
-                            ) : (
-                                questions.map((q) => (
-                                    <div key={q._id} className="border p-4 rounded bg-gray-100">
-                                        <p><strong>ID:</strong> {q._id}</p>
-                                        <p><strong>Category:</strong> {q.category}</p>
-                                        <p><strong>Difficulty:</strong> {q.difficulty}</p>
-                                        <p><strong>Question:</strong> {q.question}</p>
-                                        <p><strong>Options:</strong></p>
-                                        <ul className="list-disc pl-6">
-                                            {q.options.map((opt, idx) => (
-                                                <li key={idx}>{opt}</li>
-                                            ))}
-                                        </ul>
-                                        <p><strong>Correct Answer:</strong> {q.correctAnswer}</p>
-                                        <p><strong>Explanation:</strong> {q.explanation}</p>
-                                    </div>
-                                ))
-                            )}
-
-                        </div>
-                    )}
+                        )
+                    }
 
                     {
                         activeTab === "users" && (
