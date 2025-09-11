@@ -1,14 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
-
 function IntroPage() {
-    const navigate = useNavigate();
-    const { theme, toggleTheme } = useContext(ThemeContext);
-
     return (
-        <div className={`min-h-screen flex flex-col items-center justify-between ${theme === "light" ? "bg-gray-100 text-black" : "bg-gray-800 text-white"} transition-all duration-300`}>
+        <div className={`min-h-[90vh] flex flex-col items-center justify-between dark:bg-gray-800 dark:text-white transition-all duration-300`}>
 
             <main className="flex flex-col items-center justify-center gap-6 p-5 flex-1">
                 <h2 className="text-4xl font-extrabold text-center">Challenge Your Brain</h2>
@@ -22,19 +14,19 @@ function IntroPage() {
                         <p>Select from Math, Science, or Computer Science</p>
                     </div>
                     <div className="bg-white text-black shadow-md rounded-lg p-5 border">
-                        <h3 className="text-xl font-bold">⏲️ Timed Quizzes</h3>
+                        <h3 className="text-xl font-bold">⏲️ Timed Tests</h3>
                         <p>Answer under pressure with a live timer</p>
                     </div>
                     <div className="bg-white text-black shadow-md rounded-lg p-5 border">
                         <h3 className="text-xl font-bold">📊 Track Your Progress</h3>
-                        <p>See your quiz history and performance</p>
+                        <p>See your test history and performance</p>
                     </div>
                 </div>
             </main>
 
             {/* Footer */}
-            <footer className="w-full text-center py-4 border-t text-sm">
-                Made by Kunal • QuizApp__ © 2025
+            <footer className="w-full text-center py-4 text-sm bg-gray-300 dark:bg-slate-900">
+                Made by Kunal • GIAR Internship Test © 2025
             </footer>
         </div>
     );

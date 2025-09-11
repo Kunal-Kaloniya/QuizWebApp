@@ -1,16 +1,16 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Home from "./components/Home";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import Dashboard from "./components/Dashboard";
 import { AuthContext } from "./context/AuthContext";
-import IntroPage from "./components/IntroPage";
-import Quiz from "./components/Quiz";
-import Result from "./components/Result";
-import Admin from "./components/Admin";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import IntroPage from "./pages/IntroPage";
+import Quiz from "./pages/Quiz";
+import Result from "./pages/Result";
+import Admin from "./pages/Admin/Admin";
 import { useContext } from "react";
-import Root from "../Root";
+import Root from "./components/Root";
 
 function App() {
 
