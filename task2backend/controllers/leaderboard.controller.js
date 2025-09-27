@@ -1,10 +1,6 @@
-import express from "express";
 import { Result } from "../models/result.models.js";
-import { User } from "../models/user.models.js";
-import { verifyToken } from "../middleware/authMiddleware.js";
-const router = express.Router();
 
-router.get('/leaderboard', verifyToken, async (req, res) => {
+const fetchLeaderboard = async (req, res) => {
     try {
         const leaderboard = await Result.aggregate([
             {
@@ -47,6 +43,6 @@ router.get('/leaderboard', verifyToken, async (req, res) => {
         console.error("Error fetching leaderboard:", err);
         res.status(500).json({ message: "Server error" });
     }
-});
+}
 
-export default router;
+export { fetchLeaderboard };

@@ -4,12 +4,10 @@ import cors from "cors";
 import "dotenv/config"
 
 import connectDB from "./db/database.js";
-import authRoutes from "./routes/authRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import quizRoutes from "./routes/quizRoutes.js";
-import resultRoutes from "./routes/resultRoutes.js";
-import leaderboardRoutes from "./routes/leaderboardRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
+import userRouter from "./routes/user.routes.js";
+import quizRouter from "./routes/quiz.routes.js";
+import leaderboardRouter from "./routes/leaderboard.routes.js";
+import adminRouter from "./routes/admin.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,12 +21,10 @@ app.get('/', (req, res) => {
 connectDB()
     .then(() => {
 
-        app.use('/', authRoutes);
-        app.use('/', userRoutes);
-        app.use('/api/quiz', quizRoutes);
-        app.use('/users/user', resultRoutes)
-        app.use('/api', leaderboardRoutes)
-        app.use('/admin', adminRoutes);
+        app.use('/api/auth', userRouter);
+        app.use('/api/quiz', quizRouter);
+        app.use('/api', leaderboardRouter);
+        app.use('/api/admin', adminRouter);
 
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);

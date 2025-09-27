@@ -1,11 +1,7 @@
-import express from "express";
-import { verifyToken, verifyAdmin } from "../middleware/authMiddleware.js";
 import { Question } from "../models/question.models.js";
 import { User } from "../models/user.models.js";
 
-const router = express.Router();
-
-router.post("/add-question", verifyToken, verifyAdmin, async (req, res) => {
+const addQuestion = async (req, res) => {
     const quesData = req.body;
     const { question } = quesData;
 
@@ -22,9 +18,20 @@ router.post("/add-question", verifyToken, verifyAdmin, async (req, res) => {
     await newQuestion.save();
 
     res.status(200).json({ message: "New question entered!", quesData });
-});
+}
 
-router.put("/update-question/:id", verifyToken, verifyAdmin, async (req, res) => {
+const deleteQuestion = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await Question.findByIdAndDelete(id);
+        res.status(200).json({ message: "Question deleted successfully!" });
+    } catch (err) {
+        res.status(400).json({ message: "Failed to delete the question!" });
+    }
+}
+
+const updateQuestion = async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
     const { question } = updatedData;
@@ -40,20 +47,9 @@ router.put("/update-question/:id", verifyToken, verifyAdmin, async (req, res) =>
         console.error("Error updating question:", err);
         res.status(400).json({ message: "Failed to update the question!" });
     }
-})
+}
 
-router.delete("/delete-question/:id", verifyToken, verifyAdmin, async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        await Question.findByIdAndDelete(id);
-        res.status(200).json({ message: "Question deleted successfully!" });
-    } catch (err) {
-        res.status(400).json({ message: "Failed to delete the question!" });
-    }
-});
-
-router.get("/search-question/:id", verifyToken, verifyAdmin, async (req, res) => {
+const searchQuestion = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -63,9 +59,9 @@ router.get("/search-question/:id", verifyToken, verifyAdmin, async (req, res) =>
     } catch (err) {
         res.status(400).json({ message: "Question search faiure" });
     }
-})
+}
 
-router.get("/all-questions", verifyToken, verifyAdmin, async (req, res) => {
+const fetchQuestions = async (req, res) => {
     const { category, difficulty } = req.query;
 
     const query = {};
@@ -74,18 +70,18 @@ router.get("/all-questions", verifyToken, verifyAdmin, async (req, res) => {
 
     const questions = await Question.find(query);
     res.status(200).json(questions);
-})
+}
 
-router.get("/fetch-users", verifyToken, verifyAdmin, async (req, res) => {
+const fetchUsers = async (req, res) => {
     try {
         const users = await User.find({});
         res.send(users);
     } catch (err) {
         res.status(400).json({ message: "Error fetching users" });
     }
-})
+}
 
-router.delete("/delete-user/:id", verifyToken, verifyAdmin, async (req, res) => {
+const deleteUser = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -94,6 +90,6 @@ router.delete("/delete-user/:id", verifyToken, verifyAdmin, async (req, res) => 
     } catch (err) {
         res.status(400).json({ message: "Error banning user!" });
     }
-})
+}
 
-export default router;
+export { addQuestion, updateQuestion, deleteQuestion, searchQuestion, fetchQuestions, fetchUsers, deleteUser };
