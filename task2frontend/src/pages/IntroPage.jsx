@@ -1,3 +1,5 @@
+import Footer from "../components/Footer";
+
 function IntroPage() {
     return (
         <div className={`min-h-[90vh] flex flex-col items-center justify-between dark:bg-gray-800 dark:text-white transition-all duration-300`}>
@@ -9,25 +11,22 @@ function IntroPage() {
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10 max-w-5xl text-center">
-                    <div className="bg-white text-black shadow-md rounded-lg p-5 border">
+                    <div className="bg-white text-black shadow-md rounded-lg p-5">
                         <h3 className="text-xl font-bold">🎯 Choose Category</h3>
                         <p>Select from Math, Science, or Computer Science</p>
                     </div>
-                    <div className="bg-white text-black shadow-md rounded-lg p-5 border">
+                    <div className="bg-white text-black shadow-md rounded-lg p-5">
                         <h3 className="text-xl font-bold">⏲️ Timed Tests</h3>
                         <p>Answer under pressure with a live timer</p>
                     </div>
-                    <div className="bg-white text-black shadow-md rounded-lg p-5 border">
+                    <div className="bg-white text-black shadow-md rounded-lg p-5">
                         <h3 className="text-xl font-bold">📊 Track Your Progress</h3>
                         <p>See your test history and performance</p>
                     </div>
                 </div>
             </main>
 
-            {/* Footer */}
-            <footer className="w-full text-center py-4 text-sm bg-gray-300 dark:bg-slate-900">
-                Made by Kunal • GIAR Internship Test © 2025
-            </footer>
+            <Footer />
         </div>
     );
 }
