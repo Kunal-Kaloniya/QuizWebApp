@@ -8,7 +8,7 @@ export default function ManageUsers() {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/admin/fetch-users", {
+            const response = await axios.get("http://localhost:3000/api/admin/fetch-users", {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }

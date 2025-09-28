@@ -15,7 +15,7 @@ function Dashboard() {
     useEffect(() => {
         const fetchHistory = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/users/user/quiz-history", {
+                const response = await axios.get("http://localhost:3000/api/quiz/quiz-history", {
                     headers: {
                         Authorization: "Player " + localStorage.getItem("token")
                     }

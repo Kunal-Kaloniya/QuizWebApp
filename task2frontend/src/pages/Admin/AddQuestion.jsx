@@ -28,7 +28,7 @@ const AddQuestionForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:3000/admin/add-question", form, {
+            const response = await axios.post("http://localhost:3000/api/admin/add-question", form, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }

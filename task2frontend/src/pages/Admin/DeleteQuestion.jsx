@@ -27,7 +27,7 @@ export default function DeleteQuestion() {
 
     const handleDeleteQuestion = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/admin/delete-question/${id}`, {
+            await axios.delete(`http://localhost:3000/api/admin/delete-question/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }

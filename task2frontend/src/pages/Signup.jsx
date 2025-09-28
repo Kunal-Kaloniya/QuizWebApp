@@ -16,7 +16,7 @@ function Signup() {
         e.preventDefault();
 
         try {
-            const res = await axios.post("http://localhost:3000/signup", form);
+            const res = await axios.post("http://localhost:3000/api/auth/signup", form);
             setForm({ username: "", email: "", password: "" });
             toast.success("Signup successfull!");
             navigate("/login");

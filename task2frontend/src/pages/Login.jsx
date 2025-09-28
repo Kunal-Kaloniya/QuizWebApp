@@ -19,13 +19,13 @@ function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post("http://localhost:3000/login", form);
+            const res = await axios.post("http://localhost:3000/api/auth/login", form);
             localStorage.setItem("token", res.data.token);
             login({
                 username: res.data.user.username,
                 email: res.data.user.email,
                 role: res.data.user.role,
-                id: res.data.user._id,
+                // id: res.data.user._id,
             });
             setForm({ email: "", password: "" });
             toast.success("Login successfull!");

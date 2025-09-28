@@ -9,56 +9,9 @@ import ManageUsers from "./ManageUsers";
 function Admin() {
 
     const [activeTab, setActiveTab] = useState("add");
-    const [users, setUsers] = useState([]);
-
-    const handleOptionChange = (index, value) => {
-        const updatedOptions = [...form.options];
-        updatedOptions[index] = value;
-        setForm({ ...form, options: updatedOptions });
-    }
-
-    const fetchUsers = async () => {
-        try {
-            const response = await axios.get("http://localhost:3000/admin/fetch-users", {
-                headers: {
-                    Authorization: "Player " + localStorage.getItem("token")
-                }
-            })
-
-            setUsers(response.data);
-
-        } catch (err) {
-            setMessage({ status: "fail", msg: "Failed to fetch users!" });
-            console.error("Failed to fetch users: ", err);
-        }
-    }
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
-
-        if (tab === "users") {
-            fetchUsers();
-        }
-    }
-
-    const handleDeleteUser = async (id, index) => {
-
-        const newUserArr = [...users];
-        newUserArr.splice(index, 1);
-
-        try {
-            await axios.delete(`http://localhost:3000/admin/delete-user/${id}`, {
-                headers: {
-                    Authorization: "Player " + localStorage.getItem("token")
-                }
-            })
-
-            setUsers(newUserArr);
-            setMessage({ status: "pass", msg: "Successfully deleted the user!" })
-        } catch (err) {
-            setMessage({ status: "fail", msg: "Failed to Delete the user!" });
-            console.error("Failed to delete user: ", err);
-        }
     }
 
     return (
