@@ -12,7 +12,7 @@ const fetchCategories = async (req, res) => {
 
 const fetchDifficulties = async (req, res) => {
     try {
-        const difficulty_levels = ["easy", "medium", "hard"];
+        const difficulty_levels = ["Easy", "Medium", "Hard"];
         res.json(difficulty_levels);
     } catch (error) {
         console.log("Unable to fetch difficulties: ", error.message);
