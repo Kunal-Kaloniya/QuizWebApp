@@ -2,12 +2,15 @@ import { Navigate, Outlet } from "react-router-dom";
 import axios from 'axios'
 import { useEffect, useState } from "react";
 import { FiLoader } from "react-icons/fi";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 
 function ProtectedRoute() {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const { logout } = useContext(AuthContext);
 
     useEffect(() => {
         const validateUser = async () => {
@@ -17,21 +20,22 @@ function ProtectedRoute() {
                     headers: {
                         Authorization: "Player " + token,
                     }
-                })
+                });
 
-                setIsAuthenticated(true)
+                setIsAuthenticated(true);
                 if (response.status >= 200 && response.status < 300) {
-                    setIsAuthenticated(true)
+                    setIsAuthenticated(true);
                 }
             } catch (error) {
-                setIsAuthenticated(false)
+                setIsAuthenticated(false);
+                logout();       // *----------logout the user when the token is not valid or expired
             } finally {
-                setIsLoading(false)
+                setIsLoading(false);
             }
         }
 
-        validateUser()
-    }, [])
+        validateUser();
+    }, []);
 
     if (isLoading) {
         return (
