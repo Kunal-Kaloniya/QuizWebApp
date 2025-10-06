@@ -10,7 +10,7 @@ import leaderboardRouter from "./routes/leaderboard.routes.js";
 import adminRouter from "./routes/admin.routes.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(cors({ origin: "https://intellectra-quiz.netlify.app" }));
 
