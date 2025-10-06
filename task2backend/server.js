@@ -12,7 +12,7 @@ import adminRouter from "./routes/admin.routes.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "https://intellectra-quiz.netlify.app" }));
 
 app.get('/', (req, res) => {
     res.send("Server is running.");
