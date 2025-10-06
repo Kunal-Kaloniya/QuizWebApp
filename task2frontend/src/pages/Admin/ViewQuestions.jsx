@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../utils/constant.jsx";
 
 const ViewQuestions = () => {
 
@@ -20,7 +21,7 @@ const ViewQuestions = () => {
 
     const fetchFilteredQuestions = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/admin/all-questions", {
+            const response = await axios.get(`${BASE_URL}/api/admin/all-questions`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 },

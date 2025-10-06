@@ -3,6 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../utils/constant.jsx";
 
 function Login() {
 
@@ -19,7 +20,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post("http://localhost:3000/api/auth/login", form);
+            const res = await axios.post(`${BASE_URL}/api/auth/login`, form);
             localStorage.setItem("token", res.data.token);
             login({
                 username: res.data.user.username,

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Leaderboard from "../components/Leaderboard.jsx";
+import { BASE_URL } from "../utils/constant.jsx";
 
 function Dashboard() {
 
@@ -15,7 +16,7 @@ function Dashboard() {
     useEffect(() => {
         const fetchHistory = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/quiz/quiz-history", {
+                const response = await axios.get(`${BASE_URL}/api/quiz/quiz-history`, {
                     headers: {
                         Authorization: "Player " + localStorage.getItem("token")
                     }

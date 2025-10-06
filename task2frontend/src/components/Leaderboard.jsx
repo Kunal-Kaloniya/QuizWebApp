@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { BASE_URL } from "../utils/constant.jsx";
 
 export default function Leaderboard() {
 
@@ -8,7 +9,7 @@ export default function Leaderboard() {
     useEffect(() => {
         const fetchLeaderboard = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/leaderboard", {
+                const response = await axios.get(`${BASE_URL}/api/leaderboard`, {
                     headers: {
                         Authorization: "Player " + localStorage.getItem("token"),
                     }

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useContext } from "react";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constant.jsx";
 
 function Quiz() {
 
@@ -22,7 +22,7 @@ function Quiz() {
 
     const getQuestions = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/quiz/questions", {
+            const response = await axios.get(`${BASE_URL}/api/quiz/questions`, {
                 params: {
                     category: category,
                     difficulty: difficulty,
@@ -82,7 +82,7 @@ function Quiz() {
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post(`http://localhost:3000/api/quiz/result`, {
+            const response = await axios.post(`${BASE_URL}/api/quiz/result`, {
                 answers: selectedAnswers,
                 category: category,
                 difficulty: difficulty

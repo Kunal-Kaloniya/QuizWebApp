@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../utils/constant.jsx";
 
 const AddQuestionForm = () => {
 
@@ -28,7 +29,7 @@ const AddQuestionForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:3000/api/admin/add-question", form, {
+            const response = await axios.post(`${BASE_URL}/api/admin/add-question`, form, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }

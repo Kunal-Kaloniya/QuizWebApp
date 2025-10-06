@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FiLoader } from "react-icons/fi";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { BASE_URL } from "../utils/constant.jsx";
 
 
 function ProtectedRoute() {
@@ -16,7 +17,7 @@ function ProtectedRoute() {
         const validateUser = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const response = await axios.get("http://localhost:3000/api/auth/verify-token", {
+                const response = await axios.get(`${BASE_URL}/api/auth/verify-token`, {
                     headers: {
                         Authorization: "Player " + token,
                     }

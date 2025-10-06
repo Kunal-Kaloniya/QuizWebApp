@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
+import { BASE_URL } from "../utils/constant.jsx";
 
 export default function DeleteQuestion() {
 
@@ -9,7 +10,7 @@ export default function DeleteQuestion() {
 
     const handleSearchQuestion = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:3000/admin/search-question/${id}`, {
+            const response = await axios.get(`${BASE_URL}/admin/search-question/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }
@@ -27,7 +28,7 @@ export default function DeleteQuestion() {
 
     const handleDeleteQuestion = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/api/admin/delete-question/${id}`, {
+            await axios.delete(`${BASE_URL}/api/admin/delete-question/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }

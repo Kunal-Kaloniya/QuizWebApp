@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../utils/constant.jsx";
 
 export default function UpdateQuestion() {
 
@@ -27,7 +28,7 @@ export default function UpdateQuestion() {
 
     const handleSearchQuestion = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/admin/search-question/${id}`, {
+            const response = await axios.get(`${BASE_URL}/api/admin/search-question/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }
@@ -47,7 +48,7 @@ export default function UpdateQuestion() {
         e.preventDefault();
 
         try {
-            const response = await axios.put(`http://localhost:3000/api/admin/update-question/${id}`, form, {
+            const response = await axios.put(`${BASE_URL}/api/admin/update-question/${id}`, form, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }

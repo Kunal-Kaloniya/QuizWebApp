@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../utils/constant.jsx";
 
 export default function ManageUsers() {
 
@@ -8,7 +9,7 @@ export default function ManageUsers() {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/admin/fetch-users", {
+            const response = await axios.get(`${BASE_URL}/api/admin/fetch-users`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }
@@ -31,7 +32,7 @@ export default function ManageUsers() {
         newUserArr.splice(index, 1);
 
         try {
-            await axios.delete(`http://localhost:3000/admin/delete-user/${id}`, {
+            await axios.delete(`${BASE_URL}/admin/delete-user/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }

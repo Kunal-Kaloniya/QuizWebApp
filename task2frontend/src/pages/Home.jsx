@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
-import { ThemeContext } from "../context/ThemeContext";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../utils/constant.jsx";
 
 function Home() {
 
@@ -29,7 +29,7 @@ function Home() {
 
         const getCategories = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/quiz/categories");
+                const response = await axios.get(`${BASE_URL}/api/quiz/categories`);
 
                 setCategories(response.data);
 
@@ -40,7 +40,7 @@ function Home() {
 
         const getDifficultyLevels = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/quiz/difficulties");
+                const response = await axios.get(`${BASE_URL}/api/quiz/difficulties`);
 
                 setDifficulties(response.data);
 
