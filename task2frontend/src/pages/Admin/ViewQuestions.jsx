@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../utils/constant.jsx";
+import { BASE_URL } from "../../utils/constant.jsx";
 
 const ViewQuestions = () => {
 

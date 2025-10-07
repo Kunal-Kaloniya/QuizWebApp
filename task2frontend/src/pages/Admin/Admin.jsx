@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import { useState } from "react";
 import AddQuestionForm from "./AddQuestion";
 import UpdateQuestion from "./UpdateQuestion";
 import DeleteQuestion from "./DeleteQuestion";

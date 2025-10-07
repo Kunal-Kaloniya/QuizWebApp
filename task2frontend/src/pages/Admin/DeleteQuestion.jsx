@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
-import { BASE_URL } from "../utils/constant.jsx";
+import { BASE_URL } from "../../utils/constant.jsx";
 
 export default function DeleteQuestion() {
 
