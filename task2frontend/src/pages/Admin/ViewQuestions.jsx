@@ -9,7 +9,7 @@ const ViewQuestions = () => {
     const [questions, setQuestions] = useState([]);
 
     const testCategories = [
-        "Maths",
+        "Math",
         "Science",
         "Computer"
     ];
@@ -40,37 +40,34 @@ const ViewQuestions = () => {
     return (
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
             {/* Filter Section */}
-            <div className="flex flex-wrap gap-3 items-center mb-6">
+            <div className="flex flex-col md:flex-row gap-3 items-center mb-6">
                 <select
                     onChange={(e) => setCategory(e.target.value)}
                     value={category}
-                    className="border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full md:w-auto border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
                 >
                     <option value="">All Categories</option>
                     {testCategories.map((option, index) => (
                         <option key={index} value={option}>{option}</option>
                     ))}
                 </select>
-
                 <select
                     onChange={(e) => setDifficulty(e.target.value)}
                     value={difficulty}
-                    className="border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full md:w-auto border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
                 >
                     <option value="">All Difficulties</option>
                     {testDifficulties.map((option, index) => (
                         <option key={index} value={option}>{option}</option>
                     ))}
                 </select>
-
                 <button
                     onClick={fetchFilteredQuestions}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-md shadow-sm transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                    className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-md shadow-sm transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
                 >
                     Filter
                 </button>
             </div>
-
             {/* Question List */}
             {questions.length === 0 ? (
                 <p className="text-gray-600 dark:text-gray-300 text-center italic">
@@ -84,11 +81,11 @@ const ViewQuestions = () => {
                             className="p-5 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow"
                         >
                             {/* Header */}
-                            <div className="flex justify-between items-center mb-3">
-                                <span className="text-xs font-mono text-gray-500 dark:text-gray-400">
+                            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
+                                <span className="text-xs font-mono text-gray-500 dark:text-gray-400 mb-2 sm:mb-0">
                                     ID: {q._id}
                                 </span>
-                                <div className="flex gap-2">
+                                <div className="flex flex-wrap gap-2">
                                     <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100">
                                         {q.category}
                                     </span>
@@ -97,12 +94,10 @@ const ViewQuestions = () => {
                                     </span>
                                 </div>
                             </div>
-
                             {/* Question */}
                             <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
                                 {q.question}
                             </h2>
-
                             {/* Options */}
                             <div className="mb-3">
                                 <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -114,12 +109,10 @@ const ViewQuestions = () => {
                                     ))}
                                 </ul>
                             </div>
-
                             {/* Correct Answer */}
                             <p className="text-sm text-green-700 dark:text-green-400 font-medium mb-2">
                                 ✅ Correct Answer: {q.correctAnswer}
                             </p>
-
                             {/* Explanation */}
                             <p className="text-sm text-gray-600 dark:text-gray-400">
                                 <span className="font-medium">Explanation:</span> {q.explanation}
@@ -129,7 +122,6 @@ const ViewQuestions = () => {
                 </div>
             )}
         </div>
-
     );
 }
 

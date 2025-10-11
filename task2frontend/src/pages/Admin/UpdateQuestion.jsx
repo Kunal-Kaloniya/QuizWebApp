@@ -78,7 +78,7 @@ export default function UpdateQuestion() {
             </h1>
 
             {/* Search Question By Id */}
-            <div className="flex gap-3 mb-6">
+            <div className="flex gap-3 mb-6 flex-col md:flex-row">
                 <input
                     type="text"
                     name="questionId"

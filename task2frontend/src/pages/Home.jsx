@@ -63,75 +63,90 @@ function Home() {
     }
 
     return (
-        <div className="transition-all bg-white text-black dark:bg-gray-700 dark:text-white">
-            <div className="min-h-[90vh] flex flex-col items-center justify-center">
+        <div className="transition-all bg-white text-black dark:bg-gray-700 dark:text-white min-h-[90vh]">
+            <div className="min-h-[90vh] flex flex-col items-center justify-center px-4 sm:px-6 md:px-8">
 
                 {/* Hero Section */}
                 <header className="text-center w-full py-8 dark:text-white">
-                    <h1 className="text-4xl font-bold">Welcome, {user?.username}!</h1>
-                    <p className="mt-2 text-lg">Pick a category and show what you’ve got.</p>
+                    <h1 className="text-3xl sm:text-4xl font-bold">
+                        Welcome, {user?.username}!
+                    </h1>
+                    <p className="mt-2 text-base sm:text-lg">
+                        Pick a category and show what you’ve got.
+                    </p>
                 </header>
 
-                <main className="w-auto min-h-full mt-5 flex lg:flex-row md:flex-col sm:flex-col items-stretch justify-center gap-5 px-5">
+                {/* Main Section */}
+                <main className="w-full flex flex-col lg:flex-row items-stretch justify-center gap-6">
 
-                    <aside id="navBar" className="py-5 px-10 rounded-xl flex flex-col flex-1/3 justify-center bg-gray-200 dark:bg-gray-800">
-                        <h1 className="text-left mb-5 underline text-2xl text-red-400 font-bold">Instructions</h1>
-                        <ol className="text-xl">
-                            {
-                                instructionList.length !== 0 && (
-                                    instructionList.map((ins) => (
-                                        <li key={ins.id} className={`${ins?.color ? "text-red-800" : ""}`}>{ins.id}. {ins.i}</li>
-                                    ))
-                                )
-                            }
+                    {/* Sidebar / Instructions */}
+                    <aside
+                        id="navBar"
+                        className="w-full lg:w-1/3 py-5 px-6 sm:px-8 rounded-xl bg-gray-200 dark:bg-gray-800 shadow-md"
+                    >
+                        <h1 className="text-left mb-4 underline text-xl sm:text-2xl text-red-400 font-bold">
+                            Instructions
+                        </h1>
+                        <ol className="text-base sm:text-lg space-y-2">
+                            {instructionList.length > 0 &&
+                                instructionList.map((ins) => (
+                                    <li key={ins.id} className={`${ins?.color ? "text-red-800" : ""}`}>
+                                        {ins.id}. {ins.i}
+                                    </li>
+                                ))}
                         </ol>
                     </aside>
 
-                    <section className="pt-5 pb-3 px-10 rounded-xl flex flex-col flex-2/3 justify-center bg-gray-200 dark:bg-gray-800">
-                        <h2 className="text-2xl font-bold mb-4">Choose a Test Subject</h2>
+                    {/* Category + Difficulty Selection */}
+                    <section className="w-full lg:w-2/3 py-5 px-6 sm:px-10 rounded-xl bg-gray-200 dark:bg-gray-800 shadow-md">
+                        <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center lg:text-left">
+                            Choose a Test Subject
+                        </h2>
+
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {categories.length > 0 &&
                                 categories.map((cat, idx) => (
                                     <div
                                         key={idx}
                                         onClick={() => setCategory(cat)}
-                                        className={`cursor-pointer p-6 rounded-lg shadow-md border-2 transition-all
-                                        ${category === cat
+                                        className={`cursor-pointer p-4 sm:p-6 rounded-lg shadow-md border-2 transition-all text-center
+                                            ${category === cat
                                                 ? "border-blue-500 bg-blue-100 dark:bg-blue-900"
                                                 : "border-transparent bg-gray-100 dark:bg-gray-700 hover:border-blue-300"}
-                                    `}
+                                            `}
                                     >
-                                        <h3 className="text-xl font-semibold">{cat}</h3>
+                                        <h3 className="text-lg sm:text-xl font-semibold">{cat}</h3>
                                         <p className="text-sm text-gray-500">Click to select</p>
                                     </div>
-                                ))
-                            }
+                                ))}
                         </div>
 
-                        <h2 className="text-2xl font-bold my-4">Choose a Test Difficulty</h2>
+                        <h2 className="text-xl sm:text-2xl font-bold my-6 text-center lg:text-left">
+                            Choose a Test Difficulty
+                        </h2>
+
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {difficulties.length > 0 &&
                                 difficulties.map((d, idx) => (
                                     <div
                                         key={idx}
                                         onClick={() => setDifficulty(d)}
-                                        className={`cursor-pointer p-6 rounded-lg shadow-md border-2 transition-all
-                                        ${difficulty === d
+                                        className={`cursor-pointer p-4 sm:p-6 rounded-lg shadow-md border-2 transition-all text-center
+                                            ${difficulty === d
                                                 ? "border-blue-500 bg-blue-100 dark:bg-blue-900"
                                                 : "border-transparent bg-gray-100 dark:bg-gray-700 hover:border-blue-300"}
-                                    `}
+                                            `}
                                     >
-                                        <h3 className="text-xl font-semibold">{d}</h3>
+                                        <h3 className="text-lg sm:text-xl font-semibold">{d}</h3>
                                         <p className="text-sm text-gray-500">Click to select</p>
                                     </div>
-                                ))
-                            }
+                                ))}
                         </div>
 
                         <div className="p-6 flex justify-center">
                             <button
                                 onClick={handleClick}
-                                className="px-6 py-3 bg-blue-500 text-white rounded-full font-bold text-lg hover:bg-blue-600 transition-all"
+                                className="px-6 py-3 bg-blue-500 text-white rounded-full font-bold text-base sm:text-lg hover:bg-blue-600 transition-all w-full sm:w-auto"
                             >
                                 Start Test
                             </button>
@@ -139,7 +154,8 @@ function Home() {
                     </section>
                 </main>
             </div>
-        </div >
+        </div>
+
     );
 }
 

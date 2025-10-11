@@ -31,50 +31,64 @@ function Dashboard() {
     }, [])
 
     return (
-        <div className="font-mono min-h-[90vh] pt-5 transition-all dark:bg-gray-900 dark:text-white">
+        <div className="font-mono min-h-[90vh] pt-5 transition-all dark:bg-gray-900 dark:text-white bg-gray-50">
+            <section className="max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch justify-center gap-6 px-4 sm:px-6 md:px-8">
 
-            <section className="max-w-7xl mx-auto flex lg:flex-row md:flex-col sm:flex-col items-stretch justify-center gap-6">
-                <div className="flex flex-col items-center flex-1/3 rounded-xl bg-white dark:bg-gray-800 px-20 py-10">
-                    <div className="w-24 h-24 bg-blue-600 text-white dark:bg-blue-400 dark:text-gray-900 flex items-center justify-center font-extrabold text-5xl rounded-full my-5">
+                {/* Profile / User Summary */}
+                <div className="flex flex-col items-center w-full lg:w-1/3 rounded-xl bg-white dark:bg-gray-800 px-6 sm:px-10 py-8 shadow-md">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-blue-600 text-white dark:bg-blue-400 dark:text-gray-900 flex items-center justify-center font-extrabold text-4xl sm:text-5xl rounded-full my-4">
                         {user?.username[0].toUpperCase()}
                     </div>
-                    <h1 className="mt-4 text-2xl font-extrabold">{user?.username}</h1>
-                    <p className="text-gray-500 dark:text-gray-300 mt-1">
+                    <h1 className="mt-2 text-xl sm:text-2xl font-extrabold break-all text-center">
+                        {user?.username}
+                    </h1>
+                    <p className="text-gray-600 dark:text-gray-300 mt-2 text-sm sm:text-base text-center">
                         Total tests attempted: <span className="font-bold">{history?.length}</span>
                     </p>
                     <button
-                        className="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all"
+                        className="mt-6 w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-all"
                         onClick={() => navigate('/home')}
                     >
                         Take a Test
                     </button>
                 </div>
 
-                <div className="flex-2/3 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                {/* Leaderboard */}
+                <div className="w-full lg:w-2/3 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6">
                     <Leaderboard />
                 </div>
             </section>
 
-            <section className="max-w-7xl mx-auto text-center mt-10 p-6">
-                <h1 className="text-2xl font-bold mb-6 border-b border-gray-300 dark:border-gray-700 pb-2">Quiz History</h1>
-                {
-                    history ? (
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {history.map((q, index) => (
-                                <div key={index} className="bg-gray-100 dark:bg-gray-700 rounded-lg p-5 shadow-md hover:shadow-xl transition-shadow">
-                                    <h3 className="text-lg font-semibold mb-2">{q.quizMeta.category} Test</h3>
-                                    <p className="text-sm">Score: <span className="font-bold">{q.score}</span> / 10</p>
-                                    <p className="text-sm">Questions Attempted: {q.questionsAttempted}</p>
-                                    <p className="text-sm text-red-400">Incorrect: {q.questionsAttempted - q.score}</p>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-gray-500 dark:text-gray-400">You have not taken any test yet.</p>
-                    )
-                }
+            {/* QUIZ HISTORY SECTION */}
+            <section className="max-w-7xl mx-auto text-center mt-10 p-4 sm:p-6">
+                <h1 className="text-xl sm:text-2xl font-bold mb-6 border-b border-gray-300 dark:border-gray-700 pb-2">
+                    Quiz History
+                </h1>
+
+                {history && history.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                        {history.map((q, index) => (
+                            <div
+                                key={index}
+                                className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 sm:p-5 shadow-md hover:shadow-xl transition-all"
+                            >
+                                <h3 className="text-lg font-semibold mb-2 break-words">{q.quizMeta.category} Test</h3>
+                                <p className="text-sm sm:text-base">Score: <span className="font-bold">{q.score}</span> / 10</p>
+                                <p className="text-sm sm:text-base">Questions Attempted: {q.questionsAttempted}</p>
+                                <p className="text-sm sm:text-base text-red-400">
+                                    Incorrect: {q.questionsAttempted - q.score}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
+                        You have not taken any test yet.
+                    </p>
+                )}
             </section>
         </div>
+
     );
 }
 
