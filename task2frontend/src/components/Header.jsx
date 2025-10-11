@@ -23,8 +23,8 @@ function Header() {
             text: "Dashboard"
         }, {
             id: 3,
-            to: '/home',
-            text: "Test"
+            to: '/quiz-select',
+            text: "Quiz"
         },
     ]
 
@@ -40,12 +40,13 @@ function Header() {
         <header className="w-full bg-gray-300 dark:bg-gray-900 dark:text-white sticky top-0 left-0 right-0 z-10">
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center justify-between px-10 py-4 h-[10vh]">
-                <h1
-                    className="text-3xl font-bold cursor-pointer"
+
+                <img
+                    src="/Intellectra.png"
+                    alt="website_logo"
+                    className="w-25 h-10 rounded-md"
                     onClick={() => navigate("/")}
-                >
-                    TestYourBrain
-                </h1>
+                />
 
                 {isLogged ? (
                     <>
@@ -111,12 +112,13 @@ function Header() {
 
             {/* Mobile Nav */}
             <nav className="flex md:hidden items-center justify-between px-6 py-4 h-[10vh]">
-                <h1
-                    className="text-2xl font-bold cursor-pointer"
+
+                <img
+                    src="/Intellectra.png"
+                    alt="website_logo"
+                    className="w-15 h-7 rounded-md"
                     onClick={() => navigate("/")}
-                >
-                    TestYourBrain
-                </h1>
+                />
 
                 <button onClick={toggleMenu} className="focus:outline-none">
                     {isOpen ? <X size={28} /> : <Menu size={28} />}
