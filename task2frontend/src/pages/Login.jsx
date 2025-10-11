@@ -30,7 +30,7 @@ function Login() {
             });
             setForm({ email: "", password: "" });
             toast.success("Login successfull!");
-            navigate("/home");
+            navigate("/dashboard");
         } catch (err) {
             toast.error("Login Failed");
             console.error("Login Error: ", err.message);

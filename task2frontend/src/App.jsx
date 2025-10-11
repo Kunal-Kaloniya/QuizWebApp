@@ -3,9 +3,9 @@ import { AuthContext } from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Home from "./pages/Home";
+import QuizSelect from "./pages/QuizSelect.jsx";
 import Dashboard from "./pages/Dashboard";
-import IntroPage from "./pages/IntroPage";
+import Home from "./pages/Home.jsx";
 import Quiz from "./pages/Quiz";
 import Result from "./pages/Result";
 import Admin from "./pages/Admin/Admin";
@@ -20,12 +20,12 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Root />}>
-          <Route path="/" element={<IntroPage />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="/home" element={<Home />} />
+            <Route path="/quiz-select" element={<QuizSelect />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/result" element={<Result />} />
