@@ -47,9 +47,9 @@ function Dashboard() {
                     </p>
                     <button
                         className="mt-6 w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-all"
-                        onClick={() => navigate('/home')}
+                        onClick={() => navigate('/quiz-select')}
                     >
-                        Take a Test
+                        Take a Quiz
                     </button>
                 </div>
 
