@@ -30,7 +30,7 @@ function Admin() {
 
             {/* Sidebar */}
             <aside
-                className={`fixed md:static z-40 top-[19vh] left-0 h-full md:h-auto bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col transform transition-transform duration-300 ease-in-out
+                className={`fixed md:static z-5 top-[19vh] left-0 h-full md:h-auto bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 w-64`}
             >
                 <div className="hidden md:block py-6 text-center border-b border-gray-200 dark:border-gray-700">

@@ -53,7 +53,12 @@ const searchQuestion = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const question = await Question.findOne({ id });
+        const question = await Question.findOne({ _id: id });
+
+        if (!question) {
+            return res.status(404).json({ message: "Question not found" });
+        }
+
         res.status(200).json({ message: "Question found!", question });
 
     } catch (err) {
