@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constant.jsx";
+import Loader from "../components/Loader.jsx";
 
 function Quiz() {
 

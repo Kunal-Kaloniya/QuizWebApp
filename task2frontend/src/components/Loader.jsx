@@ -1,12 +1,32 @@
+import PropTypes from 'prop-types';
 import { RiLoader3Line } from "react-icons/ri";
 
 export default function Loader({ message }) {
     return (
-        <div className="w-full min-h-screen fixed top-0 left-0 bottom-0 right-0 bg-gray-900/50 z-50 flex items-center justify-center">
-            <div className="w-100 h-60 flex flex-col items-center justify-center rounded-lg bg-white/80 dark:bg-black/80 backdrop-blur-md dark:text-white p-8">
-                <RiLoader3Line className="animate-spin text-4xl" />
-                <span className="text-2xl font-semibold mt-4">{message || "Loading..."}</span>
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Loading content"
+        >
+            <div
+                className="flex flex-col items-center justify-center gap-6 rounded-xl bg-white/80 p-8 shadow-xl ring-1 ring-gray-900/10 backdrop-blur-md dark:bg-black/70 dark:text-white w-11/12 max-w-sm"
+                role="status"
+                aria-live="polite"
+            >
+                <RiLoader3Line className="animate-spin text-5xl text-gray-700 dark:text-gray-300" />
+                <span className="text-xl font-medium text-gray-800 dark:text-gray-200">
+                    {message}
+                </span>
             </div>
         </div>
     );
 }
+
+Loader.propTypes = {
+    message: PropTypes.string,
+};
+
+Loader.defaultProps = {
+    message: 'Loading...',
+};

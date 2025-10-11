@@ -37,7 +37,7 @@ function Header() {
     const closeMenu = () => setIsOpen(false);
 
     return (
-        <header className="w-full bg-gray-300 dark:bg-gray-900 dark:text-white sticky top-0 left-0 right-0 z-10">
+        <header className="w-full bg-gray-300 dark:bg-gray-950 dark:text-white sticky top-0 left-0 right-0 z-10">
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center justify-between px-10 py-4 h-[10vh]">
 
