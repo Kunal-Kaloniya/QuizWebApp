@@ -4,12 +4,14 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../utils/constant.jsx";
+import Loader from "../components/Loader.jsx";
 
 function Login() {
 
     const { login } = useContext(AuthContext);
 
     const [form, setForm] = useState({ email: "", password: "" });
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -20,6 +22,7 @@ function Login() {
         e.preventDefault();
 
         try {
+            setIsLoading(true);
             const res = await axios.post(`${BASE_URL}/api/auth/login`, form);
             localStorage.setItem("token", res.data.token);
             login({
@@ -34,6 +37,8 @@ function Login() {
         } catch (err) {
             toast.error("Login Failed");
             console.error("Login Error: ", err.message);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -83,6 +88,10 @@ function Login() {
                     </Link>
                 </p>
             </div>
+
+            {isLoading && (
+                <Loader message="Logging you in ..." />
+            )}
         </div>
 
     );

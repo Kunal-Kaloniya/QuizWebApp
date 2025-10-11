@@ -13,6 +13,7 @@ function Quiz() {
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [timeLeft, setTimeLeft] = useState(180);                  // 3 minutes
+    const [isLoading, setIsLoading] = useState(false);
 
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
@@ -82,6 +83,7 @@ function Quiz() {
 
     const handleSubmit = async () => {
         try {
+            setIsLoading(true);
             const response = await axios.post(`${BASE_URL}/api/quiz/result`, {
                 answers: selectedAnswers,
                 category: category,
@@ -95,6 +97,8 @@ function Quiz() {
             navigate("/result", { state: { result: response.data.score, questions: questions, selectedAnswers: selectedAnswers } });
         } catch (err) {
             console.error("There was an error fetching results: ", err);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -168,8 +172,8 @@ function Quiz() {
                                             key={optionId}
                                             htmlFor={optionId}
                                             className={`block border rounded-lg px-4 py-3 cursor-pointer transition text-sm sm:text-base ${selectedAnswers[questions[currentQuestion]._id] === option
-                                                    ? "bg-green-100 border-green-500 text-black"
-                                                    : "bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                                ? "bg-green-100 border-green-500 text-black"
+                                                : "bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
                                                 }`}
                                         >
                                             <input
@@ -215,6 +219,10 @@ function Quiz() {
                     </footer>
                 </div>
             </div>
+
+            {isLoading && (
+                <Loader message="Getting your results ..." />
+            )}
         </div>
 
     );

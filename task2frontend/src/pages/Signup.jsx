@@ -3,10 +3,12 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../utils/constant.jsx";
+import Loader from "../components/Loader.jsx";
 
 function Signup() {
 
     const [form, setForm] = useState({ username: "", email: "", password: "" });
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -17,12 +19,15 @@ function Signup() {
         e.preventDefault();
 
         try {
+            setIsLoading(true);
             const res = await axios.post(`${BASE_URL}/api/auth/signup`, form);
             setForm({ username: "", email: "", password: "" });
             toast.success("Signup successfull!");
             navigate("/login");
         } catch (err) {
             toast.error("Signup failed!");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -77,6 +82,10 @@ function Signup() {
                     <Link to="/login" className="text-blue-500 pl-2 font-bold">Loging in</Link>
                 </p>
             </div>
+
+            {isLoading && (
+                <Loader message="Siging you up ..." />
+            )}
         </div>
     );
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../../utils/constant.jsx";
+import Loader from "../../components/Loader.jsx";
 
 const AddQuestionForm = () => {
 
@@ -13,6 +14,7 @@ const AddQuestionForm = () => {
         "difficulty": "",
         "explanation": ""
     });
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,6 +31,7 @@ const AddQuestionForm = () => {
         e.preventDefault();
 
         try {
+            setIsLoading(true);
             const response = await axios.post(`${BASE_URL}/api/admin/add-question`, form, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
@@ -46,6 +49,8 @@ const AddQuestionForm = () => {
             })
         } catch (err) {
             toast.error("Failed to add question!");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -179,6 +184,10 @@ const AddQuestionForm = () => {
                     </button>
                 </div>
             </form>
+
+            {isLoading && (
+                <Loader message="Inserting new question ..." />
+            )}
         </div>
     );
 }

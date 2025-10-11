@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../../utils/constant.jsx";
+import Loader from "../../components/Loader.jsx";
 
 export default function ManageUsers() {
 
     const [users, setUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchUsers = async () => {
         try {
@@ -32,6 +34,7 @@ export default function ManageUsers() {
         newUserArr.splice(index, 1);
 
         try {
+            setIsLoading(true);
             await axios.delete(`${BASE_URL}/admin/delete-user/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
@@ -42,6 +45,8 @@ export default function ManageUsers() {
             toast.success("User deleted successfully!");
         } catch (err) {
             toast.error("Failed to delete the user!");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -91,6 +96,10 @@ export default function ManageUsers() {
                         </div>
                     ))}
                 </div>
+            )}
+
+            {isLoading && (
+                <Loader message="Deleting user, please wait..." />
             )}
         </div>
     );

@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../../utils/constant.jsx";
+import Loader from "../../components/Loader.jsx";
 
 export default function UpdateQuestion() {
 
@@ -15,6 +16,7 @@ export default function UpdateQuestion() {
     });
     const [quesId, setQuesId] = useState("");
     const [isQuesValid, setIsQuesValid] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -28,6 +30,7 @@ export default function UpdateQuestion() {
 
     const handleSearchQuestion = async (id) => {
         try {
+            setIsLoading(true);
             const response = await axios.get(`${BASE_URL}/api/admin/search-question/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
@@ -41,6 +44,8 @@ export default function UpdateQuestion() {
             toast.info("Question found!");
         } catch (err) {
             toast.warn("Question not found!");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -48,6 +53,7 @@ export default function UpdateQuestion() {
         e.preventDefault();
 
         try {
+            setIsLoading(true);
             const response = await axios.put(`${BASE_URL}/api/admin/update-question/${id}`, form, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
@@ -68,6 +74,8 @@ export default function UpdateQuestion() {
             setIsQuesValid(false);
         } catch (err) {
             toast.error("Failed to update question!");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -224,6 +232,10 @@ export default function UpdateQuestion() {
                         </button>
                     </div>
                 </form>
+            )}
+
+            {isLoading && (
+                <Loader message="Processing, please wait ..." />
             )}
         </div>
     );

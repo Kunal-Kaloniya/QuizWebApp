@@ -2,14 +2,17 @@ import { useState } from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import { BASE_URL } from "../../utils/constant.jsx";
+import Loader from "../../components/Loader.jsx";
 
 export default function DeleteQuestion() {
 
     const [quesId, setQuesId] = useState("");
     const [isQuesValid, setIsQuesValid] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSearchQuestion = async (id) => {
         try {
+            setIsLoading(true);
             const response = await axios.get(`${BASE_URL}/admin/search-question/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
@@ -23,11 +26,14 @@ export default function DeleteQuestion() {
             toast.info("Question found!");
         } catch (err) {
             toast.warn("Question not found!");
+        } finally {
+            setIsLoading(false);
         }
     }
 
     const handleDeleteQuestion = async (id) => {
         try {
+            setIsLoading(true);
             await axios.delete(`${BASE_URL}/api/admin/delete-question/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
@@ -39,6 +45,8 @@ export default function DeleteQuestion() {
             setIsQuesValid(false);
         } catch (err) {
             toast.error("Failed to delete question!");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -84,6 +92,10 @@ export default function DeleteQuestion() {
                 >
                     Delete Question
                 </button>
+            )}
+
+            {isLoading && (
+                <Loader message="Processing, please wait ..." />
             )}
         </div>
 

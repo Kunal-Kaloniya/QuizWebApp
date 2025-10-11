@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import axios from 'axios'
 import { useEffect, useState } from "react";
-import { FiLoader } from "react-icons/fi";
+import { RiLoader3Line } from "react-icons/ri";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../utils/constant.jsx";
@@ -41,7 +41,7 @@ function ProtectedRoute() {
     if (isLoading) {
         return (
             <div className="min-h-screen w-full flex flex-1 justify-center items-center">
-                <FiLoader className='animate-spin' />
+                <RiLoader3Line className='animate-spin text-xl' />
             </div>
         )
     }

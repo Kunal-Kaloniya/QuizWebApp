@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../utils/constant.jsx";
+import Loader from "../../components/Loader.jsx";
 
 const ViewQuestions = () => {
 
     const [category, setCategory] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [questions, setQuestions] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const testCategories = [
         "Math",
@@ -21,6 +23,7 @@ const ViewQuestions = () => {
 
     const fetchFilteredQuestions = async () => {
         try {
+            setIsLoading(true);
             const response = await axios.get(`${BASE_URL}/api/admin/all-questions`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
@@ -34,6 +37,8 @@ const ViewQuestions = () => {
             setQuestions(response.data);
         } catch (err) {
             console.error("Failed to fetch questions: ", err);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -120,6 +125,10 @@ const ViewQuestions = () => {
                         </div>
                     ))}
                 </div>
+            )}
+
+            {isLoading && (
+                <Loader message="Fetching questions, please wait..." />
             )}
         </div>
     );
