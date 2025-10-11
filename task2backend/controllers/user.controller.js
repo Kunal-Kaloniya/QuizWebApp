@@ -48,13 +48,20 @@ const loginUser = async (req, res) => {
         }
 
         const tokenPayload = {
+            _id: user._id,
             username: user.username,
             email: user.email,
             role: user.role
         };
         const token = generateToken(tokenPayload);
 
-        res.status(200).json({ message: "Login successfull", token, user: tokenPayload });
+        const userPublicData = {
+            username: user.username,
+            email: user.email,
+            role: user.role
+        }
+
+        res.status(200).json({ message: "Login successfull", token, user: userPublicData });
     } catch (error) {
         console.log("Server Error! Unable to login");
         res.status(500).json({ message: "Server Error! Unable to login" });

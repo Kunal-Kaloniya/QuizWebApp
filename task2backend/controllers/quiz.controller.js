@@ -56,7 +56,7 @@ const calculateResult = async (req, res) => {
         };
 
         await Result.create({
-            userId: req.user.id,
+            userId: req.user?.id,
             score,
             questionsAttempted: Object.keys(answers).length,
             quizMeta: {
@@ -64,7 +64,7 @@ const calculateResult = async (req, res) => {
                 difficulty: difficulty,
             },
             createdAt: new Date()
-        })
+        });
 
         res.status(200).json({ message: "all questions checked!", score });
     } catch (error) {
@@ -75,7 +75,7 @@ const calculateResult = async (req, res) => {
 
 const fetchQuizHistory = async (req, res) => {
     try {
-        const history = await Result.find({ userId: req.user.id })
+        const history = await Result.find({ userId: req?.user?.id });
         res.status(200).json(history);
     } catch (error) {
         console.log("Unable to fetch quiz history: ", error.message);

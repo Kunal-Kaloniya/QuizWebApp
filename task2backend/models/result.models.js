@@ -1,23 +1,28 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const resultSchema = mongoose.Schema({
     userId: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true,
     },
     score: {
         type: Number,
+        required: true,
     },
     quizMeta: {
         category: {
             type: String,
+            required: true,
         },
         difficulty: {
             type: String,
+            required: true,
         }
     },
     questionsAttempted: {
         type: Number,
+        required: true,
     }
 }, { timestamps: true });
 
