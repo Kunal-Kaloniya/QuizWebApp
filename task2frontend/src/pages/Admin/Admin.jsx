@@ -16,9 +16,9 @@ function Admin() {
     };
 
     return (
-        <div className="min-h-screen font-sans bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col md:flex-row transition-all">
+        <div className="min-h-screen font-sans bg-gray-100 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] flex flex-col md:flex-row transition-all">
             {/* Header (mobile only) */}
-            <header className="md:hidden flex items-center justify-between bg-white dark:bg-gray-800 border-b border-gray-300 dark:border-gray-700 px-4 py-3 shadow-sm">
+            <header className="md:hidden flex items-center justify-between bg-white dark:bg-[#172A45] border-b border-gray-300 dark:border-gray-700 px-4 py-3 shadow-sm">
                 <h1 className="text-xl font-bold">Admin Panel</h1>
                 <button
                     onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -30,8 +30,8 @@ function Admin() {
 
             {/* Sidebar */}
             <aside
-                className={`fixed md:static z-5 top-[19vh] left-0 h-full md:h-auto bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col transform transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 w-64`}
+                className={`fixed md:static z-5 top-[19vh] left-0 h-full md:h-auto bg-white dark:bg-[#172A45] border-r border-gray-200 dark:border-gray-700 flex flex-col transform transition-transform duration-300 ease-in-out
+${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 w-64`}
             >
                 <div className="hidden md:block py-6 text-center border-b border-gray-200 dark:border-gray-700">
                     <h1 className="text-2xl font-bold tracking-wide">Admin Panel</h1>
@@ -43,8 +43,8 @@ function Admin() {
                             key={tab}
                             onClick={() => handleTabChange(tab)}
                             className={`w-full text-left px-6 py-3 transition-colors font-medium ${activeTab === tab
-                                    ? "bg-blue-600 text-white shadow"
-                                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                                ? "bg-[#64FFDA] text-[#172A45] shadow"
+                                : "text-gray-700 dark:text-[#CCD6F6] hover:bg-gray-200 dark:hover:bg-[#0A192F]"
                                 }`}
                         >
                             {tab === "users"

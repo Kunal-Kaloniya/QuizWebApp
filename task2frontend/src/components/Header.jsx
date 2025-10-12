@@ -37,7 +37,7 @@ function Header() {
     const closeMenu = () => setIsOpen(false);
 
     return (
-        <header className="w-full bg-gray-300 dark:bg-gray-950 dark:text-white sticky top-0 left-0 right-0 z-10">
+        <header className="w-full bg-white dark:bg-[#0A192F] dark:text-[#CCD6F6] sticky top-0 left-0 right-0 z-10 border-b border-gray-200 dark:border-gray-800">
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center justify-between px-10 py-4 h-[10vh]">
 
@@ -55,7 +55,7 @@ function Header() {
                                 <Link
                                     key={link.id}
                                     to={link.to}
-                                    className="text-md px-2 py-2 hover:text-violet-600 transition-all"
+                                    className="text-md px-2 py-2 text-gray-700 dark:text-[#CCD6F6] hover:text-[#64FFDA] transition-all"
                                 >
                                     {link.text}
                                 </Link>
@@ -63,7 +63,7 @@ function Header() {
                             {user?.role === "admin" && (
                                 <Link
                                     to="/admin"
-                                    className="text-md px-2 py-2 hover:text-violet-600 transition-all"
+                                    className="text-md px-2 py-2 text-gray-700 dark:text-[#CCD6F6] hover:text-[#64FFDA] transition-all"
                                 >
                                     Admin
                                 </Link>
@@ -73,14 +73,14 @@ function Header() {
                         <div className="flex items-center gap-5">
                             <button
                                 onClick={toggleTheme}
-                                className="p-2 text-2xl rounded-md hover:shadow-lg bg-white dark:bg-gray-700 transition-all"
+                                className="p-2 text-2xl rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
                             >
                                 {theme === "light" ? <MdDarkMode /> : <MdOutlineLightMode />}
                             </button>
 
                             <button
                                 onClick={handleLogout}
-                                className="px-4 py-2 bg-white dark:bg-slate-700 font-bold dark:text-white rounded hover:bg-red-500 hover:text-white transition-all"
+                                className="px-4 py-2 bg-red-500 font-bold text-white rounded hover:bg-red-600 transition-all"
                             >
                                 Logout
                             </button>
@@ -90,19 +90,19 @@ function Header() {
                     <div className="flex items-center gap-3">
                         <button
                             onClick={toggleTheme}
-                            className="p-2 text-2xl rounded-md hover:shadow-lg bg-white dark:bg-gray-700 transition-all"
+                            className="p-2 text-2xl rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
                         >
                             {theme === "light" ? <MdDarkMode /> : <MdOutlineLightMode />}
                         </button>
                         <button
                             onClick={() => navigate("/signup")}
-                            className="px-4 py-2 bg-white dark:bg-slate-700 font-bold rounded hover:bg-blue-500 hover:text-white transition-all"
+                            className="px-4 py-2 bg-[#64FFDA] text-[#172A45] font-bold rounded hover:bg-[#96FFE8] transition-all"
                         >
                             Sign Up
                         </button>
                         <button
                             onClick={() => navigate("/login")}
-                            className="px-4 py-2 bg-white dark:bg-slate-700 font-bold rounded hover:bg-green-500 hover:text-white transition-all"
+                            className="px-4 py-2 bg-[#64FFDA] text-[#172A45] font-bold rounded hover:bg-[#96FFE8] transition-all"
                         >
                             Login
                         </button>
@@ -120,18 +120,18 @@ function Header() {
                     onClick={() => navigate("/")}
                 />
 
-                <button onClick={toggleMenu} className="focus:outline-none">
+                <button onClick={toggleMenu} className="focus:outline-none text-[#CCD6F6]">
                     {isOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
 
                 {/* Mobile Dropdown */}
                 {isOpen && (
-                    <div className="absolute top-[10vh] right-0 px-20 bg-gray-200 dark:bg-gray-800 flex flex-col items-center py-6 space-y-4 shadow-md">
+                    <div className="absolute top-[10vh] right-0 w-full bg-white dark:bg-[#172A45] flex flex-col items-center py-6 space-y-4 shadow-md">
                         {navigationLinks.map((link) => (
                             <Link
                                 key={link.id}
                                 to={link.to}
-                                className="text-lg font-medium hover:text-violet-600 transition-all"
+                                className="text-lg font-medium text-gray-700 dark:text-[#CCD6F6] hover:text-[#64FFDA] transition-all"
                                 onClick={closeMenu}
                             >
                                 {link.text}
@@ -141,7 +141,7 @@ function Header() {
                         {user?.role === "admin" && (
                             <Link
                                 to="/admin"
-                                className="text-lg font-medium hover:text-violet-600 transition-all"
+                                className="text-lg font-medium text-gray-700 dark:text-[#CCD6F6] hover:text-[#64FFDA] transition-all"
                                 onClick={closeMenu}
                             >
                                 Admin
@@ -165,7 +165,7 @@ function Header() {
                                         navigate("/signup");
                                         closeMenu();
                                     }}
-                                    className="px-6 py-2 bg-blue-500 text-white rounded-md font-bold hover:bg-blue-600 transition-all"
+                                    className="px-6 py-2 bg-[#64FFDA] text-[#172A45] rounded-md font-bold hover:bg-[#96FFE8] transition-all"
                                 >
                                     Sign Up
                                 </button>
@@ -174,7 +174,7 @@ function Header() {
                                         navigate("/login");
                                         closeMenu();
                                     }}
-                                    className="px-6 py-2 bg-green-500 text-white rounded-md font-bold hover:bg-green-600 transition-all"
+                                    className="px-6 py-2 bg-[#64FFDA] text-[#172A45] rounded-md font-bold hover:bg-[#96FFE8] transition-all"
                                 >
                                     Login
                                 </button>
@@ -183,7 +183,7 @@ function Header() {
 
                         <button
                             onClick={toggleTheme}
-                            className="p-2 rounded-md hover:shadow-lg bg-white dark:bg-gray-700 transition-all flex items-center gap-2"
+                            className="p-2 rounded-md hover:shadow-lg bg-gray-200 dark:bg-gray-700 transition-all flex items-center gap-2 text-gray-700 dark:text-[#CCD6F6]"
                         >
                             <span className="inline-block">{theme === "light" ? <MdDarkMode /> : <MdOutlineLightMode />}</span> Theme
                         </button>

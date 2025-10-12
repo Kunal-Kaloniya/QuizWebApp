@@ -25,12 +25,12 @@ export default function Leaderboard() {
     }, [])
 
     return (
-        <div className="dark:text-white">
+        <div className="dark:text-[#CCD6F6]">
             <h2 className="text-2xl font-bold mb-4 text-center">Leaderboard</h2>
             {leaderboard.length !== 0 ? (
                 <div className="overflow-y-auto rounded-xl flex justify-center">
                     <table className="text-center text-sm w-full">
-                        <thead className="bg-gray-400 text-black dark:bg-gray-900 dark:text-white">
+                        <thead className="bg-gray-400 text-black dark:bg-[#0A192F] dark:text-[#CCD6F6]">
                             <tr>
                                 <th className="p-2">Rank</th>
                                 <th className="p-2">Username</th>
@@ -40,7 +40,7 @@ export default function Leaderboard() {
                         </thead>
                         <tbody>
                             {leaderboard.map((user, index) => (
-                                <tr key={user.username}  className="border-t border-gray-200 dark:border-slate-700">
+                                <tr key={user.username} className="border-t border-gray-200 dark:border-[#172A45]">
                                     <td className="p-2">{index + 1}</td>
                                     <td className="p-2">{user.username}</td>
                                     <td className="p-2">{user.totalScore}</td>
@@ -51,7 +51,7 @@ export default function Leaderboard() {
                     </table>
                 </div>
             ) : (
-                <p className="text-center px-4 py-2 border rounded-lg">No quizes attempted...</p>
+                <p className="text-center px-4 py-2 border rounded-lg dark:text-gray-400">No quizzes attempted...</p>
             )}
         </div>
     );

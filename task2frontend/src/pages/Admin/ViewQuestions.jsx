@@ -43,13 +43,13 @@ const ViewQuestions = () => {
     }
 
     return (
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+        <div className="bg-white dark:bg-[#172A45] shadow-md rounded-lg p-6">
             {/* Filter Section */}
             <div className="flex flex-col md:flex-row gap-3 items-center mb-6">
                 <select
                     onChange={(e) => setCategory(e.target.value)}
                     value={category}
-                    className="w-full md:w-auto border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full md:w-auto border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                 >
                     <option value="">All Categories</option>
                     {testCategories.map((option, index) => (
@@ -59,7 +59,7 @@ const ViewQuestions = () => {
                 <select
                     onChange={(e) => setDifficulty(e.target.value)}
                     value={difficulty}
-                    className="w-full md:w-auto border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full md:w-auto border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                 >
                     <option value="">All Difficulties</option>
                     {testDifficulties.map((option, index) => (
@@ -68,14 +68,14 @@ const ViewQuestions = () => {
                 </select>
                 <button
                     onClick={fetchFilteredQuestions}
-                    className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-md shadow-sm transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                    className="w-full md:w-auto bg-[#64FFDA] hover:bg-[#96FFE8] text-[#172A45] font-semibold px-5 py-2 rounded-md shadow-sm transition-colors focus:ring-2 focus:ring-[#64FFDA] focus:ring-offset-1"
                 >
                     Filter
                 </button>
             </div>
             {/* Question List */}
             {questions.length === 0 ? (
-                <p className="text-gray-600 dark:text-gray-300 text-center italic">
+                <p className="text-gray-600 dark:text-gray-400 text-center italic">
                     No questions found.
                 </p>
             ) : (
@@ -83,7 +83,7 @@ const ViewQuestions = () => {
                     {questions.map((q) => (
                         <div
                             key={q._id}
-                            className="p-5 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow"
+                            className="p-5 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-[#0A192F] shadow-sm hover:shadow-md transition-shadow"
                         >
                             {/* Header */}
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
@@ -91,7 +91,7 @@ const ViewQuestions = () => {
                                     ID: {q._id}
                                 </span>
                                 <div className="flex flex-wrap gap-2">
-                                    <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100">
+                                    <span className="px-3 py-1 text-xs rounded-full bg-[#CCD6F6] text-black dark:bg-[#CCD6F6] dark:text-black">
                                         {q.category}
                                     </span>
                                     <span className="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100">
@@ -100,15 +100,15 @@ const ViewQuestions = () => {
                                 </div>
                             </div>
                             {/* Question */}
-                            <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
+                            <h2 className="text-lg font-semibold text-gray-800 dark:text-[#CCD6F6] mb-2">
                                 {q.question}
                             </h2>
                             {/* Options */}
                             <div className="mb-3">
-                                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <p className="text-sm font-medium text-gray-700 dark:text-[#CCD6F6]">
                                     Options:
                                 </p>
-                                <ul className="list-disc pl-6 text-gray-800 dark:text-gray-200">
+                                <ul className="list-disc pl-6 text-gray-800 dark:text-[#CCD6F6]">
                                     {q.options.map((opt, idx) => (
                                         <li key={idx}>{opt}</li>
                                     ))}

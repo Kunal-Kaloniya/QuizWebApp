@@ -79,8 +79,8 @@ export default function UpdateQuestion() {
 
     return (
         <div className="p-6 max-w-3xl mx-auto space-y-5">
-            <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-                <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-100">
+            <div className="bg-white dark:bg-[#172A45] shadow-md rounded-lg p-6">
+                <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-[#CCD6F6]">
                     Update a Question
                 </h1>
 
@@ -95,13 +95,13 @@ export default function UpdateQuestion() {
                             setQuesId(e.target.value);
                             setQuestion(null);
                         }}
-                        className="flex-1 border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="flex-1 border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                         disabled={question ? true : false}
                     />
                     <button
                         type="button"
                         onClick={() => handleSearchQuestion(quesId)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-md shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        className="bg-[#64FFDA] hover:bg-[#96FFE8] text-[#172A45] font-medium px-5 py-2 rounded-md shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-[#64FFDA]"
                     >
                         Search
                     </button>
@@ -112,7 +112,7 @@ export default function UpdateQuestion() {
             {question && (
                 <div
                     key={question._id}
-                    className="p-5 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow"
+                    className="p-5 border border-gray-200 dark:border-[#172A45] rounded-lg bg-gray-50 dark:bg-[#0A192F] shadow-sm hover:shadow-md transition-shadow"
                 >
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
                         <span className="text-xs font-mono text-gray-500 dark:text-gray-400 mb-2 sm:mb-0">
@@ -128,15 +128,15 @@ export default function UpdateQuestion() {
                         </div>
                     </div>
                     {/* Question */}
-                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
+                    <h2 className="text-lg font-semibold text-gray-800 dark:text-[#CCD6F6] mb-2">
                         {question.question}
                     </h2>
                     {/* Options */}
                     <div className="mb-3">
-                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <p className="text-sm font-medium text-gray-700 dark:text-[#CCD6F6]">
                             Options:
                         </p>
-                        <ul className="list-disc pl-6 text-gray-800 dark:text-gray-200">
+                        <ul className="list-disc pl-6 text-gray-800 dark:text-[#CCD6F6]">
                             {question.options.map((opt, idx) => (
                                 <li key={idx}>{opt}</li>
                             ))}
@@ -156,16 +156,15 @@ export default function UpdateQuestion() {
             {/* Updated Fields */}
             {question && (
                 <form
-                    className="space-y-5 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6"
+                    className="space-y-5 bg-white dark:bg-[#172A45] shadow-md rounded-lg p-6"
                     onSubmit={(e) => handleUpdateQuestion(e, quesId)}
                 >
-
-                    <h3 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">Updated Fields</h3>
+                    <h3 className="text-2xl font-bold text-center text-gray-800 dark:text-[#CCD6F6]">Updated Fields</h3>
                     {/* Question */}
                     <div>
                         <label
                             htmlFor="question"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                            className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                         >
                             Question
                         </label>
@@ -175,13 +174,13 @@ export default function UpdateQuestion() {
                             name="question"
                             value={form.question}
                             onChange={handleChange}
-                            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                         />
                     </div>
 
                     {/* Options */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-2">
                             Options
                         </label>
                         <div className="grid grid-cols-2 gap-3">
@@ -192,7 +191,7 @@ export default function UpdateQuestion() {
                                     value={opt}
                                     onChange={(e) => handleOptionChange(index, e.target.value)}
                                     placeholder={`Option ${index + 1}`}
-                                    className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                                    className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                                 />
                             ))}
                         </div>
@@ -202,7 +201,7 @@ export default function UpdateQuestion() {
                     <div>
                         <label
                             htmlFor="correctAnswer"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                            className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                         >
                             Correct Answer
                         </label>
@@ -212,7 +211,7 @@ export default function UpdateQuestion() {
                             name="correctAnswer"
                             value={form.correctAnswer}
                             onChange={handleChange}
-                            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                         />
                     </div>
 
@@ -220,7 +219,7 @@ export default function UpdateQuestion() {
                     <div>
                         <label
                             htmlFor="category"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                            className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                         >
                             Category
                         </label>
@@ -230,7 +229,7 @@ export default function UpdateQuestion() {
                             name="category"
                             value={form.category}
                             onChange={handleChange}
-                            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                         />
                     </div>
 
@@ -238,7 +237,7 @@ export default function UpdateQuestion() {
                     <div>
                         <label
                             htmlFor="difficulty"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                            className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                         >
                             Difficulty
                         </label>
@@ -247,7 +246,7 @@ export default function UpdateQuestion() {
                             name="difficulty"
                             value={form.difficulty}
                             onChange={handleChange}
-                            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                         >
                             <option defaultChecked value="" disabled hidden>-- select --</option>
                             <option value="Easy">Easy</option>
@@ -260,7 +259,7 @@ export default function UpdateQuestion() {
                     <div>
                         <label
                             htmlFor="explanation"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                            className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                         >
                             Explanation
                         </label>
@@ -270,7 +269,7 @@ export default function UpdateQuestion() {
                             value={form.explanation}
                             onChange={handleChange}
                             rows={4}
-                            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                            className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                         />
                     </div>
 
@@ -289,7 +288,6 @@ export default function UpdateQuestion() {
             {isLoading && (
                 <Loader message="Processing, please wait ..." />
             )}
-
         </div>
     );
 }

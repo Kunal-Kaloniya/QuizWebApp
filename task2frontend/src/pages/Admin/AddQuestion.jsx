@@ -55,8 +55,8 @@ const AddQuestionForm = () => {
     }
 
     return (
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 max-w-3xl mx-auto">
-            <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-100">
+        <div className="bg-white dark:bg-[#172A45] shadow-md rounded-lg p-6 max-w-3xl mx-auto">
+            <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-[#CCD6F6]">
                 Add a Question
             </h1>
 
@@ -65,7 +65,7 @@ const AddQuestionForm = () => {
                 <div>
                     <label
                         htmlFor="question"
-                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                        className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                     >
                         Question
                     </label>
@@ -75,13 +75,13 @@ const AddQuestionForm = () => {
                         name="question"
                         value={form.question}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                     />
                 </div>
 
                 {/* Options */}
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-2">
                         Options
                     </label>
                     <div className="grid grid-cols-2 gap-3">
@@ -92,7 +92,7 @@ const AddQuestionForm = () => {
                                 value={opt}
                                 onChange={(e) => handleOptionChange(index, e.target.value)}
                                 placeholder={`Option ${index + 1}`}
-                                className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                                className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                             />
                         ))}
                     </div>
@@ -102,7 +102,7 @@ const AddQuestionForm = () => {
                 <div>
                     <label
                         htmlFor="correctAnswer"
-                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                        className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                     >
                         Correct Answer
                     </label>
@@ -112,7 +112,7 @@ const AddQuestionForm = () => {
                         name="correctAnswer"
                         value={form.correctAnswer}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                     />
                 </div>
 
@@ -120,7 +120,7 @@ const AddQuestionForm = () => {
                 <div>
                     <label
                         htmlFor="category"
-                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                        className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                     >
                         Category
                     </label>
@@ -130,7 +130,7 @@ const AddQuestionForm = () => {
                         name="category"
                         value={form.category}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                     />
                 </div>
 
@@ -138,7 +138,7 @@ const AddQuestionForm = () => {
                 <div>
                     <label
                         htmlFor="difficulty"
-                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                        className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                     >
                         Difficulty
                     </label>
@@ -147,7 +147,7 @@ const AddQuestionForm = () => {
                         name="difficulty"
                         value={form.difficulty}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                     >
                         <option defaultChecked value="" disabled hidden>-- select --</option>
                         <option value="Easy">Easy</option>
@@ -160,7 +160,7 @@ const AddQuestionForm = () => {
                 <div>
                     <label
                         htmlFor="explanation"
-                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                        className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                     >
                         Explanation
                     </label>
@@ -170,7 +170,7 @@ const AddQuestionForm = () => {
                         value={form.explanation}
                         onChange={handleChange}
                         rows={4}
-                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                        className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                     />
                 </div>
 
@@ -178,7 +178,7 @@ const AddQuestionForm = () => {
                 <div className="pt-4">
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        className="w-full bg-[#64FFDA] hover:bg-[#96FFE8] text-[#172A45] font-semibold py-2 px-4 rounded-md shadow-md transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-[#64FFDA]"
                     >
                         Add Question
                     </button>

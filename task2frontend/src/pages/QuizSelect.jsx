@@ -63,11 +63,11 @@ function QuizSelect() {
     }
 
     return (
-        <div className="transition-all bg-white text-black dark:bg-gray-700 dark:text-white min-h-[90vh]">
+        <div className="transition-all bg-white text-black dark:bg-[#0A192F] dark:text-[#CCD6F6] min-h-[90vh]">
             <div className="min-h-[90vh] flex flex-col items-center justify-center px-4 sm:px-6 md:px-8">
 
                 {/* Hero Section */}
-                <header className="text-center w-full py-8 dark:text-white">
+                <header className="text-center w-full py-8 dark:text-[#CCD6F6]">
                     <h1 className="text-3xl sm:text-4xl font-bold">
                         Welcome, {user?.username}!
                     </h1>
@@ -82,15 +82,15 @@ function QuizSelect() {
                     {/* Sidebar / Instructions */}
                     <aside
                         id="navBar"
-                        className="w-full lg:w-1/3 py-5 px-6 sm:px-8 rounded-xl bg-gray-200 dark:bg-gray-800 shadow-md"
+                        className="w-full lg:w-1/3 py-5 px-6 sm:px-8 rounded-xl bg-gray-200 dark:bg-[#172A45] shadow-md"
                     >
-                        <h1 className="text-left mb-4 underline text-xl sm:text-2xl text-red-400 font-bold">
+                        <h1 className="text-left mb-4 underline text-xl sm:text-2xl text-red-400 dark:text-[#64FFDA] font-bold">
                             Instructions
                         </h1>
-                        <ol className="text-base sm:text-lg space-y-2">
+                        <ol className="text-base sm:text-lg space-y-2 text-gray-700 dark:text-gray-400">
                             {instructionList.length > 0 &&
                                 instructionList.map((ins) => (
-                                    <li key={ins.id} className={`${ins?.color ? "text-red-800" : ""}`}>
+                                    <li key={ins.id} className={`${ins?.color ? "text-red-800 dark:text-red-400" : ""}`}>
                                         {ins.id}. {ins.i}
                                     </li>
                                 ))}
@@ -98,8 +98,8 @@ function QuizSelect() {
                     </aside>
 
                     {/* Category + Difficulty Selection */}
-                    <section className="w-full lg:w-2/3 py-5 px-6 sm:px-10 rounded-xl bg-gray-200 dark:bg-gray-800 shadow-md">
-                        <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center lg:text-left">
+                    <section className="w-full lg:w-2/3 py-5 px-6 sm:px-10 rounded-xl bg-gray-200 dark:bg-[#172A45] shadow-md">
+                        <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center lg:text-left text-gray-900 dark:text-[#CCD6F6]">
                             Choose a Test Subject
                         </h2>
 
@@ -110,18 +110,18 @@ function QuizSelect() {
                                         key={idx}
                                         onClick={() => setCategory(cat)}
                                         className={`cursor-pointer p-4 sm:p-6 rounded-lg shadow-md border-2 transition-all text-center
-                                            ${category === cat
-                                                ? "border-blue-500 bg-blue-100 dark:bg-blue-900"
-                                                : "border-transparent bg-gray-100 dark:bg-gray-700 hover:border-blue-300"}
-                                            `}
+                                    ${category === cat
+                                                ? "border-[#64FFDA] bg-gray-200 dark:bg-[#172A45] text-gray-900 dark:text-[#64FFDA]"
+                                                : "border-transparent bg-gray-100 dark:bg-[#0A192F] hover:border-[#64FFDA]"}
+                                `}
                                     >
                                         <h3 className="text-lg sm:text-xl font-semibold">{cat}</h3>
-                                        <p className="text-sm text-gray-500">Click to select</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Click to select</p>
                                     </div>
                                 ))}
                         </div>
 
-                        <h2 className="text-xl sm:text-2xl font-bold my-6 text-center lg:text-left">
+                        <h2 className="text-xl sm:text-2xl font-bold my-6 text-center lg:text-left text-gray-900 dark:text-[#CCD6F6]">
                             Choose a Test Difficulty
                         </h2>
 
@@ -132,13 +132,13 @@ function QuizSelect() {
                                         key={idx}
                                         onClick={() => setDifficulty(d)}
                                         className={`cursor-pointer p-4 sm:p-6 rounded-lg shadow-md border-2 transition-all text-center
-                                            ${difficulty === d
-                                                ? "border-blue-500 bg-blue-100 dark:bg-blue-900"
-                                                : "border-transparent bg-gray-100 dark:bg-gray-700 hover:border-blue-300"}
-                                            `}
+                                    ${difficulty === d
+                                                ? "border-[#64FFDA] bg-gray-200 dark:bg-[#172A45] text-gray-900 dark:text-[#64FFDA]"
+                                                : "border-transparent bg-gray-100 dark:bg-[#0A192F] hover:border-[#64FFDA]"}
+                                `}
                                     >
                                         <h3 className="text-lg sm:text-xl font-semibold">{d}</h3>
-                                        <p className="text-sm text-gray-500">Click to select</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Click to select</p>
                                     </div>
                                 ))}
                         </div>
@@ -146,7 +146,7 @@ function QuizSelect() {
                         <div className="p-6 flex justify-center">
                             <button
                                 onClick={handleStartQuiz}
-                                className="px-6 py-3 bg-blue-500 text-white rounded-full font-bold text-base sm:text-lg hover:bg-blue-600 transition-all w-full sm:w-auto"
+                                className="px-6 py-3 bg-[#64FFDA] text-[#172A45] rounded-full font-bold text-base sm:text-lg hover:bg-[#96FFE8] transition-all w-full sm:w-auto"
                             >
                                 Start Quiz
                             </button>
@@ -155,7 +155,6 @@ function QuizSelect() {
                 </main>
             </div>
         </div>
-
     );
 }
 

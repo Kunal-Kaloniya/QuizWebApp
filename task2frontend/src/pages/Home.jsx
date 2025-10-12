@@ -7,10 +7,10 @@ import { AuthContext } from "../context/AuthContext.jsx";
 
 function FeatureCard({ icon, title, children }) {
     return (
-        <div className="flex flex-col items-center p-6 text-center bg-gray-50 border border-gray-200 rounded-lg shadow-md dark:bg-gray-700 dark:border-gray-600 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <div className="text-4xl text-indigo-500 mb-4">{icon}</div>
-            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{title}</h3>
-            <p className="text-gray-600 dark:text-gray-300">{children}</p>
+        <div className="flex flex-col items-center p-6 text-center bg-gray-50 border border-gray-200 rounded-lg shadow-md dark:bg-[#172A45] dark:border-gray-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="text-4xl text-indigo-500 dark:text-[#64FFDA] mb-4">{icon}</div>
+            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-[#CCD6F6]">{title}</h3>
+            <p className="text-gray-600 dark:text-gray-400">{children}</p>
         </div>
     );
 }
@@ -26,20 +26,20 @@ export default function Home() {
     const { isLogged } = useContext(AuthContext);
 
     return (
-        <div className="min-h-[90vh] flex flex-col justify-between bg-white dark:bg-gray-800 dark:text-white transition-colors duration-300">
+        <div className="min-h-[90vh] flex flex-col justify-between bg-white dark:bg-[#0A192F] dark:text-[#CCD6F6] transition-colors duration-300">
             <main className="flex-1">
                 {/* Hero Section */}
-                <section className="text-center py-20 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900">
+                <section className="text-center py-20 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-[#0A192F]">
                     <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                        Unlock Your Potential, <span className="text-indigo-600 dark:text-indigo-400">One Quiz at a Time.</span>
+                        Unlock Your Potential, <span className="text-indigo-600 dark:text-[#64FFDA]">One Quiz at a Time.</span>
                     </h1>
-                    <p className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-gray-600 dark:text-gray-300">
+                    <p className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-gray-600 dark:text-gray-400">
                         Dive into a world of knowledge with quizzes designed to sharpen your mind in Mathematics, Science, and Computer Science. Whether you're a student, a professional, or a curious learner, our platform offers a dynamic way to test and expand your expertise.
                     </p>
                     <div className="mt-8">
                         <Link
                             to={isLogged ? '/quiz-select' : '/login'}
-                            className="inline-block px-8 py-3 text-lg font-semibold text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform transform hover:scale-105"
+                            className="inline-block px-8 py-3 text-lg font-semibold text-white bg-indigo-600 dark:bg-[#64FFDA] dark:text-[#172A45] rounded-lg shadow-md hover:bg-indigo-700 dark:hover:bg-[#96FFE8] focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-[#64FFDA] focus:ring-offset-2 transition-transform transform hover:scale-105"
                         >
                             Start a Quiz Now
                         </Link>
@@ -47,9 +47,9 @@ export default function Home() {
                 </section>
 
                 {/* Features Section */}
-                <section className="py-20 px-4 sm:px-6 lg:px-8">
+                <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#0A192F]">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Why Our Platform is a Game-Changer</h2>
+                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-gray-900 dark:text-[#CCD6F6]">Why Our Platform is a Game-Changer</h2>
                         <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-500 dark:text-gray-400">
                             Everything you need to succeed, all in one place.
                         </p>
@@ -68,25 +68,25 @@ export default function Home() {
                 </section>
 
                 {/* How It Works Section */}
-                <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900">
+                <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-[#172A45]">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Get Started in Three Simple Steps</h2>
+                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-gray-900 dark:text-[#CCD6F6]">Get Started in Three Simple Steps</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center">
                         <div className="p-4">
-                            <div className="flex items-center justify-center h-16 w-16 mx-auto mb-4 bg-indigo-100 text-indigo-600 rounded-full text-2xl font-bold">1</div>
-                            <h3 className="text-xl font-bold mb-2">Select Your Quiz</h3>
-                            <p className="text-gray-600 dark:text-gray-300">Browse our extensive library and choose a topic and difficulty level that's right for you.</p>
+                            <div className="flex items-center justify-center h-16 w-16 mx-auto mb-4 bg-indigo-100 dark:bg-[#64FFDA] dark:text-[#172A45] rounded-full text-2xl font-bold">1</div>
+                            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-[#CCD6F6]">Select Your Quiz</h3>
+                            <p className="text-gray-600 dark:text-gray-400">Browse our extensive library and choose a topic and difficulty level that's right for you.</p>
                         </div>
                         <div className="p-4">
-                            <div className="flex items-center justify-center h-16 w-16 mx-auto mb-4 bg-indigo-100 text-indigo-600 rounded-full text-2xl font-bold">2</div>
-                            <h3 className="text-xl font-bold mb-2">Take the Challenge</h3>
-                            <p className="text-gray-600 dark:text-gray-300">Engage with thought-provoking questions and submit your answers before the timer runs out.</p>
+                            <div className="flex items-center justify-center h-16 w-16 mx-auto mb-4 bg-indigo-100 dark:bg-[#64FFDA] dark:text-[#172A45] rounded-full text-2xl font-bold">2</div>
+                            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-[#CCD6F6]">Take the Challenge</h3>
+                            <p className="text-gray-600 dark:text-gray-400">Engage with thought-provoking questions and submit your answers before the timer runs out.</p>
                         </div>
                         <div className="p-4">
-                            <div className="flex items-center justify-center h-16 w-16 mx-auto mb-4 bg-indigo-100 text-indigo-600 rounded-full text-2xl font-bold">3</div>
-                            <h3 className="text-xl font-bold mb-2">Achieve Mastery</h3>
-                            <p className="text-gray-600 dark:text-gray-300">Receive instant feedback, review your results, and aim for the top of the leaderboard.</p>
+                            <div className="flex items-center justify-center h-16 w-16 mx-auto mb-4 bg-indigo-100 dark:bg-[#64FFDA] dark:text-[#172A45] rounded-full text-2xl font-bold">3</div>
+                            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-[#CCD6F6]">Achieve Mastery</h3>
+                            <p className="text-gray-600 dark:text-gray-400">Receive instant feedback, review your results, and aim for the top of the leaderboard.</p>
                         </div>
                     </div>
                 </section>

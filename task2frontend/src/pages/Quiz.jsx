@@ -104,20 +104,20 @@ function Quiz() {
     }
 
     return (
-        <div className="font-mono relative bg-white text-black dark:bg-gray-700 dark:text-white transition-all min-h-[90vh]">
+        <div className="font-mono relative bg-white text-black dark:bg-[#0A192F] dark:text-[#CCD6F6] transition-all min-h-[90vh]">
             <div className="flex flex-col md:flex-row">
                 {/* Sidebar */}
-                <nav className="w-full md:w-[20vw] px-4 py-6 bg-gray-300 text-black dark:text-white dark:bg-gray-900 transition-all">
+                <nav className="w-full md:w-[20vw] px-4 py-6 bg-gray-300 text-black dark:text-[#CCD6F6] dark:bg-[#172A45] transition-all">
                     <h2 className="text-center mb-4 font-semibold text-lg border-b pb-2">Quiz Stats</h2>
 
                     <div className="space-y-3 mb-6">
-                        <div className="p-3 text-center bg-white dark:bg-gray-800 rounded shadow font-medium">
+                        <div className="p-3 text-center bg-white dark:bg-[#0A192F] rounded shadow font-medium">
                             Total Questions: <span className="font-bold">{questions.length}</span>
                         </div>
-                        <div className="p-3 text-center bg-white dark:bg-gray-800 rounded shadow font-medium">
+                        <div className="p-3 text-center bg-white dark:bg-[#0A192F] rounded shadow font-medium">
                             Attempted: <span className="font-bold">{Object.keys(selectedAnswers).length}</span>
                         </div>
-                        <div className="p-3 text-center bg-white dark:bg-gray-800 rounded shadow font-medium">
+                        <div className="p-3 text-center bg-white dark:bg-[#0A192F] rounded shadow font-medium">
                             Remaining:{" "}
                             <span className="font-bold">
                                 {questions.length - Object.keys(selectedAnswers).length}
@@ -128,14 +128,15 @@ function Quiz() {
                     <h2 className="text-center mb-2 font-semibold text-lg border-b pb-2">Your Answers</h2>
                     <div
                         id="selected-answers"
-                        className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-5 gap-2 py-4 px-2 mb-5 rounded text-center bg-white dark:bg-gray-800 text-black shadow-2xl"
+                        className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-5 gap-2 py-4 px-2 mb-5 rounded text-center bg-white dark:bg-[#0A192F] text-black shadow-2xl"
                     >
                         {questions.length !== 0 &&
                             questions.map((q, index) => (
                                 <div
                                     key={index}
-                                    className={`py-2 rounded-md text-sm bg-gray-400 dark:bg-gray-700 dark:text-white transition-colors ${selectedAnswers[q._id] && "bg-green-400 dark:bg-green-500"
-                                        }`}
+                                    className={`py-2 rounded-md text-sm bg-gray-400 dark:bg-gray-700 dark:text-[#CCD6F6] transition-colors
+                                        ${selectedAnswers[q._id] && "bg-teal-400 dark:bg-teal-400 dark:text-black"}
+                                        `}
                                 >
                                     {index + 1}
                                 </div>
@@ -143,8 +144,8 @@ function Quiz() {
                     </div>
 
                     <h2
-                        className={`${timeLeft <= 30 && "text-red-600"
-                            } mt-6 p-3 text-center font-bold text-lg rounded bg-white dark:bg-gray-800 shadow`}
+                        className={`${timeLeft <= 30 && "text-red-500"
+                            } mt-6 p-3 text-center font-bold text-lg rounded bg-white dark:bg-[#0A192F] shadow`}
                     >
                         Time Left: {formatTime(timeLeft)}
                     </h2>
@@ -153,7 +154,7 @@ function Quiz() {
                 {/* Main Quiz Area */}
                 <div
                     id="main"
-                    className="w-full md:w-[80vw] min-h-[90vh] bg-gray-200 text-black dark:bg-gray-800 dark:text-white py-6 px-6 sm:px-10 relative transition-all"
+                    className="w-full md:w-[80vw] min-h-[90vh] bg-gray-200 text-black dark:bg-[#0A192F] dark:text-[#CCD6F6] py-6 px-6 sm:px-10 relative transition-all"
                 >
                     {questions.length > 0 && (
                         <div>
@@ -173,8 +174,8 @@ function Quiz() {
                                             key={optionId}
                                             htmlFor={optionId}
                                             className={`block border rounded-lg px-4 py-3 cursor-pointer transition text-sm sm:text-base ${selectedAnswers[questions[currentQuestion]._id] === option
-                                                ? "bg-green-100 border-green-500 text-black"
-                                                : "bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                                ? "bg-[#64FFDA] dark:bg-[#64FFDA] text-black dark:text-black"
+                                                : "bg-white dark:bg-[#172A45] hover:bg-gray-100 dark:hover:bg-[#2A3B58]"
                                                 }`}
                                         >
                                             <input
@@ -195,16 +196,16 @@ function Quiz() {
                     )}
 
                     {/* Footer Buttons */}
-                    <footer className="absolute bottom-0 left-0 right-0 bg-gray-300 text-black dark:bg-gray-900 px-4 sm:px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <footer className="absolute bottom-0 left-0 right-0 bg-gray-300 text-black dark:bg-[#172A45] dark:text-[#CCD6F6] px-4 sm:px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div className="flex gap-4 sm:gap-6">
                             <button
-                                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded shadow text-sm sm:text-base"
+                                className="bg-[#CCD6F6] hover:bg-gray-400 text-[#172A45] px-6 py-2 rounded shadow text-sm sm:text-base"
                                 onClick={handlePrevious}
                             >
                                 Previous
                             </button>
                             <button
-                                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded shadow text-sm sm:text-base"
+                                className="bg-[#64FFDA] hover:bg-[#96FFE8] text-[#172A45] px-6 py-2 rounded shadow text-sm sm:text-base"
                                 onClick={handleNext}
                             >
                                 Next
@@ -225,7 +226,6 @@ function Quiz() {
                 <Loader message="Getting your results ..." />
             )}
         </div>
-
     );
 }
 

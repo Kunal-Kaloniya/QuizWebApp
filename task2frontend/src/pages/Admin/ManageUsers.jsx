@@ -51,13 +51,13 @@ export default function ManageUsers() {
     }
 
     return (
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-            <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+        <div className="bg-white dark:bg-[#172A45] shadow-md rounded-lg p-6 max-w-3xl mx-auto">
+            <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-[#CCD6F6]">
                 Manage Users
             </h1>
 
             {users.length === 0 ? (
-                <p className="text-gray-600 dark:text-gray-300 italic text-center">
+                <p className="text-gray-600 dark:text-gray-400 italic text-center">
                     No users found.
                 </p>
             ) : (
@@ -65,20 +65,20 @@ export default function ManageUsers() {
                     {users.map((user, index) => (
                         <div
                             key={index}
-                            className="flex flex-col md:flex-row md:items-center md:justify-between border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+                            className="flex flex-col md:flex-row md:items-center md:justify-between border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#0A192F] rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
                         >
                             {/* Username & Role */}
                             <div className="flex items-center mb-2 md:mb-0">
-                                <span className="font-semibold text-gray-800 dark:text-gray-100">
+                                <span className="font-semibold text-gray-800 dark:text-[#CCD6F6]">
                                     {user?.username}
                                 </span>
-                                <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100">
+                                <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[#64FFDA] text-[#172A45]">
                                     {user?.role}
                                 </span>
                             </div>
 
                             {/* Email */}
-                            <p className="text-sm text-gray-600 dark:text-gray-300 flex-1 mb-2 md:mb-0 md:mx-4">
+                            <p className="text-sm text-gray-600 dark:text-gray-400 flex-1 mb-2 md:mb-0 md:mx-4">
                                 {user?.email}
                             </p>
 

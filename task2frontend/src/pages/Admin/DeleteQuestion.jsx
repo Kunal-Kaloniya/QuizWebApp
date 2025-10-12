@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import { BASE_URL } from "../../utils/constant.jsx";
 import Loader from "../../components/Loader.jsx";
 
@@ -55,8 +55,8 @@ export default function DeleteQuestion() {
     }
 
     return (
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 max-w-lg mx-auto">
-            <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-100">
+        <div className="bg-white dark:bg-[#172A45] shadow-md rounded-lg p-6 max-w-lg mx-auto">
+            <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-[#CCD6F6]">
                 Delete a Question
             </h1>
 
@@ -64,7 +64,7 @@ export default function DeleteQuestion() {
             <div className="mb-4">
                 <label
                     htmlFor="questionId"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    className="block text-sm font-medium text-gray-700 dark:text-[#CCD6F6] mb-1"
                 >
                     Question ID
                 </label>
@@ -78,13 +78,13 @@ export default function DeleteQuestion() {
                         setQuesId(e.target.value);
                         setQuestion(null);
                     }}
-                    className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-[#0A192F] text-gray-900 dark:text-[#CCD6F6] focus:ring-2 focus:ring-[#64FFDA] outline-none"
                 />
             </div>
 
             {/* Search Button */}
             <button
-                className="w-full mb-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="w-full mb-4 bg-[#64FFDA] hover:bg-[#96FFE8] text-[#172A45] font-semibold py-2 px-4 rounded-md shadow-md transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-[#64FFDA]"
                 onClick={() => handleSearchQuestion(quesId)}
                 disabled={question ? true : false}
             >
@@ -94,7 +94,7 @@ export default function DeleteQuestion() {
             {question && (
                 <div
                     key={question._id}
-                    className="p-5 my-5 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow"
+                    className="p-5 my-5 border border-gray-200 dark:border-[#172A45] rounded-lg bg-gray-50 dark:bg-[#0A192F] shadow-sm hover:shadow-md transition-shadow"
                 >
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
                         <span className="text-xs font-mono text-gray-500 dark:text-gray-400 mb-2 sm:mb-0">
@@ -110,12 +110,12 @@ export default function DeleteQuestion() {
                         </div>
                     </div>
                     {/* Question */}
-                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
+                    <h2 className="text-lg font-semibold text-gray-800 dark:text-[#CCD6F6] mb-2">
                         {question.question}
                     </h2>
                     {/* Options */}
                     <div className="mb-3">
-                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <p className="text-sm font-medium text-gray-700 dark:text-[#CCD6F6]">
                             Options:
                         </p>
                         <ul className="list-disc pl-6 text-gray-800 dark:text-gray-200">
@@ -150,6 +150,5 @@ export default function DeleteQuestion() {
                 <Loader message="Processing, please wait ..." />
             )}
         </div>
-
     );
 }
