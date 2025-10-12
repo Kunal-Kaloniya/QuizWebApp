@@ -40,8 +40,8 @@ function Result() {
             </section>
 
             {/* Explanation Section */}
-            <section className="w-[95vw] sm:w-[90vw] mt-6 mx-auto rounded-xl p-4 sm:p-6 text-black bg-white dark:bg-gray-800 dark:text-white transition-all shadow-md">
-                <h2 className="text-lg sm:text-xl font-bold text-center mb-4">Explanation</h2>
+            <section className="w-[95vw] sm:w-[90vw] mt-6 mx-auto rounded-xl p-4 sm:p-6 text-black bg-white dark:bg-gray-800 transition-all shadow-md">
+                <h2 className="text-lg sm:text-xl font-bold text-center mb-4 dark:text-white">Explanation</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {questions.length > 0 &&
