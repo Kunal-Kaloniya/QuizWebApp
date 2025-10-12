@@ -39,9 +39,9 @@ export default function UpdateQuestion() {
 
             setQuestion(response.data.question);
 
-            toast.info("Question found!");
+            toast.info(response.data.message);
         } catch (err) {
-            toast.warn("Question not found!");
+            toast.warn(err.response.data.message || "Network Error! Please try later");
         } finally {
             setIsLoading(false);
         }
@@ -58,7 +58,7 @@ export default function UpdateQuestion() {
                 }
             });
 
-            toast.success("Question updated successfully!");
+            toast.success(response.data.message);
             setForm({
                 "question": "",
                 "options": ["", "", "", ""],
@@ -71,7 +71,7 @@ export default function UpdateQuestion() {
             setQuesId("");
             setQuestion(null);
         } catch (err) {
-            toast.error("Failed to update question!");
+            toast.error(err.response.data.message || "Network Error! Please try later");
         } finally {
             setIsLoading(false);
         }

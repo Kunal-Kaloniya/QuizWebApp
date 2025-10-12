@@ -36,7 +36,7 @@ function Quiz() {
 
             setQuestions(response.data);
         } catch (err) {
-            console.error("There was some error fetching the questions: ", err.message);
+            console.error("There was some error fetching the questions: ", err.response.data.message);
         }
     }
 
@@ -97,7 +97,7 @@ function Quiz() {
 
             navigate("/result", { state: { result: response.data.score, questions: questions, selectedAnswers: selectedAnswers } });
         } catch (err) {
-            console.error("There was an error fetching results: ", err);
+            console.error("There was an error fetching results: ", err.response.data.message);
         } finally {
             setIsLoading(false);
         }

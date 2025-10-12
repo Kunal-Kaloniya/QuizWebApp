@@ -38,7 +38,7 @@ const AddQuestionForm = () => {
                 }
             });
 
-            toast.success("Question added successfully!");
+            toast.success(response.data.message);
             setForm({
                 "question": "",
                 "options": ["", "", "", ""],
@@ -48,7 +48,7 @@ const AddQuestionForm = () => {
                 "explanation": ""
             })
         } catch (err) {
-            toast.error("Failed to add question!");
+            toast.error(err.response.data.message || "Network Error! Please try later");
         } finally {
             setIsLoading(false);
         }

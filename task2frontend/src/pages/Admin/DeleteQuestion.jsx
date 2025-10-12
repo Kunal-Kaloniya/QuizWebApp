@@ -27,9 +27,9 @@ export default function DeleteQuestion() {
 
             setQuestion(response.data.question);
 
-            toast.info("Question found!");
+            toast.info(response.data.message);
         } catch (err) {
-            toast.warn("Question not found!");
+            toast.warn(err.response.data.message || "Network Error! Please try later");
         } finally {
             setIsLoading(false);
         }
@@ -38,17 +38,17 @@ export default function DeleteQuestion() {
     const handleDeleteQuestion = async (id) => {
         try {
             setIsLoading(true);
-            await axios.delete(`${BASE_URL}/api/admin/delete-question/${id}`, {
+            const response = await axios.delete(`${BASE_URL}/api/admin/delete-question/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }
             })
 
-            toast.success("Question deleted successfully!");
+            toast.success(response.data.message);
             setQuesId("");
             setQuestion(null);
         } catch (err) {
-            toast.error("Failed to delete question!");
+            toast.error(err.response.data.message || "Network Error! Please try later");
         } finally {
             setIsLoading(false);
         }

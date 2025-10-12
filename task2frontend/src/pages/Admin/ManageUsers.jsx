@@ -20,7 +20,7 @@ export default function ManageUsers() {
             setUsers(response.data);
 
         } catch (err) {
-            toast.error("Failed to fetch users!");
+            toast.error(err.response.data.message || "Network Error! Please try later");
         }
     }
 
@@ -35,16 +35,16 @@ export default function ManageUsers() {
 
         try {
             setIsLoading(true);
-            await axios.delete(`${BASE_URL}/admin/delete-user/${id}`, {
+            const response = await axios.delete(`${BASE_URL}/admin/delete-user/${id}`, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }
             })
 
             setUsers(newUserArr);
-            toast.success("User deleted successfully!");
+            toast.success(response.data.message);
         } catch (err) {
-            toast.error("Failed to delete the user!");
+            toast.error(err.response.data.message || "Network Error! Please try later");
         } finally {
             setIsLoading(false);
         }

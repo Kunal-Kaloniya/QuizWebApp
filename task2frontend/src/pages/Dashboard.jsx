@@ -23,7 +23,7 @@ function Dashboard() {
                 });
                 setHistory(response.data);
             } catch (err) {
-                console.error("There was an error fetching the history: ", err);
+                console.error("There was an error fetching the history: ", err.response.data.message);
             }
         }
 
@@ -83,7 +83,7 @@ function Dashboard() {
                     </div>
                 ) : (
                     <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-                        You have not taken any test yet.
+                        You have not attempted any quiz yet.
                     </p>
                 )}
             </section>

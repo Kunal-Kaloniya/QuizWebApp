@@ -34,7 +34,7 @@ function QuizSelect() {
                 setCategories(response.data);
 
             } catch (err) {
-                console.error("There was some error fetching categories: ", err)
+                console.error("There was some error fetching categories: ", err.response.data.message);
             }
         }
 
@@ -45,7 +45,7 @@ function QuizSelect() {
                 setDifficulties(response.data);
 
             } catch (err) {
-                console.error("There was some error fetching quiz difficulty levels: ", err)
+                console.error("There was some error fetching quiz difficulty levels: ", err.response.data.message);
             }
         }
 
@@ -53,7 +53,7 @@ function QuizSelect() {
         getCategories();
     }, [])
 
-    const handleClick = async () => {
+    const handleStartQuiz = async () => {
         if (!category || !difficulty) {
             toast.warn("Please select both category and difficulty!");
             return;
@@ -145,10 +145,10 @@ function QuizSelect() {
 
                         <div className="p-6 flex justify-center">
                             <button
-                                onClick={handleClick}
+                                onClick={handleStartQuiz}
                                 className="px-6 py-3 bg-blue-500 text-white rounded-full font-bold text-base sm:text-lg hover:bg-blue-600 transition-all w-full sm:w-auto"
                             >
-                                Start Test
+                                Start Quiz
                             </button>
                         </div>
                     </section>
