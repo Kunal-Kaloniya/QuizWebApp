@@ -1,9 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { AuthContext } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import { toast } from "react-toastify";
+import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../utils/constant.jsx";
+import { validateInputs } from "../helpers/validateInputs.js";
 import Loader from "../components/Loader.jsx";
 
 function Login() {
@@ -21,6 +22,12 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
 
+        // !-------------- Validated the input fields
+        const isValid = validateInputs(form);
+        if (!isValid) {
+            return;
+        }
+
         try {
             setIsLoading(true);
             const res = await axios.post(`${BASE_URL}/api/auth/login`, form);
@@ -29,14 +36,12 @@ function Login() {
                 username: res.data.user.username,
                 email: res.data.user.email,
                 role: res.data.user.role,
-                // id: res.data.user._id,
             });
             setForm({ email: "", password: "" });
-            toast.success("Login successfull!");
+            toast.success(res.data.message);
             navigate("/dashboard");
         } catch (err) {
-            toast.error("Login Failed");
-            console.error("Login Error: ", err.message);
+            toast.error(err.response.data.message || "Network Error! Please try later");
         } finally {
             setIsLoading(false);
         }

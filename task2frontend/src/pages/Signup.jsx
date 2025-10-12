@@ -1,8 +1,9 @@
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../utils/constant.jsx";
+import { validateInputs } from "../helpers/validateInputs.js";
 import Loader from "../components/Loader.jsx";
 
 function Signup() {
@@ -18,14 +19,20 @@ function Signup() {
     const handleSignup = async (e) => {
         e.preventDefault();
 
+        // !-------------- Validated the input fields
+        const isValid = validateInputs(form);
+        if (!isValid) {
+            return;
+        }
+
         try {
             setIsLoading(true);
             const res = await axios.post(`${BASE_URL}/api/auth/signup`, form);
             setForm({ username: "", email: "", password: "" });
-            toast.success("Signup successfull!");
+            toast.success(res.data.message);
             navigate("/login");
         } catch (err) {
-            toast.error("Signup failed!");
+            toast.error(err.response.data.message || "Network Error! Please try later");
         } finally {
             setIsLoading(false);
         }
@@ -84,7 +91,7 @@ function Signup() {
             </div>
 
             {isLoading && (
-                <Loader message="Siging you up ..." />
+                <Loader message="Signing you up ..." />
             )}
         </div>
     );

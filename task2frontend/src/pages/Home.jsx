@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Footer from "../components/Footer";
 import { FaChartLine, FaClock, FaListOl } from 'react-icons/fa';
+import { useContext } from 'react';
+import { AuthContext } from "../context/AuthContext.jsx";
 
 function FeatureCard({ icon, title, children }) {
     return (
@@ -20,6 +22,9 @@ FeatureCard.propTypes = {
 };
 
 export default function Home() {
+
+    const { isLogged } = useContext(AuthContext);
+
     return (
         <div className="min-h-[90vh] flex flex-col justify-between bg-white dark:bg-gray-800 dark:text-white transition-colors duration-300">
             <main className="flex-1">
@@ -33,7 +38,7 @@ export default function Home() {
                     </p>
                     <div className="mt-8">
                         <Link
-                            to="/quiz-select"
+                            to={isLogged ? '/quiz-select' : '/login'}
                             className="inline-block px-8 py-3 text-lg font-semibold text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform transform hover:scale-105"
                         >
                             Start a Quiz Now
