@@ -25,7 +25,7 @@ const fetchCategories = async (req, res) => {
             lastFetch: Date.now()
         }
 
-        return res.status(200).json({ message: "Fetched the categories from DB", categories: categories });
+        return res.status(200).json({ message: "Fetched the categories from DB", categories });
     } catch (error) {
         return res.status(500).json({ message: "Server Error! Unable to fetch categories", error: error.message });
     }
@@ -34,7 +34,7 @@ const fetchCategories = async (req, res) => {
 const fetchDifficulties = async (req, res) => {
     try {
         const difficulty_levels = ["Easy", "Medium", "Hard"];
-        return res.json(difficulty_levels);
+        return res.json({ message: "Difficulties fetched successfully", difficulties: difficulty_levels });
     } catch (error) {
         return res.status(500).json({ message: "Server Error! Unable to fetch difficulties", error: error.message });
     }
@@ -58,7 +58,7 @@ const fetchQuestions = async (req, res) => {
             return res.status(404).json({ message: "No questions found!" });
         }
 
-        return res.status(200).json(questions);
+        return res.status(200).json({ message: "Quiz questions fetched successfully", questions });
     } catch (error) {
         return res.status(500).json({ message: "Server Error! Unable to fetch questions", error: error.message });
     }
@@ -66,39 +66,63 @@ const fetchQuestions = async (req, res) => {
 
 const calculateResult = async (req, res) => {
     try {
-        const { answers, category, difficulty } = req.body;
-        let score = 0;
+        const { answers, category, difficulty, allQuestionIds } = req.body;
+        const userId = req.user?.id;
 
-        if (Object.entries(answers).length === 0) {
-            return res.status(200).json({ message: "Atleast try doing some questions!", score });
+        if (!allQuestionIds || allQuestionIds.length === 0) {
+            return res.status(400).json({ message: "No question IDs were provided." });
         }
 
-        for (let [qId, ans] of Object.entries(answers)) {
-            const question = await Question.findOne({ _id: qId });
-
-            if (!question) {
-                return res.status(404).json({ message: "No such question found." });
-            }
-
-            if (ans == question.correctAnswer) {
-                score += 1;
-            }
-        };
-
-        await Result.create({
-            userId: req.user?.id,
-            score,
-            questionsAttempted: Object.keys(answers).length,
-            quizMeta: {
-                category: category,
-                difficulty: difficulty,
-            },
-            createdAt: new Date()
+        // Use `allQuestionIds` to fetch every question from the original quiz.
+        const questions = await Question.find({
+            _id: { $in: allQuestionIds }
         });
 
-        return res.status(200).json({ message: "all questions checked!", score });
+        // This validation ensures all provided IDs were valid.
+        if (questions.length !== allQuestionIds.length) {
+            return res.status(404).json({ message: "One or more questions could not be found." });
+        }
+
+        let score = 0;
+
+        const detailedResults = questions.map(question => {
+            const qId = question._id.toString();
+            const selectedAnswer = answers[qId]; // This will be undefined if the user skipped it
+            const isCorrect = selectedAnswer === question.correctAnswer;
+
+            if (isCorrect) {
+                score += 1;
+            }
+
+            return {
+                _id: qId,
+                questionText: question.question,
+                options: question.options,
+                selectedAnswer: selectedAnswer || null, // Send null if skipped
+                correctAnswer: question.correctAnswer,
+                explanation: question.explanation,
+                status: selectedAnswer === undefined
+                    ? 'skipped'
+                    : isCorrect ? 'correct' : 'incorrect'
+            };
+        });
+
+        await Result.create({
+            userId,
+            score,
+            questionsAttempted: Object.keys(answers).length, // Tracks actual attempts
+            quizMeta: { category, difficulty },
+        });
+
+        return res.status(200).json({
+            message: "Result calculated successfully!",
+            score,
+            detailedResults
+        });
+
     } catch (error) {
-        return res.status(500).json({ message: "Server Error! Unable to calculate result", error: error.message });
+        console.error("Result calculation failed:", error);
+        return res.status(500).json({ message: "Server Error! Unable to calculate result" });
     }
 }
 
@@ -110,7 +134,7 @@ const fetchQuizHistory = async (req, res) => {
             return res.status(404).json({ message: "No quiz history" });
         }
 
-        return res.status(200).json(history);
+        return res.status(200).json({ message: "Quiz history fetched successfully", history });
     } catch (error) {
         return res.status(500).json({ message: "Server Error! Unable to fetch quiz history", error: error.message });
     }
