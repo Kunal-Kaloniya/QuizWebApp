@@ -2,22 +2,26 @@ import { Question } from "../models/question.models.js";
 import { User } from "../models/user.models.js";
 
 const addQuestion = async (req, res) => {
-    const quesData = req.body;
-    const { question } = quesData;
+    try {
+        const quesData = req.body;
+        const { question } = quesData;
 
-    if (!question || !quesData.options || !quesData.category || !quesData.difficulty || !quesData.correctAnswer || !quesData.explanation) {
-        return res.status(400).json({ message: "All fields required!" });
+        if (!question || !quesData.options || !quesData.category || !quesData.difficulty || !quesData.correctAnswer || !quesData.explanation) {
+            return res.status(400).json({ message: "All fields required!" });
+        }
+
+        const existingQuestion = await Question.findOne({ question });
+        if (existingQuestion) {
+            return res.status(409).json({ message: "question already exists!" });
+        }
+
+        const newQuestion = new Question(quesData);
+        await newQuestion.save();
+
+        return res.status(200).json({ message: "New question entered!", quesData });
+    } catch (error) {
+        return res.status(500).json({ message: "Server error! Unable to add question", error: error.message });
     }
-
-    const existingQuestion = await Question.findOne({ question });
-    if (existingQuestion) {
-        return res.status(400).json({ message: "question already exists!" });
-    }
-
-    const newQuestion = new Question(quesData);
-    await newQuestion.save();
-
-    res.status(200).json({ message: "New question entered!", quesData });
 }
 
 const deleteQuestion = async (req, res) => {
@@ -25,9 +29,9 @@ const deleteQuestion = async (req, res) => {
 
     try {
         await Question.findByIdAndDelete(id);
-        res.status(200).json({ message: "Question deleted successfully!" });
-    } catch (err) {
-        res.status(400).json({ message: "Failed to delete the question!" });
+        return res.status(200).json({ message: "Question deleted successfully!" });
+    } catch (error) {
+        return res.status(500).json({ message: "Server error! Failed to delete the question!", error: error.message });
     }
 }
 
@@ -42,10 +46,9 @@ const updateQuestion = async (req, res) => {
 
     try {
         const updatedQuestion = await Question.findByIdAndUpdate(id, updatedData);
-        res.status(200).json({ message: "Question updated successfully!", updatedQuestion });
-    } catch (err) {
-        console.error("Error updating question:", err);
-        res.status(400).json({ message: "Failed to update the question!" });
+        return res.status(200).json({ message: "Question updated successfully!", updatedQuestion });
+    } catch (error) {
+        return res.status(500).json({ message: "Server error! Failed to update the question!", error: error.message });
     }
 }
 
@@ -59,30 +62,44 @@ const searchQuestion = async (req, res) => {
             return res.status(404).json({ message: "Question not found" });
         }
 
-        res.status(200).json({ message: "Question found!", question });
+        return res.status(200).json({ message: "Question found!", question });
 
-    } catch (err) {
-        res.status(400).json({ message: "Question search faiure" });
+    } catch (error) {
+        return res.status(500).json({ message: "Server error! Failed to search question!", error: error.message });
     }
 }
 
 const fetchQuestions = async (req, res) => {
-    const { category, difficulty } = req.query;
+    try {
+        const { category, difficulty } = req.query;
 
-    const query = {};
-    if (category) query.category = category;
-    if (difficulty) query.difficulty = difficulty;
+        const query = {};
+        if (category) query.category = category;
+        if (difficulty) query.difficulty = difficulty;
 
-    const questions = await Question.find(query);
-    res.status(200).json(questions);
+        const questions = await Question.find(query);
+
+        if (questions.length === 0) {
+            return res.status(404).json({ message: "No questions found" });
+        }
+
+        return res.status(200).json({ message: "Questions found", questions });
+    } catch (error) {
+        return res.status(500).json({ message: "Server error! Failed to fetch question!", error: error.message });
+    }
 }
 
 const fetchUsers = async (req, res) => {
     try {
-        const users = await User.find({});
-        res.send(users);
-    } catch (err) {
-        res.status(400).json({ message: "Error fetching users" });
+        const users = await User.find();
+
+        if (users.length === 0) {
+            return res.status(404).json({ message: "No users found" });
+        }
+
+        return res.status(200).json({ message: "Users successfully fetched", users });
+    } catch (error) {
+        return res.status(500).json({ message: "Server error! Failed to fetch users", error: error.message });
     }
 }
 
@@ -91,9 +108,9 @@ const deleteUser = async (req, res) => {
 
     try {
         await User.findByIdAndDelete(id);
-        res.status(200).json({ message: "User deleted successfully!" });
-    } catch (err) {
-        res.status(400).json({ message: "Error banning user!" });
+        return res.status(200).json({ message: "User deleted successfully!" });
+    } catch (error) {
+        return res.status(500).json({ message: "Server error! Failed to delete user", error: error.message });
     }
 }
 

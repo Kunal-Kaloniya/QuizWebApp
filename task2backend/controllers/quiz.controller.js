@@ -1,21 +1,42 @@
 import { Question } from "../models/question.models.js";
 import { Result } from "../models/result.models.js";
+import { CACHE_DURATION } from "../constants.js";
+
+let categoryCache = {
+    data: null,
+    lastFetch: 0
+};
 
 const fetchCategories = async (req, res) => {
     try {
+
+        if (categoryCache.data && (Date.now() - categoryCache.lastFetch) < CACHE_DURATION) {
+            return res.status(200).json({ message: "Fetched the categories from cache", categories: categoryCache.data });
+        }
+
         const categories = await Question.distinct("category");
-        res.json(categories);
+
+        if (categories.length === 0) {
+            return res.status(404).json({ message: "No categories found" });
+        }
+
+        categoryCache = {
+            data: categories,
+            lastFetch: Date.now()
+        }
+
+        return res.status(200).json({ message: "Fetched the categories from DB", categories: categories });
     } catch (error) {
-        console.log("Unable to fetch categories: ", error.message);
+        return res.status(500).json({ message: "Server Error! Unable to fetch categories", error: error.message });
     }
 }
 
 const fetchDifficulties = async (req, res) => {
     try {
         const difficulty_levels = ["Easy", "Medium", "Hard"];
-        res.json(difficulty_levels);
+        return res.json(difficulty_levels);
     } catch (error) {
-        console.log("Unable to fetch difficulties: ", error.message);
+        return res.status(500).json({ message: "Server Error! Unable to fetch difficulties", error: error.message });
     }
 }
 
@@ -27,10 +48,19 @@ const fetchQuestions = async (req, res) => {
             return res.status(400).json("Please provide both category and difficulty");
         }
 
-        const questions = await Question.find({ category, difficulty }).limit(10);
-        res.json(questions);
+        const questions = await Question.aggregate([
+            { $match: { category, difficulty } },
+            { $sample: { size: 10 } },
+            { $project: { correctAnswer: 0, explanation: 0 } }
+        ]);
+
+        if (questions.length === 0) {
+            return res.status(404).json({ message: "No questions found!" });
+        }
+
+        return res.status(200).json(questions);
     } catch (error) {
-        console.log("Unable to fetch questions: ", error.message);
+        return res.status(500).json({ message: "Server Error! Unable to fetch questions", error: error.message });
     }
 }
 
@@ -66,19 +96,23 @@ const calculateResult = async (req, res) => {
             createdAt: new Date()
         });
 
-        res.status(200).json({ message: "all questions checked!", score });
+        return res.status(200).json({ message: "all questions checked!", score });
     } catch (error) {
-        console.log("Server Error! Unable to calculate result: ", error.message);
-        res.status(500).json({ message: "Server Error! Unable to calculate result", error: error.message });
+        return res.status(500).json({ message: "Server Error! Unable to calculate result", error: error.message });
     }
 }
 
 const fetchQuizHistory = async (req, res) => {
     try {
         const history = await Result.find({ userId: req?.user?.id });
-        res.status(200).json(history);
+
+        if (history.length === 0) {
+            return res.status(404).json({ message: "No quiz history" });
+        }
+
+        return res.status(200).json(history);
     } catch (error) {
-        console.log("Unable to fetch quiz history: ", error.message);
+        return res.status(500).json({ message: "Server Error! Unable to fetch quiz history", error: error.message });
     }
 }
 

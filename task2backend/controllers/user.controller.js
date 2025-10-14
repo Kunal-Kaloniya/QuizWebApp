@@ -3,30 +3,34 @@ import { User } from "../models/user.models.js";
 import { generateToken } from "../helpers/generateToken.js";
 
 const validateToken = (req, res) => {
-    res.status(200).json({
+    return res.status(200).json({
         message: "Token is valid",
         user: req.user,
-    })
+    });
 }
 
 const registerUser = async (req, res) => {
-    const { username, email, password } = req.body;
+    try {
+        const { username, email, password } = req.body;
 
-    if (!username || !email || !password) {
-        res.status(401).json({ message: "All credentials are required!" });
+        if (!username || !email || !password) {
+            res.status(401).json({ message: "All credentials are required!" });
+        }
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(409).json({ message: "User already exists!" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = new User({ username, email, password: hashedPassword });
+        await user.save();
+
+        return res.status(201).json({ message: "Sign up successfull", user });
+    } catch (error) {
+        return res.status(500).json({ message: "Server Error! Signup failed", error: error.message });
     }
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-        return res.status(400).json({ message: "User already exists!" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = new User({ username, email, password: hashedPassword });
-    await user.save();
-
-    res.status(201).json({ message: "Sign up successfull", user });
 }
 
 const loginUser = async (req, res) => {
@@ -61,10 +65,9 @@ const loginUser = async (req, res) => {
             role: user.role
         }
 
-        res.status(200).json({ message: "Login successfull", token, user: userPublicData });
+        return res.status(200).json({ message: "Login successfull", token, user: userPublicData });
     } catch (error) {
-        console.log("Server Error! Unable to login");
-        res.status(500).json({ message: "Server Error! Unable to login" });
+        return res.status(500).json({ message: "Server Error! Login failed", error: error.message });
     }
 }
 
