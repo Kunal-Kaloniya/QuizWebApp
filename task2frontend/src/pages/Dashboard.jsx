@@ -21,7 +21,7 @@ function Dashboard() {
                         Authorization: "Player " + localStorage.getItem("token")
                     }
                 });
-                setHistory(response.data);
+                setHistory(response.data.history);
             } catch (err) {
                 console.error("There was an error fetching the history: ", err.response.data.message);
             }

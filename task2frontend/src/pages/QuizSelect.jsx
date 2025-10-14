@@ -29,9 +29,14 @@ function QuizSelect() {
 
         const getCategories = async () => {
             try {
-                const response = await axios.get(`${BASE_URL}/api/quiz/categories`);
+                const token = localStorage.getItem("token");
+                const response = await axios.get(`${BASE_URL}/api/quiz/categories`, {
+                    headers: {
+                        Authorization: `Player ${token}`
+                    }
+                });
 
-                setCategories(response.data);
+                setCategories(response.data.categories);
 
             } catch (err) {
                 console.error("There was some error fetching categories: ", err.response.data.message);
@@ -40,9 +45,14 @@ function QuizSelect() {
 
         const getDifficultyLevels = async () => {
             try {
-                const response = await axios.get(`${BASE_URL}/api/quiz/difficulties`);
+                const token = localStorage.getItem("token");
+                const response = await axios.get(`${BASE_URL}/api/quiz/difficulties`, {
+                    headers: {
+                        Authorization: `Player ${token}`
+                    }
+                });
 
-                setDifficulties(response.data);
+                setDifficulties(response.data.difficulties);
 
             } catch (err) {
                 console.error("There was some error fetching quiz difficulty levels: ", err.response.data.message);

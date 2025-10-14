@@ -34,7 +34,7 @@ function Quiz() {
                 }
             });
 
-            setQuestions(response.data);
+            setQuestions(response.data.questions);
         } catch (err) {
             console.error("There was some error fetching the questions: ", err.response.data.message);
         }
@@ -85,17 +85,21 @@ function Quiz() {
     const handleSubmit = async () => {
         try {
             setIsLoading(true);
+
+            const allQuestionIds = questions.map(q => q._id);
+
             const response = await axios.post(`${BASE_URL}/api/quiz/result`, {
                 answers: selectedAnswers,
                 category: category,
-                difficulty: difficulty
+                difficulty: difficulty,
+                allQuestionIds: allQuestionIds
             }, {
                 headers: {
                     Authorization: "Player " + localStorage.getItem("token")
                 }
             });
 
-            navigate("/result", { state: { result: response.data.score, questions: questions, selectedAnswers: selectedAnswers } });
+            navigate("/result", { state: { score: response.data.score, results: response.data.detailedResults } });
         } catch (err) {
             console.error("There was an error fetching results: ", err.response.data.message);
         } finally {

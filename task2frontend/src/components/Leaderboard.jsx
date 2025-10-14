@@ -15,7 +15,7 @@ export default function Leaderboard() {
                     }
                 });
 
-                setLeaderboard(response.data);
+                setLeaderboard(response.data.leaderboard);
             } catch (err) {
                 console.error("Failed to fetch leaderboard", err);
             }
