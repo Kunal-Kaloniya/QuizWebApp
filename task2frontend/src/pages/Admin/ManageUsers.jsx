@@ -17,7 +17,7 @@ export default function ManageUsers() {
                 }
             })
 
-            setUsers(response.data);
+            setUsers(response.data.users);
 
         } catch (err) {
             toast.error(err.response.data.message || "Network Error! Please try later");

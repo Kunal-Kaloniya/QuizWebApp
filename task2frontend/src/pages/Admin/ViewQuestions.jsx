@@ -34,7 +34,7 @@ const ViewQuestions = () => {
                 }
             });
 
-            setQuestions(response.data);
+            setQuestions(response.data.questions);
         } catch (err) {
             console.error("Failed to fetch questions: ", err);
         } finally {
