@@ -200,28 +200,33 @@ function Quiz() {
                     )}
 
                     {/* Footer Buttons */}
-                    <footer className="absolute bottom-0 left-0 right-0 bg-gray-300 text-black dark:bg-[#172A45] dark:text-[#CCD6F6] px-4 sm:px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div className="flex gap-4 sm:gap-6">
+                    <footer className="absolute bottom-0 left-0 right-0 bg-gray-300 text-black dark:bg-[#172A45] dark:text-[#CCD6F6] px-4 sm:px-10 py-4 flex items-center justify-center gap-4">
+                        {currentQuestion > 0 && (
                             <button
                                 className="bg-[#CCD6F6] hover:bg-gray-400 text-[#172A45] px-6 py-2 rounded shadow text-sm sm:text-base"
                                 onClick={handlePrevious}
                             >
                                 Previous
                             </button>
+                        )}
+
+                        {currentQuestion < 9 && (
                             <button
                                 className="bg-[#64FFDA] hover:bg-[#96FFE8] text-[#172A45] px-6 py-2 rounded shadow text-sm sm:text-base"
                                 onClick={handleNext}
                             >
                                 Next
                             </button>
-                        </div>
+                        )}
 
-                        <button
-                            className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded shadow text-sm sm:text-base"
-                            onClick={handleSubmit}
-                        >
-                            Submit
-                        </button>
+                        {currentQuestion === 9 && (
+                            <button
+                                className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded shadow text-sm sm:text-base"
+                                onClick={handleSubmit}
+                            >
+                                Submit
+                            </button>
+                        )}
                     </footer>
                 </div>
             </div>
