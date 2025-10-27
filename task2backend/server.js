@@ -14,14 +14,15 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 // *------------- For production
-// app.use(cors({ origin: "https://intellectra-quiz.netlify.app" }));
+app.use(cors({ origin: "https://intellectra-quiz.netlify.app" }));
 // *------------- For localhost testing
-app.use(cors({ origin: "http://localhost:5173" }));
+// app.use(cors({ origin: "http://localhost:5173" }));
 
 app.get('/', (req, res) => {
     res.send("Server is running.");
 });
 
+// *------------- Auto ping backend
 setInterval(() => {
     fetch("https://intellectra-quiz.netlify.app");
 }, 1000 * 60 * 5);
